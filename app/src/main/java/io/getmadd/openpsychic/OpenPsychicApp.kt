@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.PackageManagerCompat.LOG_TAG
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -14,8 +13,10 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd
 import java.util.*
 
-private const val AD_UNIT_ID = "ca-app-pub-2450865968732279/1583553486"
-private const val LOG_TAG = "MyApplication"
+// real ad unit id = ca-app-pub-2450865968732279/1583553486
+// test ad unit id = ca-app-pub-3940256099942544/3419835294
+private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"
+private const val LOG_TAG = "OpenPsychicApp"
 
 /** Application class that initializes, loads and show ads when activities change states. */
 class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, LifecycleObserver {
@@ -124,7 +125,6 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
                         isLoadingAd = false
                         loadTime = Date().time
                         Log.d(LOG_TAG, "onAdLoaded.")
-                        Toast.makeText(context, "onAdLoaded", Toast.LENGTH_SHORT).show()
                     }
 
                     /**
@@ -135,7 +135,6 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         isLoadingAd = false
                         Log.d(LOG_TAG, "onAdFailedToLoad: " + loadAdError.message)
-                        Toast.makeText(context, "onAdFailedToLoad", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
@@ -203,8 +202,6 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
                         appOpenAd = null
                         isShowingAd = false
                         Log.d(LOG_TAG, "onAdDismissedFullScreenContent.")
-                        Toast.makeText(activity, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT).show()
-
                         onShowAdCompleteListener.onShowAdComplete()
                         loadAd(activity)
                     }
@@ -214,8 +211,6 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
                         appOpenAd = null
                         isShowingAd = false
                         Log.d(LOG_TAG, "onAdFailedToShowFullScreenContent: " + adError.message)
-                        Toast.makeText(activity, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT).show()
-
                         onShowAdCompleteListener.onShowAdComplete()
                         loadAd(activity)
                     }
@@ -223,7 +218,6 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
                     /** Called when fullscreen content is shown. */
                     override fun onAdShowedFullScreenContent() {
                         Log.d(LOG_TAG, "onAdShowedFullScreenContent.")
-                        Toast.makeText(activity, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
