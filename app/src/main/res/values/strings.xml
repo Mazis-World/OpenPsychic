@@ -9,15 +9,31 @@
     <string name="register_open_psychic">Register Open Psychic</string>
 
 
-    <string name="home_fragment_label">Home Fragment</string>
+    <string name="home_activity_label">Home Activity</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
 
+    <!-- Strings for Home Activity -->
+    <string name="explore">Explore</string>
+    <string name="categories">Categories</string>
+    <string name="category_ghost">Past Lives</string>
+    <string name="category_dream">Dream Interpretations</string>
+    <string name="category_heart">Love &amp; Relationships</string>
+    <string name="category_magic_ball">Fortune Telling</string>
+    <string name="category_palm">Palm Readings</string>
+    <string name="category_saturn">Astrology</string>
+    <string name="category_spirit">Lingering Spirits</string>
+    <string name="category_tarot_card">Tarot Readings</string>
+    <string name="category_turban">General Readings</string>
+
+
+
+    <!-- Strings for Fragments -->
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-
+    <string name="promo_card_text">Psychics Are Good For Your Health</string>
 
 
 </resources>

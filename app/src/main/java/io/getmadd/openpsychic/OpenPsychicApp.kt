@@ -15,7 +15,7 @@ import java.util.*
 
 // real ad unit id = ca-app-pub-2450865968732279/1583553486
 // test ad unit id = ca-app-pub-3940256099942544/3419835294
-private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"
+private const val AD_UNIT_ID = "ca-app-pub-2450865968732279/1583553486"
 private const val LOG_TAG = "OpenPsychicApp"
 
 /** Application class that initializes, loads and show ads when activities change states. */

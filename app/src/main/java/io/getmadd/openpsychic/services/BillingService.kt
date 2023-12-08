@@ -1,6 +1,7 @@
 package io.getmadd.openpsychic.services
 
 import android.app.Activity
+import android.content.Context
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
@@ -12,12 +13,12 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.ImmutableList
 
-class BillingService(activity: Activity): BillingClientStateListener, ProductDetailsResponseListener, PurchasesUpdatedListener {
+class BillingService(context: Context): BillingClientStateListener, ProductDetailsResponseListener, PurchasesUpdatedListener {
 
     private var billingClient: BillingClient
 
     init {
-        billingClient = BillingClient.newBuilder(activity)
+        billingClient = BillingClient.newBuilder(context)
             .setListener(this)
             .enablePendingPurchases()
             .build()

@@ -17,13 +17,10 @@ import io.getmadd.openpsychic.services.FirebaseAuthService
 class LoginFragment: Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-    private lateinit var auth: FirebaseAuth
+    private var auth: FirebaseAuth = Firebase.auth
 
     private val binding get() = _binding!!
 
-    init {
-        auth = Firebase.auth
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,7 +40,7 @@ class LoginFragment: Fragment() {
 
             auth.signInWithEmailAndPassword(userEmail,userPass).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    findNavController().navigate(R.id.action_loginFragment_to_HomeFragment)
+                    findNavController().navigate(R.id.home_fragment)
                 }
                 else{
                     Toast.makeText(context,"Login Failed",Toast.LENGTH_LONG).show()

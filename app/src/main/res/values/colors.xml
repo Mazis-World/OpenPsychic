@@ -7,5 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //Open Psychic Colors
     <color name="theme_purple">#16041E</color>
+    <color name="op_purple">#16041E</color>
+    <color name="op_purple_accent">#DB8FFF</color>
+    <color name="op_purple_foreground_text">#ECC3FF</color>
+    <color name="op_purple_foreground_accent">#9B4BC0</color>
+    <color name="op_gold">#FFCD00</color>
+
+
+
+
 </resources>

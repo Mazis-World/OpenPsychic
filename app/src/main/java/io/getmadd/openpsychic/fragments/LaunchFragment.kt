@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentLaunchBinding
+import io.getmadd.openpsychic.services.BillingService
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -27,6 +28,7 @@ class LaunchFragment : Fragment() {
 
         _binding = FragmentLaunchBinding.inflate(inflater, container, false)
         return binding.root
+
 
     }
 

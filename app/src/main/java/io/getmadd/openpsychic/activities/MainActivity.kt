@@ -1,4 +1,4 @@
-package io.getmadd.openpsychic
+package io.getmadd.openpsychic.activities
 
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.ActivityMainBinding
 
 
