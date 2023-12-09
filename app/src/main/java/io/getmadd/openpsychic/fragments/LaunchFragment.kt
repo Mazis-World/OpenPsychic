@@ -35,11 +35,13 @@ class LaunchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.registerPsychicButton.setOnClickListener(){
-
+            findNavController().navigate(R.id.action_launchFragment_to_register_psychic_fragment)
         }
         binding.loginButton.setOnClickListener(){
             findNavController().navigate(R.id.action_launchFragment_to_loginFragment)
-
+        }
+        binding.signUpButton.setOnClickListener(){
+            findNavController().navigate(R.id.action_launchFragment_to_signup_fragment)
         }
     }
 
