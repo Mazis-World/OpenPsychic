@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text|textPassword"
-            tools:text="Password" />
+            android:hint="Password" />
 
         <Button
             android:id="@+id/login_button"

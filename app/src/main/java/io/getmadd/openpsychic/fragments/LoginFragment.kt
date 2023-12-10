@@ -1,6 +1,8 @@
 package io.getmadd.openpsychic.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,20 +37,30 @@ class LoginFragment: Fragment() {
         auth.currentUser
 
         binding.loginButton.setOnClickListener(){
-            var userEmail = binding.emailTextview.text.toString()
-            var userPass = binding.passwordTextview.text.toString()
 
-            auth.signInWithEmailAndPassword(userEmail,userPass).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    findNavController().navigate(R.id.home_fragment)
-                }
-                else{
-                    Toast.makeText(context,"Login Failed",Toast.LENGTH_LONG).show()
-                }
-
+            if(binding.emailTextview.text.isEmpty() || binding.passwordTextview.text.isEmpty()){
+                Toast.makeText(context,"Complete Login Form",Toast.LENGTH_LONG).show()
             }
-
+            else{
+                auth.signInWithEmailAndPassword(binding.emailTextview.text.toString(), binding.passwordTextview.text.toString())
+                    .addOnCompleteListener() { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success")
+                            val user = auth.currentUser
+                            findNavController().navigate(R.id.home_fragment)
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.exception)
+                            Toast.makeText(
+                                context,
+                                "Authentication failed.",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                        }
+                    }
+            }
         }
-    }
 
+    }
 }
