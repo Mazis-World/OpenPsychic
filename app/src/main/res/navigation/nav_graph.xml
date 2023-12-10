@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/home_fragment"
         android:name="io.getmadd.openpsychic.fragments.HomeFragment"
-        android:label="HomeFragment" >
-    </fragment>
+        android:label="HomeFragment" />
 
     <fragment
         android:id="@+id/signup_fragment"
@@ -18,7 +17,8 @@
         <action
             android:id="@+id/action_signup_fragment_to_home_fragment"
             app:destination="@id/home_fragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment
@@ -29,7 +29,8 @@
         <action
             android:id="@+id/action_register_psychic_fragment_to_home_fragment"
             app:destination="@id/home_fragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -38,7 +39,8 @@
         <action
             android:id="@+id/action_loginFragment_to_home_fragment"
             app:destination="@id/home_fragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/launchFragment"

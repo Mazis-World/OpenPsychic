@@ -74,7 +74,7 @@ class RegisterPsychicFragment : Fragment() {
                                     .add(psychic)
                                     .addOnSuccessListener { documentReference ->
                                         Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                                        findNavController().navigate(R.id.home_fragment)
+                                        findNavController().navigate(R.id.action_register_psychic_fragment_to_home_fragment)
                                     }
                                     .addOnFailureListener { e ->
                                         Log.w(TAG, "Error adding document", e)

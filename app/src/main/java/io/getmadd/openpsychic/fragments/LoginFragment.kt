@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentLoginBinding
-import io.getmadd.openpsychic.services.FirebaseAuthService
 
 class LoginFragment: Fragment() {
 
@@ -48,7 +47,8 @@ class LoginFragment: Fragment() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
                             val user = auth.currentUser
-                            findNavController().navigate(R.id.home_fragment)
+                            findNavController().navigate(R.id.action_loginFragment_to_home_fragment)
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.exception)

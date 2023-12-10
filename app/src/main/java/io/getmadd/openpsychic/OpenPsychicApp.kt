@@ -4,13 +4,15 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 // real ad unit id = ca-app-pub-2450865968732279/1583553486
@@ -30,10 +32,10 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
 
         // Log the Mobile Ads SDK version.
         Log.d(LOG_TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion())
-
         MobileAds.initialize(this) {}
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         appOpenAdManager = AppOpenAdManager()
+
     }
 
     /** LifecycleObserver method that shows the app open ad when the app moves to foreground. */
@@ -56,7 +58,9 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
         }
     }
 
-    override fun onActivityResumed(activity: Activity) {}
+    override fun onActivityResumed(activity: Activity) {
+//        currentActivity?.let { appOpenAdManager.showAdIfAvailable(it) }
+    }
 
     override fun onActivityPaused(activity: Activity) {}
 
@@ -225,4 +229,5 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
             appOpenAd!!.show(activity)
         }
     }
+
 }

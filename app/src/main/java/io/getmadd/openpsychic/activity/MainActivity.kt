@@ -1,12 +1,14 @@
-package io.getmadd.openpsychic.activities
+package io.getmadd.openpsychic.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import com.google.firebase.auth.FirebaseAuth
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.ActivityMainBinding
 
@@ -15,6 +17,28 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    override fun onStart() {
+        super.onStart()
+
+        val auth = FirebaseAuth.getInstance()
+        auth.addAuthStateListener { firebaseAuth ->
+            if (firebaseAuth.currentUser == null) {
+                Log.i("firebase", "AuthState changed to null")
+            } else {
+                Log.i(
+                    "firebase", "AuthState changed to " + firebaseAuth.currentUser!!
+                        .uid
+                )
+                val currentFragment = supportFragmentManager.fragments.last()
+
+                if (currentFragment.id != R.id.home_fragment) {
+                    findNavController(R.id.nav_host_fragment_content_main).popBackStack()
+                    findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.home_fragment)
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
