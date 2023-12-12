@@ -1,4 +1,4 @@
-package io.getmadd.openpsychic.fragments
+package io.getmadd.openpsychic.fragments.main
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -8,11 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentLoginBinding
 
 class LoginFragment: Fragment() {
@@ -26,7 +24,7 @@ class LoginFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,20 +33,18 @@ class LoginFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth.currentUser
 
-        binding.loginButton.setOnClickListener(){
+        binding.loginButton.setOnClickListener {
 
             if(binding.emailTextview.text.isEmpty() || binding.passwordTextview.text.isEmpty()){
                 Toast.makeText(context,"Complete Login Form",Toast.LENGTH_LONG).show()
             }
             else{
                 auth.signInWithEmailAndPassword(binding.emailTextview.text.toString(), binding.passwordTextview.text.toString())
-                    .addOnCompleteListener() { task ->
+                    .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
                             val user = auth.currentUser
-                            findNavController().navigate(R.id.action_loginFragment_to_home_fragment)
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.exception)

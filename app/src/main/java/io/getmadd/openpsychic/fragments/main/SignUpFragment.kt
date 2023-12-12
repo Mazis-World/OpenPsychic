@@ -1,4 +1,4 @@
-package io.getmadd.openpsychic.fragments
+package io.getmadd.openpsychic.fragments.main
 
 import android.content.ContentValues.TAG
 import androidx.fragment.app.Fragment
@@ -8,14 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
-import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentSignupBinding
-import io.getmadd.openpsychic.model.User
 
 
 class SignUpFragment : Fragment() {
@@ -23,15 +20,13 @@ class SignUpFragment : Fragment() {
     private var _binding: FragmentSignupBinding? = null
     private var auth: FirebaseAuth = Firebase.auth
     private val db = Firebase.firestore
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,14 +40,14 @@ class SignUpFragment : Fragment() {
 
         val signupBtn = binding.fragmentRegisterPsychicSignupButton
 
-        signupBtn.setOnClickListener(){
+        signupBtn.setOnClickListener {
 
             if(userEmailET.text.toString().isEmpty() || userPassET.text.toString().isEmpty() || userNameET.text.toString().isEmpty()){
                 Toast.makeText(context,"Complete Sign Up Form", Toast.LENGTH_LONG).show()
             }
             else{
                 auth.createUserWithEmailAndPassword(userEmailET.text.toString(), userPassET.text.toString())
-                    .addOnCompleteListener() { task ->
+                    .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
@@ -68,7 +63,6 @@ class SignUpFragment : Fragment() {
                                 .add(newuser)
                                 .addOnSuccessListener { documentReference ->
                                     Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                                    findNavController().navigate(R.id.action_signup_fragment_to_home_fragment)
                                 }
                                 .addOnFailureListener { e ->
                                     Log.w(TAG, "Error adding document", e)

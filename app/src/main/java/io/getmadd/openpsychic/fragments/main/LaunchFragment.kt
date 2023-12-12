@@ -1,4 +1,4 @@
-package io.getmadd.openpsychic.fragments
+package io.getmadd.openpsychic.fragments.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentLaunchBinding
-import io.getmadd.openpsychic.services.BillingService
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,7 +23,7 @@ class LaunchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentLaunchBinding.inflate(inflater, container, false)
         return binding.root
@@ -34,13 +33,13 @@ class LaunchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.registerPsychicButton.setOnClickListener(){
+        binding.registerPsychicButton.setOnClickListener {
             findNavController().navigate(R.id.action_launchFragment_to_register_psychic_fragment)
         }
-        binding.loginButton.setOnClickListener(){
+        binding.loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_launchFragment_to_loginFragment)
         }
-        binding.signUpButton.setOnClickListener(){
+        binding.signUpButton.setOnClickListener {
             findNavController().navigate(R.id.action_launchFragment_to_signup_fragment)
         }
     }

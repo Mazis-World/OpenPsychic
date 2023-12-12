@@ -6,45 +6,25 @@
     app:startDestination="@id/launchFragment">
 
     <fragment
-        android:id="@+id/home_fragment"
-        android:name="io.getmadd.openpsychic.fragments.HomeFragment"
-        android:label="HomeFragment" />
-
-    <fragment
         android:id="@+id/signup_fragment"
-        android:name="io.getmadd.openpsychic.fragments.SignUpFragment"
+        android:name="io.getmadd.openpsychic.fragments.main.SignUpFragment"
         android:label="SignUpFragment" >
-        <action
-            android:id="@+id/action_signup_fragment_to_home_fragment"
-            app:destination="@id/home_fragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment
         android:id="@+id/register_psychic_fragment"
-        android:name="io.getmadd.openpsychic.fragments.RegisterPsychicFragment"
+        android:name="io.getmadd.openpsychic.fragments.main.RegisterPsychicFragment"
         android:label="RegisterPsychicFragment"
         >
-        <action
-            android:id="@+id/action_register_psychic_fragment_to_home_fragment"
-            app:destination="@id/home_fragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="io.getmadd.openpsychic.fragments.LoginFragment"
+        android:name="io.getmadd.openpsychic.fragments.main.LoginFragment"
         android:label="LoginFragment" >
-        <action
-            android:id="@+id/action_loginFragment_to_home_fragment"
-            app:destination="@id/home_fragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/launchFragment"
-        android:name="io.getmadd.openpsychic.fragments.LaunchFragment"
+        android:name="io.getmadd.openpsychic.fragments.main.LaunchFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_launchFragment_to_loginFragment"

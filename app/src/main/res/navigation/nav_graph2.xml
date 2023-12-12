@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph2"
+    app:startDestination="@id/explore_fragment">
+
+    <fragment
+        android:id="@+id/explore_psychics"
+        android:name="io.getmadd.openpsychic.fragments.home.ExplorePsychics"
+        android:label="Explore Psychics" />
+
+    <fragment
+        android:id="@+id/explore_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.ExploreFragment"
+        android:label="ExploreFragment">
+        <action
+            android:id="@+id/action_explore_fragment_to_explore_psychics"
+            app:destination="@id/explore_psychics" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.ProfileFragment"
+        android:label="ProfileFragment" />
+
+    <fragment
+        android:id="@+id/history_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.HistoryFragment"
+        android:label="HistoryFragment" />
+</navigation>

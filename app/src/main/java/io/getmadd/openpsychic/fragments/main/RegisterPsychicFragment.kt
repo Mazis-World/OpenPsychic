@@ -1,6 +1,5 @@
-package io.getmadd.openpsychic.fragments
+package io.getmadd.openpsychic.fragments.main
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import androidx.fragment.app.Fragment
 import android.os.Bundle
@@ -9,13 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
-import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentRegisterPsychicBinding
 
 
@@ -34,7 +30,7 @@ class RegisterPsychicFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         auth = Firebase.auth
         _binding = FragmentRegisterPsychicBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,7 +49,7 @@ class RegisterPsychicFragment : Fragment() {
         val emailET = binding.fragmentRegisterPsychicEmailEditText
 
 
-        signupBtn.setOnClickListener(){
+        signupBtn.setOnClickListener {
 
             var psychic = getUserFromFields()
 
@@ -65,7 +61,6 @@ class RegisterPsychicFragment : Fragment() {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInUserWithEmail:success")
                                 val newUser = auth.currentUser
-
                                 if (newUser != null) {
                                     psychic.put("uID",newUser.uid)
                                 }
@@ -74,7 +69,6 @@ class RegisterPsychicFragment : Fragment() {
                                     .add(psychic)
                                     .addOnSuccessListener { documentReference ->
                                         Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                                        findNavController().navigate(R.id.action_register_psychic_fragment_to_home_fragment)
                                     }
                                     .addOnFailureListener { e ->
                                         Log.w(TAG, "Error adding document", e)

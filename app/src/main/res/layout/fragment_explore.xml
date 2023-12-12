@@ -5,22 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#16041E"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.home.ExploreFragment"
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/top_nav" />
+    >
+
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,6 +94,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/home_category0"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -119,6 +118,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_category1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -138,6 +138,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_category2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -164,6 +165,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/home_category3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -186,6 +188,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_category4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -205,6 +208,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_category5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -232,6 +236,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/home_category6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -254,6 +259,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_category7"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -273,6 +279,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_category8"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -295,17 +302,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/op_purple_accent_foreground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
