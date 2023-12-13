@@ -1,18 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.home.ProfileFragment"
-    android:orientation="vertical"
-    android:background="@color/op_purple">
+    android:background="@color/op_purple"
+    tools:context=".fragments.home.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Backdrop Image -->
+    <ImageView
+        android:id="@+id/backdropImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+
+        app:srcCompat="@drawable/op_logo" />
+
+    <!-- Profile Image -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        app:srcCompat="@android:drawable/ic_menu_view" />
+
+    <!-- Update Button -->
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="16dp"
+        android:text="Update" />
+
+    <!-- Editable Fields -->
     <TextView
+        android:id="@+id/displayNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileImageView"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Display Name"
+        android:textColor="@color/op_gold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/firstNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/displayNameTV"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Username"
+        android:textColor="@color/op_purple_accent"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/bioEditText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/firstNameTV"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/purple_200"
+        android:gravity="top|left"
+        android:hint="Bio"
+        android:paddingBottom="8dp" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import com.google.firebase.auth.FirebaseAuth
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.ActivityMainBinding
@@ -18,14 +20,17 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         val auth = FirebaseAuth.getInstance()
         auth.addAuthStateListener { firebaseAuth ->
-            Log.i(
-                "firebase", "AuthState changed to " + firebaseAuth.currentUser!!
-                    .uid
-            )
-            val intent = Intent(this, HomeActivity::class.java)
+            if (firebaseAuth.currentUser == null) {
 
-            startActivity(intent)
-
+            } else {
+                Log.i(
+                    "firebase", "AuthState changed to " + firebaseAuth.currentUser!!
+                        .uid
+                )
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

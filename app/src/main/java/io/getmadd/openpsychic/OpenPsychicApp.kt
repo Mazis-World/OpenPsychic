@@ -198,33 +198,31 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
 
             Log.d(LOG_TAG, "Will show ad.")
 
-            appOpenAd!!.setFullScreenContentCallback(
-                object : FullScreenContentCallback() {
-                    /** Called when full screen content is dismissed. */
-                    override fun onAdDismissedFullScreenContent() {
-                        // Set the reference to null so isAdAvailable() returns false.
-                        appOpenAd = null
-                        isShowingAd = false
-                        Log.d(LOG_TAG, "onAdDismissedFullScreenContent.")
-                        onShowAdCompleteListener.onShowAdComplete()
-                        loadAd(activity)
-                    }
-
-                    /** Called when fullscreen content failed to show. */
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                        appOpenAd = null
-                        isShowingAd = false
-                        Log.d(LOG_TAG, "onAdFailedToShowFullScreenContent: " + adError.message)
-                        onShowAdCompleteListener.onShowAdComplete()
-                        loadAd(activity)
-                    }
-
-                    /** Called when fullscreen content is shown. */
-                    override fun onAdShowedFullScreenContent() {
-                        Log.d(LOG_TAG, "onAdShowedFullScreenContent.")
-                    }
+            appOpenAd!!.fullScreenContentCallback = object : FullScreenContentCallback() {
+                /** Called when full screen content is dismissed. */
+                override fun onAdDismissedFullScreenContent() {
+                    // Set the reference to null so isAdAvailable() returns false.
+                    appOpenAd = null
+                    isShowingAd = false
+                    Log.d(LOG_TAG, "onAdDismissedFullScreenContent.")
+                    onShowAdCompleteListener.onShowAdComplete()
+                    loadAd(activity)
                 }
-            )
+
+                /** Called when fullscreen content failed to show. */
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    appOpenAd = null
+                    isShowingAd = false
+                    Log.d(LOG_TAG, "onAdFailedToShowFullScreenContent: " + adError.message)
+                    onShowAdCompleteListener.onShowAdComplete()
+                    loadAd(activity)
+                }
+
+                /** Called when fullscreen content is shown. */
+                override fun onAdShowedFullScreenContent() {
+                    Log.d(LOG_TAG, "onAdShowedFullScreenContent.")
+                }
+            }
             isShowingAd = true
             appOpenAd!!.show(activity)
         }

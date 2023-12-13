@@ -1,16 +1,15 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import io.getmadd.openpsychic.R
-import io.getmadd.openpsychic.model.Psychic
+import io.getmadd.openpsychic.model.History
 
-class ExplorePsychicsAdapter(val items: MutableList<Psychic>, val listener: (Int) -> Unit): RecyclerView.Adapter<ExplorePsychicsAdapter.ViewHolder>() {
+class HistoryFragmentAdapter(val items: MutableList<History>, val listener: (Int) -> Unit): RecyclerView.Adapter<HistoryFragmentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_explore_psychics_card, parent, false)
+            .inflate(R.layout.history_fragment_recycler_view_item, parent, false)
     )
 
     override fun getItemCount() = items.size
@@ -20,9 +19,7 @@ class ExplorePsychicsAdapter(val items: MutableList<Psychic>, val listener: (Int
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) = with(itemView) {
-            val cvItem = findViewById<CardView>(R.id.explore_psychics_card)
+        fun bind(item: History, pos: Int, listener: (Int) -> Unit) = with(itemView) {
 
         }
 

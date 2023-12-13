@@ -1,10 +1,12 @@
 package io.getmadd.openpsychic.model
 
-/**
- * Data class that captures user information for logged in users retrieved from LoginRepository
- */
+
 data class User(
-    val userId: String,
+    val backgroundImgSrc: String,
+    val bio: String,
+    val username: String,
+    val profileImgSrc: String,
+    val uId: String,
     val displayName: String,
-    val email: String
+    val email: String,
 )

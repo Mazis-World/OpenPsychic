@@ -4,13 +4,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.ContextThemeWrapper
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.ActivityHomeBinding
@@ -36,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
             builder
                 .setMessage("Are you sure you want to logout?")
                 .setTitle("Logout")
+                .setCancelable(false)
                 .setPositiveButton("Logout") { dialog, which ->
                     FirebaseAuth.getInstance().signOut()
                     val intent = Intent(this, MainActivity::class.java)
@@ -58,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
                     navController.navigate(R.id.history_fragment)
                 }
                 R.id.navigation_profile -> {
-                    navController.navigate(R.id.history_fragment)
+                    navController.navigate(R.id.profile_fragment)
                 }
             }
             return@setOnItemSelectedListener true

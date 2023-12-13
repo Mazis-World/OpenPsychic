@@ -8,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsBinding
 import io.getmadd.openpsychic.model.Psychic
+
 
 class ExplorePsychics : Fragment() {
 
@@ -48,19 +51,21 @@ class ExplorePsychics : Fragment() {
                     Log.d(TAG, "${document.id} => ${document.data}")
                     var psychic = Psychic(
                         displayname = document.getString("displayname")!!,
-                        email = document.getString("uID")!!,
-                        uID = document.getString("email")!!,
+                        email = document.getString("email")!!,
+                        uID = document.getString("uID")!!,
                         firstname = document.getString("firstname")!!,
                         lastname = document.getString("lastname")!!
                     )
                     listofPsychics.add(psychic)
                 }
-                binding.recyclerView.adapter = ExplorePsychicsAdapter(items = listofPsychics, {})
-
+                binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+
+        binding.recyclerView.adapter = ExplorePsychicsAdapter(items = listofPsychics, {})
 
 
     }

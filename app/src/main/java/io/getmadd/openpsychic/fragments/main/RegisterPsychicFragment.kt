@@ -19,12 +19,8 @@ class RegisterPsychicFragment : Fragment() {
 
     private var _binding: FragmentRegisterPsychicBinding? = null
     private lateinit var auth: FirebaseAuth
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
-
+    
 
     override fun onCreateView(
         inflater: LayoutInflater,
