@@ -55,7 +55,9 @@ class ExplorePsychics : Fragment() {
                         email = document.getString("email")!!,
                         uID = document.getString("uID")!!,
                         firstname = document.getString("firstname")!!,
-                        lastname = document.getString("lastname")!!
+                        lastname = document.getString("lastname")!!,
+                        backgroundImgSrc = "",
+                        profileImgSrc = ""
                     )
                     listofPsychics.add(psychic)
                 }

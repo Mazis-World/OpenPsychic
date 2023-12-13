@@ -15,7 +15,8 @@
         android:label="Explore Psychics" >
         <action
             android:id="@+id/action_explore_psychics_to_explore_psychics_expanded"
-            app:destination="@id/explore_psychics_expanded" />
+            app:destination="@id/explore_psychics_expanded"
+            app:popUpTo="@id/explore_fragment" />
     </fragment>
 
     <fragment
@@ -24,7 +25,8 @@
         android:label="ExploreFragment">
         <action
             android:id="@+id/action_explore_fragment_to_explore_psychics"
-            app:destination="@id/explore_psychics" />
+            app:destination="@id/explore_psychics"
+            app:popUpTo="@id/explore_fragment" />
     </fragment>
 
     <fragment

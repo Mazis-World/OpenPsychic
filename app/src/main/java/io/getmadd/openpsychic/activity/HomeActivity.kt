@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.ContextThemeWrapper
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -41,6 +42,10 @@ class HomeActivity : AppCompatActivity() {
                     dialog.cancel()
                 }.create().show()
 
+        }
+
+        binding.include.topNavBellIconImageView.setOnClickListener {
+            Toast.makeText(this,"Notifications Coming Soon",Toast.LENGTH_LONG).show()
         }
 
 
