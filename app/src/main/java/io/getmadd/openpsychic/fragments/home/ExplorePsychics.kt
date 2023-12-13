@@ -50,6 +50,7 @@ class ExplorePsychics : Fragment() {
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
                     var psychic = Psychic(
+                        userName = document.getString("username")!!,
                         displayname = document.getString("displayname")!!,
                         email = document.getString("email")!!,
                         uID = document.getString("uID")!!,

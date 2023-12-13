@@ -5,9 +5,18 @@
     app:startDestination="@id/explore_fragment">
 
     <fragment
+        android:id="@+id/explore_psychics_expanded"
+        android:name="io.getmadd.openpsychic.fragments.home.ExplorePsychicsExpandedFragment"
+        android:label="Explore Psychics Expanded" />
+
+    <fragment
         android:id="@+id/explore_psychics"
         android:name="io.getmadd.openpsychic.fragments.home.ExplorePsychics"
-        android:label="Explore Psychics" />
+        android:label="Explore Psychics" >
+        <action
+            android:id="@+id/action_explore_psychics_to_explore_psychics_expanded"
+            app:destination="@id/explore_psychics_expanded" />
+    </fragment>
 
     <fragment
         android:id="@+id/explore_fragment"

@@ -1,15 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- card_item_layout.xml -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/explore_psychics_card"
+    android:id="@+id/fragment_explore_psychics_card"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:padding="16dp"
-    app:cardBackgroundColor="#F44336">
+    android:layout_height="225dp"
+    android:layout_margin="8dp"
+    android:elevation="4dp"
+    android:radius="8dp">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#673AB7" />
+        android:layout_height="wrap_content">
+
+        <!-- Background Image -->
+        <ImageView
+            android:id="@+id/explore_psychics_expanded_card_background_IV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/openpsychiclogo" />
+
+        <!-- Information Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/op_purple"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/displayNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="John Doe"
+                    android:textColor="@color/op_purple_foreground_text"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/usernameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="John Doe"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
