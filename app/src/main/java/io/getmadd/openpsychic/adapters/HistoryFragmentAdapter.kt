@@ -3,9 +3,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.getmadd.openpsychic.R
-import io.getmadd.openpsychic.model.History
+import io.getmadd.openpsychic.model.UserHistoryObject
 
-class HistoryFragmentAdapter(val items: MutableList<History>, val listener: (Int) -> Unit): RecyclerView.Adapter<HistoryFragmentAdapter.ViewHolder>() {
+
+class HistoryFragmentAdapter(val items: MutableList<UserHistoryObject>, val listener: (Int) -> Unit): RecyclerView.Adapter<HistoryFragmentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context)
@@ -19,7 +20,7 @@ class HistoryFragmentAdapter(val items: MutableList<History>, val listener: (Int
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: History, pos: Int, listener: (Int) -> Unit) = with(itemView) {
+        fun bind(item: UserHistoryObject, pos: Int, listener: (Int) -> Unit) = with(itemView) {
 
         }
 

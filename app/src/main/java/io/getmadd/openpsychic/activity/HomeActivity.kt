@@ -45,7 +45,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.include.topNavBellIconImageView.setOnClickListener {
-            Toast.makeText(this,"Notifications Coming Soon",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"No Notifications",Toast.LENGTH_LONG).show()
         }
 
 

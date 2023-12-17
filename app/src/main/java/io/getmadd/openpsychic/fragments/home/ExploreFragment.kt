@@ -30,40 +30,42 @@ class ExploreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val bundle = Bundle()
 
+        var category_type = "category_type"
+
         binding.homeCategory0.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_spirit))
+            bundle.putString("category_type", getString(R.string.category_spirit))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory1.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_tarot_card))
+            bundle.putString("category_type", getString(R.string.category_tarot_card))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory2.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_turban))
+            bundle.putString("category_type", getString(R.string.category_turban))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory3.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_magic_ball))
+            bundle.putString("category_type", getString(R.string.category_magic_ball))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory4.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_palm))
+            bundle.putString("category_type", getString(R.string.category_palm))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory5.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_saturn))
+            bundle.putString("category_type", getString(R.string.category_saturn))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory6.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_dream))
+            bundle.putString("category_type", getString(R.string.category_dream))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory7.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_ghost))
+            bundle.putString("category_typey", getString(R.string.category_ghost))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory8.setOnClickListener {
-            bundle.putString("Category", getString(R.string.category_heart))
+            bundle.putString("category_type", getString(R.string.category_heart))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
 

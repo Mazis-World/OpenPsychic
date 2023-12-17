@@ -37,17 +37,12 @@ class RegisterPsychicFragment : Fragment() {
 
         val signupBtn = binding.fragmentRegisterPsychicSignupButton
         val db = Firebase.firestore
-
-        var firstNameET = binding.fragmentRegisterPsychicFirstnameEditText
-        val lastNameET = binding.fragmentRegisterPsychicLastnameEditText
-        val displaynameET = binding.fragmentRegisterPsychicUsernameEditText
         val passwordET = binding.fragmentRegisterPsychicPasswordEditText
-        val emailET = binding.fragmentRegisterPsychicEmailEditText
 
 
         signupBtn.setOnClickListener {
 
-            var psychic = getUserFromFields()
+            val psychic = getUserFromFields()
 
             if(psychic != null){
                 psychic.get(key = "email")?.let { it1 ->
@@ -57,14 +52,15 @@ class RegisterPsychicFragment : Fragment() {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInUserWithEmail:success")
                                 val newUser = auth.currentUser
+                                var userID = ""
                                 if (newUser != null) {
-                                    psychic.put("uID",newUser.uid)
+                                    psychic.put("userID",newUser.uid)
+                                    userID = newUser.uid
                                 }
 
-                                db.collection("psychics")
-                                    .add(psychic)
+                                db.collection("users").document(userID).set(psychic)
                                     .addOnSuccessListener { documentReference ->
-                                        Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                                        Log.d(TAG, "DocumentSnapshot added with ID: ${userID}")
                                     }
                                     .addOnFailureListener { e ->
                                         Log.w(TAG, "Error adding document", e)
@@ -91,29 +87,36 @@ class RegisterPsychicFragment : Fragment() {
 
     fun getUserFromFields(): HashMap<String, String>? {
 
-        var firstNameET = binding.fragmentRegisterPsychicFirstnameEditText
+        val firstNameET = binding.fragmentRegisterPsychicFirstnameEditText
         val lastNameET = binding.fragmentRegisterPsychicLastnameEditText
-        val displaynameET = binding.fragmentRegisterPsychicUsernameEditText
+        val userNameET = binding.fragmentRegisterPsychicUsernameEditText
         val passwordET = binding.fragmentRegisterPsychicPasswordEditText
         val emailET = binding.fragmentRegisterPsychicEmailEditText
+        val displaynameET = binding.fragmentRegisterPsychicDisplaynameEditText
 
-        var firstname = firstNameET.text.toString()
-        var lastname = lastNameET.text.toString()
-        var email = emailET.text.toString()
-        var displayname = displaynameET.text.toString()
-        var password = passwordET.text.toString()
+        val firstname = firstNameET.text.toString()
+        val lastname = lastNameET.text.toString()
+        val email = emailET.text.toString()
+        val username = userNameET.text.toString()
+        val password = passwordET.text.toString()
+        val displayname = displaynameET.text.toString()
 
 
-        if(firstname.isEmpty() || lastname.isEmpty() || displayname.isEmpty() || email.isEmpty() || password.isEmpty()){
+        if(firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || displayname.isEmpty()) {
 
             Toast.makeText(context,"Complete Signup Form", Toast.LENGTH_LONG).show()
         }
         else{
             val user = hashMapOf(
+                "email" to email,
                 "firstname" to firstname,
                 "lastname" to lastname,
                 "displayname" to displayname,
-                "email" to email,
+                "username" to username,
+                "usertype" to "psychic",
+                "bio" to " ",
+                "profileImgSrc" to " ",
+                "displayImgSrc" to " ",
             )
 
             return user

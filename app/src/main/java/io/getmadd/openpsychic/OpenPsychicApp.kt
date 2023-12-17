@@ -1,4 +1,5 @@
 package io.getmadd.openpsychic
+import RoomDb
 import android.app.Activity
 import android.app.Application
 import android.content.Context
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.firebase.auth.FirebaseAuth
+import io.getmadd.openpsychic.services.AppRepo
 import java.util.*
 
 // real ad unit id = ca-app-pub-2450865968732279/1583553486
@@ -25,6 +27,8 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
 
     private lateinit var appOpenAdManager: AppOpenAdManager
     private var currentActivity: Activity? = null
+    val repository by lazy { currentActivity?.let { AppRepo(it.application) } }
+    val database by lazy { currentActivity?.let { RoomDb.getDatabase(it.applicationContext) } }
 
     override fun onCreate() {
         super.onCreate()

@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:background="#16041E"
     tools:context=".fragments.home.ExploreFragment"
-
     >
-
 
     <ScrollView
         android:id="@+id/scrollView2"

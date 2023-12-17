@@ -9,11 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsBinding
-import io.getmadd.openpsychic.model.Psychic
+import io.getmadd.openpsychic.model.User
 
 
 class ExplorePsychics : Fragment() {
@@ -22,12 +21,12 @@ class ExplorePsychics : Fragment() {
     private val binding get() = _binding
     val db = Firebase.firestore
 
-    var listofPsychics = ArrayList<Psychic>()
-    lateinit var category: String
+    var listofPsychics = ArrayList<User>()
+    lateinit var category_type: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        category = (arguments!!.getString("Category").toString())
+        category_type = (arguments!!.getString("category_type").toString())
 
     }
 
@@ -42,22 +41,24 @@ class ExplorePsychics : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.explorePsychicsCategoryTextView.text = category
-
-        db.collection("psychics")
+        binding.explorePsychicsCategoryTextView.text = category_type
+        db.collection("psychicOnDisplay").document(category_type).collection("psychicsOnDisplay")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
-                    var psychic = Psychic(
-                        userName = document.getString("username")!!,
+                    var psychic = User(
+                        username = document.getString("username")!!,
                         displayname = document.getString("displayname")!!,
                         email = document.getString("email")!!,
-                        uID = document.getString("uID")!!,
+                        userID = document.getString("userID")!!,
                         firstname = document.getString("firstname")!!,
                         lastname = document.getString("lastname")!!,
-                        backgroundImgSrc = "",
-                        profileImgSrc = ""
+                        displayImgSrc = document.getString("backgroundImgSrc")!!,
+                        profileImgSrc = document.getString("profileImgSrc")!!,
+                        bio = document.getString("bio")!!,
+                        usertype = document.getString("usertype")!!,
+                        joinedLiveStreams = null
                     )
                     listofPsychics.add(psychic)
                 }

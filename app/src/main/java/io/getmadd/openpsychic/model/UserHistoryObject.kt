@@ -1,8 +1,12 @@
 package io.getmadd.openpsychic.model
 
-class History(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "UserHistoryObjects")
+class UserHistoryObject(
+    val associatedUID: String,
     val eventId: String,
-    val uId: String,
     val timestamp: String,
     val eventType: EventType,
     val description: String,

@@ -51,18 +51,25 @@ class SignUpFragment : Fragment() {
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
-                            //val user = auth.currentUser
+                            val userID = auth.currentUser?.uid
 
                             val newuser = hashMapOf(
-                                "displayname" to userNameET.text.toString(),
+                                "firstname" to " ",
+                                "lastname" to " ",
+                                "displayname" to " ",
+                                "usertype" to "user",
+                                "bio" to " ",
+                                "profileImgSrc" to " ",
+                                "displayImgSrc" to " ",
+                                "username" to userNameET.text.toString(),
                                 "email" to userEmailET.text.toString(),
-                                "uID" to auth.currentUser!!.uid
+                                "userID" to auth.currentUser!!.uid
                             )
 
-                            db.collection("users")
-                                .add(newuser)
+                            db.collection("users").document("$userID")
+                                .set(newuser)
                                 .addOnSuccessListener { documentReference ->
-                                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                                    Log.d(TAG, "DocumentSnapshot added with ID: $userID")
                                 }
                                 .addOnFailureListener { e ->
                                     Log.w(TAG, "Error adding document", e)

@@ -14,7 +14,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentHistoryBinding
-import io.getmadd.openpsychic.model.History
+import io.getmadd.openpsychic.model.UserHistoryObject
 
 
 class HistoryFragment : Fragment() {
@@ -22,7 +22,7 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding
     var db = Firebase.firestore
 
-    var userHistoryList = ArrayList<History>()
+    var userHistoryList = ArrayList<UserHistoryObject>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +37,12 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var uid = Firebase.auth.uid
+        var userId = Firebase.auth.uid
         
-        var colRef = db.collection("history")
+        var colRef = db.collection("users").document("$userId").collection("messageThreads")
 
 
-        colRef.whereIn("uID", listOf("$uid"))
-            .get()
+        colRef.get()
             .addOnSuccessListener { result ->
 
                 if(result.isEmpty){

@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
                     "firebase", "AuthState changed to " + firebaseAuth.currentUser!!
                         .uid
                 )
+
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
