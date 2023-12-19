@@ -12,7 +12,7 @@ android {
         applicationId "io.getmadd.openpsychic"
         minSdk 24
         targetSdk 34
-        versionCode 7
+        versionCode 8
         versionName "1.02"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -65,7 +65,4 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.0'
     annotationProcessor 'androidx.room:room-compiler:2.4.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
-
-
-
 }

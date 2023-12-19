@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import io.getmadd.openpsychic.databinding.FragmentProfileBinding
+import io.getmadd.openpsychic.model.Psychic
+import io.getmadd.openpsychic.model.User
 
 class ProfileFragment : Fragment() {
 
@@ -28,10 +31,16 @@ class ProfileFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val storage = FirebaseStorage.getInstance()
-    private var userId = auth.uid
+    private var userId = auth.uid.toString()
     private var profileImageURI: Uri? = null
     private var backdropImageURI: Uri? = null
     private var selectedView: ImageView? = null
+    private var profileImgSrc: String? = null
+    private var displayImgSrc: String? = null
+    private var userType: String? = null
+    private var user: User? = null
+    private var psychic: Psychic? = null
+    private var selectedCategory: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,26 +64,138 @@ class ProfileFragment : Fragment() {
         binding.updateButton.setOnClickListener {
             updateUserDate()
         }
+        // Add listener to the on/off switch
+        binding.psychicOnDisplaySwitch.setOnCheckedChangeListener { _, isChecked ->
+            handlePsychicOnDisplaySwitchChanged(isChecked)
+        }
+        selectedCategory = binding.categorySpinner.selectedItem.toString()
+
+        // Add listener to the spinner
+        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Handle the selection change
+                selectedCategory = parent?.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle case where nothing is selected (optional)
+            }
+        }
+    }
+
+    private fun handlePsychicOnDisplaySwitchChanged(isChecked: Boolean) {
+        if (isChecked) {
+            // The switch is enabled, perform action to add the user to the database
+            addPsychicToDatabase()
+        } else {
+            // The switch is disabled, perform action to remove the user from the database
+            removePsychicFromDatabase()
+        }
     }
 
     private fun setupUI() {
-        db.collection("users").document("$userId")
+        db.collection("users").document(userId)
             .get()
             .addOnSuccessListener { result ->
-                val userType = result.getString("usertype")
-                binding.displayNameTV.text = if (userType == "psychic") {
-                    result.getString("displayname")
-                } else {
-                    "Base User"
-                }
-                binding.usersnameTV.text = "@${result.getString("username")}"
-                binding.bioEditText.text = Editable.Factory.getInstance()
-                    .newEditable(result.getString("bio"))
+                userType = result.getString("usertype").toString()
 
-                loadImages(result.getString("profileImgSrc"), result.getString("displayImgSrc"))
+                if(userType == "user") {
+
+                    user = User(
+                        userid = result.getString("userID").toString(),
+                        email = result.getString("email").toString(),
+                        displayname = result.getString("displayname").toString(),
+                        username = result.getString("username").toString(),
+                        usertype = result.getString("usertype").toString(),
+                        firstname = result.getString("firstname").toString(),
+                        lastname = result.getString("lastname").toString(),
+                        bio = result.getString("bio").toString(),
+                        profileimgsrc = result.getString("profileImgSrc").toString(),
+                        displayimgsrc = result.getString("displayImgSrc").toString(),
+                        joinedlivestreams = null
+                    )
+
+                    binding.displayNameTV.text = "Base User "
+                    binding.psychicLayout.visibility = View.GONE
+
+                    binding.usersnameTV.text = user?.username
+                    binding.bioEditText.text = Editable.Factory.getInstance()
+                        .newEditable(user?.bio ?: "Edit Your Bio")
+                    profileImgSrc = user?.profileimgsrc
+                    displayImgSrc = user?.displayimgsrc
+
+                }
+                else if (userType == "psychic"){
+
+                    psychic = Psychic(
+                        userid = result.getString("userID").toString(),
+                        email = result.getString("email").toString(),
+                        displayname = result.getString("displayname").toString(),
+                        username = result.getString("username").toString(),
+                        usertype = result.getString("usertype").toString(),
+                        firstname = result.getString("firstname").toString(),
+                        lastname = result.getString("lastname").toString(),
+                        bio = result.getString("bio").toString(),
+                        profileimgsrc = result.getString("profileImgSrc").toString(),
+                        displayimgsrc = result.getString("displayImgSrc").toString(),
+                        psychicondisplay = false,
+                        psychicondisplaycategory = null
+                    )
+
+                    binding.psychicLayout.visibility = View.VISIBLE
+                    binding.displayNameTV.text = psychic?.displayname
+
+                    binding.usersnameTV.text = psychic?.username
+                    binding.bioEditText.text = Editable.Factory.getInstance()
+                        .newEditable(psychic?.bio ?: "Edit Your Bio")
+                    profileImgSrc = psychic?.profileimgsrc
+                    displayImgSrc = psychic?.displayimgsrc
+
+                }
+
+                loadImages(profileImgSrc,displayImgSrc)
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
+            }
+
+    }
+
+
+    private fun addPsychicToDatabase() {
+
+        psychic!!.psychicondisplay = true
+        psychic!!.psychicondisplaycategory = selectedCategory
+
+        db.collection("psychicOnDisplay")
+            .document(selectedCategory!!)
+            .collection("psychicsOnDisplay")
+            .document(userId)
+            .set(psychic!!)
+            .addOnSuccessListener {
+                Log.d(TAG, "User added as a psychic with category: $selectedCategory")
+                db.collection("users").document(userId).update("psychicondisplay", true, "psychicondisplaycategory", selectedCategory)
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error adding user as a psychic: $e")
+            }
+    }
+
+    private fun removePsychicFromDatabase() {
+        psychic!!.psychicondisplay = false
+        psychic!!.psychicondisplaycategory = " "
+
+        db.collection("psychicOnDisplay")
+            .document(selectedCategory!!)
+            .collection("psychicsOnDisplay")
+            .document(userId)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "User removed from the psychic database")
+                db.collection("users").document(userId).update("psychicondisplay", false, "psychicondisplaycategory", " ")
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error removing user from the psychic database: $e")
             }
     }
 

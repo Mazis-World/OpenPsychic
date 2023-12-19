@@ -3,6 +3,7 @@ import RoomDb
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Lifecycle
@@ -14,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.firebase.auth.FirebaseAuth
+import io.getmadd.openpsychic.activity.HomeActivity
+import io.getmadd.openpsychic.activity.MainActivity
 import io.getmadd.openpsychic.services.AppRepo
 import java.util.*
 
@@ -33,6 +36,24 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(this)
+
+        val auth = FirebaseAuth.getInstance()
+        auth.addAuthStateListener { firebaseAuth ->
+            if (firebaseAuth.currentUser == null) {
+                if (javaClass != MainActivity::class.java) {
+                    var intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+            } else {
+                Log.i("firebase", "AuthState changed to " + firebaseAuth.currentUser!!.uid)
+                if (javaClass != HomeActivity::class.java) {
+                    var intent = Intent(this, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+            }
+        }
 
         // Log the Mobile Ads SDK version.
         Log.d(LOG_TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion())

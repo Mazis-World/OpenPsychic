@@ -61,7 +61,7 @@ class ExploreFragment : Fragment() {
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory7.setOnClickListener {
-            bundle.putString("category_typey", getString(R.string.category_ghost))
+            bundle.putString("category_type", getString(R.string.category_ghost))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
         binding.homeCategory8.setOnClickListener {

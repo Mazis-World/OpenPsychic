@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="psychic_categories">
+        <item>Explore</item>
+        <item>Categories</item>
+        <item>Past Lives</item>
+        <item>Dream Interpretations</item>
+        <item>Love &amp; Relationships</item>
+        <item>Fortune Telling</item>
+        <item>Palm Readings</item>
+        <item>Astrology</item>
+        <item>Lingering Spirits</item>
+        <item>Tarot Readings</item>
+        <item>General Readings</item>
+    </string-array>
+</resources>

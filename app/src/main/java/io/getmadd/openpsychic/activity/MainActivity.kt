@@ -18,21 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val auth = FirebaseAuth.getInstance()
-        auth.addAuthStateListener { firebaseAuth ->
-            if (firebaseAuth.currentUser == null) {
-
-            } else {
-                Log.i(
-                    "firebase", "AuthState changed to " + firebaseAuth.currentUser!!
-                        .uid
-                )
-
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

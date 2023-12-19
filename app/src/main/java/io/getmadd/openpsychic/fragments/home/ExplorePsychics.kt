@@ -51,14 +51,14 @@ class ExplorePsychics : Fragment() {
                         username = document.getString("username")!!,
                         displayname = document.getString("displayname")!!,
                         email = document.getString("email")!!,
-                        userID = document.getString("userID")!!,
+                        userid = document.getString("userID")!!,
                         firstname = document.getString("firstname")!!,
                         lastname = document.getString("lastname")!!,
-                        displayImgSrc = document.getString("backgroundImgSrc")!!,
-                        profileImgSrc = document.getString("profileImgSrc")!!,
+                        displayimgsrc = document.getString("backgroundImgSrc")!!,
+                        profileimgsrc = document.getString("profileImgSrc")!!,
                         bio = document.getString("bio")!!,
                         usertype = document.getString("usertype")!!,
-                        joinedLiveStreams = null
+                        joinedlivestreams = null
                     )
                     listofPsychics.add(psychic)
                 }

@@ -1,11 +1,6 @@
 package io.getmadd.openpsychic.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "UserProfile")
-data class User(
-    @PrimaryKey
+class Psychic(
     var userid: String,
     var email: String,
     var displayname: String,
@@ -16,5 +11,6 @@ data class User(
     var bio: String,
     var profileimgsrc: String,
     var displayimgsrc: String,
-    var joinedlivestreams: ArrayList<String>?,
+    var psychicondisplay: Boolean,
+    var psychicondisplaycategory: String?
 )

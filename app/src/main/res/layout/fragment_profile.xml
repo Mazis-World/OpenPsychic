@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-
         app:srcCompat="@drawable/op_logo" />
 
     <!-- Profile Image -->
@@ -62,11 +61,71 @@
         android:textColor="@color/op_purple_accent"
         android:textSize="16sp" />
 
+    <!-- Grouped Layout for Psychic Specialty and On Display State -->
+    <LinearLayout
+        android:id="@+id/psychicLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/usersnameTV"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone">
+
+        <!-- Psychic Specialty Title -->
+        <TextView
+            android:id="@+id/psychicSpecialtyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Psychic Specialty"
+            android:textColor="@color/op_gold"
+            android:textSize="18sp" />
+
+        <!-- Dropdown List -->
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:entries="@array/psychic_categories"
+            android:prompt="@string/select_category" />
+
+        <!-- Psychic On Display Layout -->
+        <LinearLayout
+            android:id="@+id/psychicOnDisplayLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <!-- Psychic On Display Title -->
+            <TextView
+                android:id="@+id/psychicOnDisplayTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Psychic On Display"
+                android:textColor="@color/op_gold"
+                android:textSize="18sp" />
+
+            <!-- On/Off Switch -->
+            <Switch
+                android:id="@+id/psychicOnDisplaySwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:thumbTint="@color/op_gold"
+                android:trackTint="@color/op_purple_accent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Bio EditText -->
     <EditText
         android:id="@+id/bioEditText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/usersnameTV"
+        android:layout_below="@id/psychicLayout"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"

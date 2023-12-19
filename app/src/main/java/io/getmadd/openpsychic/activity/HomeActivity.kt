@@ -35,8 +35,6 @@ class HomeActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .setPositiveButton("Logout") { dialog, which ->
                     FirebaseAuth.getInstance().signOut()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
                 }
                 .setNegativeButton("Cancel") { dialog, which ->
                     dialog.cancel()

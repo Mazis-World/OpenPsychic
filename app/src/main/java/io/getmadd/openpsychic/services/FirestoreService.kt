@@ -31,13 +31,13 @@ class FirestoreService {
 
                 for (document in documents)
                 {
-                    psychic.userID = document.data?.get("uID").toString()
+                    psychic.userid = document.data?.get("uID").toString()
                     psychic.displayname = document.data?.get("displayname").toString()
                     psychic.email = document.data?.get("email").toString()
                     psychic.firstname = document.data?.get("firstname").toString()
                     psychic.lastname = document.data?.get("lastname").toString()
-                    psychic.profileImgSrc = document.data?.get("profileImgSrc").toString()
-                    psychic.displayImgSrc = document.data?.get("backgroundImgSrc").toString()
+                    psychic.profileimgsrc = document.data?.get("profileImgSrc").toString()
+                    psychic.displayimgsrc = document.data?.get("backgroundImgSrc").toString()
 
                     psychicsOnDisplayList.add(psychic)
                 }

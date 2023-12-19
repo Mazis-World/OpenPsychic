@@ -39,8 +39,8 @@ class ExplorePsychicsAdapter(val items: MutableList<User>, val listener: (Int) -
                 putString("username", item.username)
                 putString("firstname", item.firstname)
                 putString("lastname", item.lastname)
-                putString("profileImgSrc", item.profileImgSrc)
-                putString("backgroundImgSrc", item.displayImgSrc)
+                putString("profileImgSrc", item.profileimgsrc)
+                putString("backgroundImgSrc", item.displayimgsrc)
                 putString("email", item.email)
                 putString("bio", item.bio)
             }
