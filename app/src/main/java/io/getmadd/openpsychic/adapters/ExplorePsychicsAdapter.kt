@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
@@ -71,9 +72,8 @@ class ExplorePsychicsAdapter(
             bundle.putSerializable("psychic", item)
 
             cvItem.setOnClickListener {
-                listener.invoke(adapterPosition)
+                findNavController(view = itemView).navigate(R.id.action_explore_psychics_to_explore_psychics_expanded, bundle)
             }
-
         }
     }
 }

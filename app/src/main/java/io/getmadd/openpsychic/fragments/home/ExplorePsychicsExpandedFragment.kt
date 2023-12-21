@@ -54,8 +54,6 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         binding.button3.setOnClickListener{
             Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()
         }
-
-
     }
 
 

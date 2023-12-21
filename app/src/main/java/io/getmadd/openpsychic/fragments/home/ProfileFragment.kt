@@ -142,7 +142,7 @@ class ProfileFragment : Fragment() {
                     binding.displayNameTV.text = "Base User "
                     binding.psychicLayout.visibility = View.GONE
 
-                    binding.usersnameTV.text = user?.username
+                    binding.usersnameTV.text = "@" + user?.username
                     binding.bioEditText.text = Editable.Factory.getInstance()
                         .newEditable(user?.bio ?: "Edit Your Bio")
                     profileImgSrc = user?.profileimgsrc
@@ -169,7 +169,7 @@ class ProfileFragment : Fragment() {
                     binding.psychicLayout.visibility = View.VISIBLE
                     binding.displayNameTV.text = psychic?.displayname
 
-                    binding.usersnameTV.text = psychic?.username
+                    binding.usersnameTV.text = "@" + psychic?.username
                     binding.bioEditText.text = Editable.Factory.getInstance()
                         .newEditable(psychic?.bio ?: "Edit Your Bio")
                     profileImgSrc = psychic?.profileimgsrc

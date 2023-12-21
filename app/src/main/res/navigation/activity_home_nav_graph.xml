@@ -27,7 +27,17 @@
             android:id="@+id/action_explore_fragment_to_explore_psychics"
             app:destination="@id/explore_psychics"
             app:popUpTo="@id/explore_fragment" />
+        <action
+            android:id="@+id/action_explore_fragment_to_explore_article_fragment"
+            app:destination="@id/explore_article_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/explore_article_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.ExploreNewsArticles"
+        android:label="Explore Article" >
+    </fragment>
+
 
     <fragment
         android:id="@+id/profile_fragment"

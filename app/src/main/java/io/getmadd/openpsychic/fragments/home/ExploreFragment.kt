@@ -75,6 +75,10 @@ class ExploreFragment : Fragment() {
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
 
+        binding.homeCardBackgroundImageView.setOnClickListener{
+            findNavController().navigate(R.id.action_explore_fragment_to_explore_article_fragment)
+        }
+
         val adRequest1 = AdRequest.Builder().build()
 
         InterstitialAd.load(

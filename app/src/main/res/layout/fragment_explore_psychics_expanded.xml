@@ -74,13 +74,13 @@
             android:padding="16dp">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/op_purple"
                 android:gravity="center|center_horizontal"
-                android:text="Go Live"
+                android:text="Request Reading"
                 android:textColor="@color/op_purple_foreground_text" />
 
             <Button
@@ -90,18 +90,19 @@
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/op_purple"
                 android:gravity="center|center_horizontal"
-                android:text="Start A Conersation"
+                android:text="Send Private Message"
                 android:textColor="@color/op_purple_foreground_text" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/op_purple"
                 android:gravity="center|center_horizontal"
-                android:text="Request A Reading"
+                android:text="Schedule Live Session"
                 android:textColor="@color/op_purple_foreground_text" />
+
         </LinearLayout>
 
         <!-- Information Bar -->
