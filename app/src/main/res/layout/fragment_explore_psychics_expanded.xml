@@ -74,7 +74,7 @@
             android:padding="16dp">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/requestreadingbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -84,7 +84,7 @@
                 android:textColor="@color/op_purple_foreground_text" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/sendprivatemessagebtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -94,7 +94,7 @@
                 android:textColor="@color/op_purple_foreground_text" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/schedulelivesessionbtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"

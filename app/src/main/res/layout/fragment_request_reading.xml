@@ -1,0 +1,186 @@
+<!-- res/layout/card_request_reading.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#00673AB7"
+        app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Constraint"
+            android:layout_width="match_parent"
+            android:layout_height="734dp"
+            android:layout_gravity="top"
+            android:background="@color/op_purple"
+            android:elevation="8dp">
+
+            <!-- Request A Reading Title -->
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Request A Reading"
+                android:textColor="@color/op_purple_accent"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- User's Full Name -->
+            <EditText
+                android:id="@+id/editTextFullName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/op_purple_accent"
+                android:hint="Your Full Name"
+                android:inputType="text"
+                android:textColor="@color/op_purple_foreground_text"
+                android:textColorHint="@color/op_purple_accent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <!-- Date of Birth -->
+            <EditText
+                android:id="@+id/editTextDateOfBirth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/op_purple_accent"
+                android:hint="Date of Birth"
+                android:inputType="date"
+                android:textColor="@color/op_purple_foreground_text"
+                android:textColorHint="@color/op_purple_accent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFullName" />
+
+            <!-- Specific Question or Topic -->
+            <EditText
+                android:id="@+id/editTextSpecificQuestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/op_purple_accent"
+                android:hint="Your Specific Question"
+                android:inputType="text"
+                android:textColor="@color/op_purple_foreground_text"
+                android:textColorHint="@color/op_purple_accent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDateOfBirth" />
+
+            <!-- Energy Focus -->
+            <EditText
+                android:id="@+id/editTextEnergyFocus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/op_purple_accent"
+                android:hint="Energy Focus (e.g., Love, Career)"
+                android:inputType="text"
+                android:textColor="@color/op_purple_foreground_text"
+                android:textColorHint="@color/op_purple_accent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextSpecificQuestion" />
+
+            <!-- Openness to Insights -->
+            <CheckBox
+                android:id="@+id/checkBoxOpenness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Open to Insights"
+                android:textColor="@color/op_purple_accent"
+                android:textColorHighlight="@color/op_purple_accent"
+                android:textColorLink="@color/op_purple_accent"
+                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Preferred Reading Method -->
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Select Preferred Reading Method"
+                android:textColor="@color/op_purple_accent"
+                android:textColorHint="@color/op_purple_accent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/spinnerReadingMethod"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextEnergyFocus" />
+
+            <!-- Spinner for Reading Method -->
+            <Spinner
+                android:id="@+id/spinnerReadingMethod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:entries="@array/reading_methods"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <!-- Your Message -->
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/op_purple_accent"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="Your Message"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/op_purple"
+                android:textColorHint="@color/op_purple"
+                app:layout_constraintBottom_toTopOf="@+id/checkBoxOpenness"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerReadingMethod" />
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/op_purple_accent"
+                android:text="Submit Request"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</ScrollView>

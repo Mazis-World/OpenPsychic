@@ -11,4 +11,9 @@
         <item>Tarot Readings</item>
         <item>General Readings</item>
     </string-array>
+    <string-array name="reading_methods">
+        <item>Tarot Cards</item>
+        <item>Astrology</item>
+        <item>Numerology</item>
+    </string-array>
 </resources>

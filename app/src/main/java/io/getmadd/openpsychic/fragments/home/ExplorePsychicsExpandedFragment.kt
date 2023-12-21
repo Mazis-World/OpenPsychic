@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsExpandedBinding
 import io.getmadd.openpsychic.model.Psychic
 
@@ -45,13 +47,13 @@ class ExplorePsychicsExpandedFragment: Fragment() {
 
         Glide.with(this).load(psychic.displayimgsrc).into(binding.expandedBackgroundImageView)
 
-        binding.button.setOnClickListener{
+        binding.requestreadingbtn.setOnClickListener{
+            findNavController().navigate(R.id.action_explore_psychics_expanded_to_request_reading_fragment)
+        }
+        binding.sendprivatemessagebtn.setOnClickListener{
             Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()
         }
-        binding.button2.setOnClickListener{
-            Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()
-        }
-        binding.button3.setOnClickListener{
+        binding.schedulelivesessionbtn.setOnClickListener{
             Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()
         }
     }
