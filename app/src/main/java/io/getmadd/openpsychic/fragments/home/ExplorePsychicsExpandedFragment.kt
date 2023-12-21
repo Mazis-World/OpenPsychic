@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsExpandedBinding
+import io.getmadd.openpsychic.model.Psychic
 
 class ExplorePsychicsExpandedFragment: Fragment() {
 
@@ -30,11 +32,18 @@ class ExplorePsychicsExpandedFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bundle = arguments
+        lateinit var psychic: Psychic
+        if (bundle != null) {
+            psychic = (bundle.getSerializable("psychic") as? Psychic)!!
+            // Now you have access to the Psychic object in the Fragment
+        }
 
-        binding.expandedBioTextView.text = arguments?.getString("bio")
-        binding.expandedDisplayNameTextView.text = arguments?.getString("displayname")
-        binding.expandedUsernameTextView.text = "@"+arguments?.getString("username")
+        binding.expandedBioTextView.text = psychic.bio
+        binding.expandedDisplayNameTextView.text = psychic.displayname
+        binding.expandedUsernameTextView.text = "@"+psychic.username
 
+        Glide.with(this).load(psychic.displayimgsrc).into(binding.expandedBackgroundImageView)
 
         binding.button.setOnClickListener{
             Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()

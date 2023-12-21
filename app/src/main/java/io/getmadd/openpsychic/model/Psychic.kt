@@ -1,5 +1,7 @@
 package io.getmadd.openpsychic.model
 
+import java.io.Serializable
+
 class Psychic(
     var userid: String,
     var email: String,
@@ -13,4 +15,4 @@ class Psychic(
     var displayimgsrc: String,
     var psychicondisplay: Boolean,
     var psychicondisplaycategory: String?
-)
+) : Serializable

@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentRegisterPsychicBinding
+import io.getmadd.openpsychic.model.Psychic
 
 
 class RegisterPsychicFragment : Fragment() {
@@ -45,8 +46,8 @@ class RegisterPsychicFragment : Fragment() {
             val psychic = getUserFromFields()
 
             if(psychic != null){
-                psychic.get(key = "email")?.let { it1 ->
-                    auth.createUserWithEmailAndPassword(it1, passwordET.text.toString())
+                psychic.email.let { it1 ->
+                    auth.createUserWithEmailAndPassword(it1.toString(), passwordET.text.toString())
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 // Sign in success, update UI with the signed-in user's information
@@ -54,7 +55,7 @@ class RegisterPsychicFragment : Fragment() {
                                 val newUser = auth.currentUser
                                 var userID = ""
                                 if (newUser != null) {
-                                    psychic.put("userID",newUser.uid)
+                                    psychic.userid = newUser.uid
                                     userID = newUser.uid
                                 }
 
@@ -80,12 +81,11 @@ class RegisterPsychicFragment : Fragment() {
                 }
             }
         }
-
     }
 
     // getUserText
 
-    fun getUserFromFields(): HashMap<String, String>? {
+    fun getUserFromFields(): Psychic? {
 
         val firstNameET = binding.fragmentRegisterPsychicFirstnameEditText
         val lastNameET = binding.fragmentRegisterPsychicLastnameEditText
@@ -107,19 +107,22 @@ class RegisterPsychicFragment : Fragment() {
             Toast.makeText(context,"Complete Signup Form", Toast.LENGTH_LONG).show()
         }
         else{
-            val user = hashMapOf(
-                "email" to email,
-                "firstname" to firstname,
-                "lastname" to lastname,
-                "displayname" to displayname,
-                "username" to username,
-                "usertype" to "psychic",
-                "bio" to " ",
-                "profileImgSrc" to " ",
-                "displayImgSrc" to " ",
-            )
+            val psychic = Psychic(
+                userid = " ",
+                email = email,
+                firstname = firstname,
+                lastname = lastname,
+                displayname = displayname,
+                profileimgsrc = " ",
+                displayimgsrc = " ",
+                psychicondisplaycategory = " ",
+                psychicondisplay = false,
+                usertype = "psychic",
+                username = username,
+                bio = " "
+                )
 
-            return user
+            return psychic
         }
 
         return null

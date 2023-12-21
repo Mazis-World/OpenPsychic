@@ -26,10 +26,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="No history available"
+        android:layout_margin="16sp"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:text="Go On, Chat With A Psychic...It's Free"
+        android:textAlignment="center"
         android:textColor="@color/op_purple_foreground_text"
-        android:textSize="34sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
         android:visibility="gone" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        ads:adUnitId = "ca-app-pub-2450865968732279/3052164001"
+        ads:adSize="BANNER"
+        android:id="@+id/historybannerad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
 
 

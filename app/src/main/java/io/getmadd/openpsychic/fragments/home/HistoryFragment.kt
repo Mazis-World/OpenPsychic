@@ -10,6 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
@@ -65,6 +70,28 @@ class HistoryFragment : Fragment() {
         binding.historyRecyclerView.adapter = HistoryFragmentAdapter(
             userHistoryList
         ) {}
+
+        val adView: AdView = binding.historybannerad
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
+        val adRequest1 = AdRequest.Builder().build()
+
+        InterstitialAd.load(
+            context!!,
+            "ca-app-pub-2450865968732279/8716388373",
+            adRequest1,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(TAG, adError.message)
+                }
+
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    Log.d(TAG, "Ad was loaded.")
+                    activity?.let { ad.show(it) }
+                }
+            }
+        )
 
     }
 

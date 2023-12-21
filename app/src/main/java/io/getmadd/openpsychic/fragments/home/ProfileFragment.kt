@@ -1,6 +1,7 @@
 package io.getmadd.openpsychic.fragments.home
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
@@ -16,6 +17,10 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -68,7 +73,6 @@ class ProfileFragment : Fragment() {
         binding.psychicOnDisplaySwitch.setOnCheckedChangeListener { _, isChecked ->
             handlePsychicOnDisplaySwitchChanged(isChecked)
         }
-        selectedCategory = binding.categorySpinner.selectedItem.toString()
 
         // Add listener to the spinner
         binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -81,15 +85,35 @@ class ProfileFragment : Fragment() {
                 // Handle case where nothing is selected (optional)
             }
         }
+        val adRequest1 = AdRequest.Builder().build()
+
+        InterstitialAd.load(
+            context!!,
+            "ca-app-pub-2450865968732279/3376431783",
+            adRequest1,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(ContentValues.TAG, adError.message)
+                }
+
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    Log.d(ContentValues.TAG, "Ad was loaded.")
+                    activity?.let { ad.show(it) }
+                }
+            }
+        )
+
     }
 
     private fun handlePsychicOnDisplaySwitchChanged(isChecked: Boolean) {
         if (isChecked) {
             // The switch is enabled, perform action to add the user to the database
             addPsychicToDatabase()
+            binding.categorySpinner.isEnabled = false
         } else {
             // The switch is disabled, perform action to remove the user from the database
             removePsychicFromDatabase()
+            binding.categorySpinner.isEnabled = true
         }
     }
 
@@ -138,8 +162,8 @@ class ProfileFragment : Fragment() {
                         bio = result.getString("bio").toString(),
                         profileimgsrc = result.getString("profileImgSrc").toString(),
                         displayimgsrc = result.getString("displayImgSrc").toString(),
-                        psychicondisplay = false,
-                        psychicondisplaycategory = null
+                        psychicondisplay = result.getBoolean("psychicondisplay")!!,
+                        psychicondisplaycategory = result.getString("psychicondisplaycategory").toString()
                     )
 
                     binding.psychicLayout.visibility = View.VISIBLE
@@ -151,6 +175,12 @@ class ProfileFragment : Fragment() {
                     profileImgSrc = psychic?.profileimgsrc
                     displayImgSrc = psychic?.displayimgsrc
 
+                    if(psychic?.psychicondisplay == true){
+                        selectedCategory = psychic?.psychicondisplaycategory
+                        binding.psychicOnDisplaySwitch.isChecked = true
+                        binding.categorySpinner.isEnabled = false
+
+                    }
                 }
 
                 loadImages(profileImgSrc,displayImgSrc)
@@ -158,9 +188,7 @@ class ProfileFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
-
     }
-
 
     private fun addPsychicToDatabase() {
 
@@ -183,20 +211,21 @@ class ProfileFragment : Fragment() {
 
     private fun removePsychicFromDatabase() {
         psychic!!.psychicondisplay = false
-        psychic!!.psychicondisplaycategory = " "
 
-        db.collection("psychicOnDisplay")
-            .document(selectedCategory!!)
-            .collection("psychicsOnDisplay")
-            .document(userId)
-            .delete()
-            .addOnSuccessListener {
-                Log.d(TAG, "User removed from the psychic database")
-                db.collection("users").document(userId).update("psychicondisplay", false, "psychicondisplaycategory", " ")
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Error removing user from the psychic database: $e")
-            }
+        psychic!!.psychicondisplaycategory?.let {
+            db.collection("psychicOnDisplay")
+                .document(it)
+                .collection("psychicsOnDisplay")
+                .document(userId)
+                .delete()
+                .addOnSuccessListener {
+                    Log.d(TAG, "User removed from the psychic database")
+                    db.collection("users").document(userId).update("psychicondisplay", false, "psychicondisplaycategory", " ")
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, "Error removing user from the psychic database: $e")
+                }
+        }
     }
 
     private fun loadImages(profileImgSrc: String?, displayImgSrc: String?) {

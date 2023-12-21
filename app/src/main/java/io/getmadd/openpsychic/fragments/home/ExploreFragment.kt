@@ -1,11 +1,17 @@
 package io.getmadd.openpsychic.fragments.home
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.auth.FirebaseAuth
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentExploreBinding
@@ -69,5 +75,22 @@ class ExploreFragment : Fragment() {
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)
         }
 
+        val adRequest1 = AdRequest.Builder().build()
+
+        InterstitialAd.load(
+            context!!,
+            "ca-app-pub-2450865968732279~5202685556",
+            adRequest1,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(ContentValues.TAG, adError.message)
+                }
+
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    Log.d(ContentValues.TAG, "Ad was loaded.")
+                    activity?.let { ad.show(it) }
+                }
+            }
+        )
     }
 }

@@ -5,51 +5,75 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import io.getmadd.openpsychic.R
-import io.getmadd.openpsychic.model.User
+import io.getmadd.openpsychic.model.Psychic
 
-class ExplorePsychicsAdapter(val items: MutableList<User>, val listener: (Int) -> Unit): RecyclerView.Adapter<ExplorePsychicsAdapter.ViewHolder>() {
+class ExplorePsychicsAdapter(
+    private val items: MutableList<Psychic>,
+    private val listener: (Int) -> Unit
+) : RecyclerView.Adapter<ExplorePsychicsAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_explore_psychics_card, parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return if ((viewType + 1) % 3 == 0) {
+            AdViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.explore_psychics_ad_item, parent, false)
+            )
+        } else {
+            PsychicViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.fragment_explore_psychics_card, parent, false)
+            )
+        }
+    }
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(items[position], position, listener)
-
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(item: User, pos: Int, listener: (Int) -> Unit) = with(itemView) {
-            val cvItem = findViewById<CardView>(R.id.fragment_explore_psychics_card)
-            val displayName = findViewById<TextView>(R.id.displayNameTextView)
-            val userName = findViewById<TextView>(R.id.usernameTextView)
-            val backgroundImg = findViewById<ImageView>(R.id.explore_psychics_expanded_card_background_IV)
-
-            displayName.text = item.displayname
-            userName.text = "@"+item.username
-
-            val bundle = Bundle().apply {
-                putString("displayname", item.displayname)
-                putString("username", item.username)
-                putString("firstname", item.firstname)
-                putString("lastname", item.lastname)
-                putString("profileImgSrc", item.profileimgsrc)
-                putString("backgroundImgSrc", item.displayimgsrc)
-                putString("email", item.email)
-                putString("bio", item.bio)
-            }
-
-            cvItem.setOnClickListener(){
-                findNavController().navigate(R.id.action_explore_psychics_to_explore_psychics_expanded, bundle)
-            }
-        }
-
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(items[position], position, listener)
+    }
+
+    abstract class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        abstract fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit)
+    }
+
+    class AdViewHolder(itemView: View) : ViewHolder(itemView) {
+        private val adView: AdView = itemView.findViewById(R.id.explore_psychics_ad_view)
+
+        override fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) {
+            val adRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
+        }
+    }
+
+    class PsychicViewHolder(itemView: View) : ViewHolder(itemView) {
+        private val cvItem: CardView = itemView.findViewById(R.id.fragment_explore_psychics_card)
+        private val displayName: TextView = itemView.findViewById(R.id.displayNameTextView)
+        private val userName: TextView = itemView.findViewById(R.id.usernameTextView)
+        private val backgroundImg: ImageView =
+            itemView.findViewById(R.id.explore_psychics_expanded_card_background_IV)
+
+        override fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) {
+            Glide.with(itemView).load(item.displayimgsrc).into(backgroundImg)
+
+            displayName.text = item.displayname
+            userName.text = "@${item.username}"
+
+            val bundle = Bundle()
+            bundle.putSerializable("psychic", item)
+
+            cvItem.setOnClickListener {
+                listener.invoke(adapterPosition)
+            }
+
+        }
+    }
 }
