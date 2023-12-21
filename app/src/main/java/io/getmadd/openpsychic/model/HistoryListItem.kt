@@ -1,7 +1,6 @@
 package io.getmadd.openpsychic.model
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity(tableName = "UserHistoryObjects")
 class UserHistoryObject(

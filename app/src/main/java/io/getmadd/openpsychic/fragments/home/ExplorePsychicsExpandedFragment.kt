@@ -40,7 +40,6 @@ class ExplorePsychicsExpandedFragment: Fragment() {
             psychic = (bundle.getSerializable("psychic") as? Psychic)!!
             // Now you have access to the Psychic object in the Fragment
         }
-
         binding.expandedBioTextView.text = psychic.bio
         binding.expandedDisplayNameTextView.text = psychic.displayname
         binding.expandedUsernameTextView.text = "@"+psychic.username
@@ -48,7 +47,9 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         Glide.with(this).load(psychic.displayimgsrc).into(binding.expandedBackgroundImageView)
 
         binding.requestreadingbtn.setOnClickListener{
-            findNavController().navigate(R.id.action_explore_psychics_expanded_to_request_reading_fragment)
+            val bundle = Bundle()
+            bundle.putSerializable("psychic", psychic)
+            findNavController().navigate(R.id.action_explore_psychics_expanded_to_request_reading_fragment, bundle)
         }
         binding.sendprivatemessagebtn.setOnClickListener{
             Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()

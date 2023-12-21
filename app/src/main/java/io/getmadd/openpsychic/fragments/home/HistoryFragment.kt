@@ -27,7 +27,7 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding
     var db = Firebase.firestore
 
-    var userHistoryList = ArrayList<UserHistoryObject>()
+    var userHistoryList = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,32 +44,31 @@ class HistoryFragment : Fragment() {
 
         var userId = Firebase.auth.uid
         
-        var colRef = db.collection("users").document("$userId").collection("messageThreads")
+        var colRef = db.collection("users").document("$userId").collection("messagethread")
 
+        binding.historyRecyclerView.adapter = HistoryFragmentAdapter(
+            userHistoryList
+        ) {}
+        binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
         colRef.get()
             .addOnSuccessListener { result ->
-
                 if(result.isEmpty){
                     binding.emptyHistoryTextView.visibility = View.VISIBLE
                 }
                 else{
                     binding.emptyHistoryTextView.visibility = View.GONE
+                    for (document in result) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
+                        userHistoryList.add(document.id)
+                    }
                     binding.historyRecyclerView.adapter!!.notifyDataSetChanged()
-                }
-
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-
                 }
             }
             .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents: ${exception.message}", exception)
             }
 
-        binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.historyRecyclerView.adapter = HistoryFragmentAdapter(
-            userHistoryList
-        ) {}
 
         val adView: AdView = binding.historybannerad
         val adRequest: AdRequest = AdRequest.Builder().build()
