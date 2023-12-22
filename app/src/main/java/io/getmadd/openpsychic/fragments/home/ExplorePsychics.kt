@@ -3,6 +3,7 @@ package io.getmadd.openpsychic.fragments.home
 import ExplorePsychicsAdapter
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsBinding
 import io.getmadd.openpsychic.model.Psychic

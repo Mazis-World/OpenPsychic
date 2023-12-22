@@ -1,18 +1,39 @@
-import java.sql.Timestamp
+package io.getmadd.openpsychic.model
 
-data class Request(
-    val fullName: String,
-    val dateOfBirth: String,
-    val specificQuestion: String,
-    val energyFocus: String,
-    val isOpenToInsights: Boolean,
-    val preferredReadingMethod: String,
-    val message: String,
-    val senderid: String,
-    val receiverid: String,
-    val timestamp: Long,
-    val requeststatus: String,
-    val messagetype: String,
-    val requestid: String,
-    val requesttype: String
-)
+import com.google.firebase.Timestamp
+import java.io.Serializable
+
+class Request(
+    var fullName: String = "",
+    var dateOfBirth: String = "",
+    var specificQuestion: String = "",
+    var energyFocus: String = "",
+    var openToInsights: Boolean = false,
+    var preferredReadingMethod: String = "",
+    var message: String = "",
+    var senderid: String = "",
+    var receiverid: String = "",
+    var timestamp: Timestamp = Timestamp.now(),
+    var requeststatus: String = "",
+    var messagetype: String = "",
+    var requestid: String = "",
+    var requesttype: String = ""
+) : Serializable {
+    // No-argument constructor for Firestore deserialization
+    constructor() : this(
+        fullName = "",
+        dateOfBirth = "",
+        specificQuestion = "",
+        energyFocus = "",
+        openToInsights = false,
+        preferredReadingMethod = "",
+        message = "",
+        senderid = "",
+        receiverid = "",
+        timestamp = Timestamp.now(),
+        requeststatus = "",
+        messagetype = "",
+        requestid = "",
+        requesttype = ""
+    )
+}

@@ -1,6 +1,7 @@
 package io.getmadd.openpsychic.fragments.home
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +13,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentExploreBinding
 
@@ -22,6 +26,8 @@ class ExploreFragment : Fragment() {
     private lateinit var _binding: FragmentExploreBinding
 
     private val binding get() = _binding
+    private var db = Firebase.firestore
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +43,19 @@ class ExploreFragment : Fragment() {
         val bundle = Bundle()
 
         var category_type = "category_type"
+        var uid = Firebase.auth.uid!!
+        db.collection("users").document(uid)
+            .get()
+            .addOnSuccessListener { result ->
+                var userType = result.getString("usertype").toString()
+                val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("usertype", userType)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+
 
         binding.homeCategory0.setOnClickListener {
             bundle.putString("category_type", getString(R.string.category_spirit))

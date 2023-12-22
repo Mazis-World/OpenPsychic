@@ -4,10 +4,12 @@
     android:id="@+id/nav_graph2"
     app:startDestination="@id/explore_fragment">
 
+
     <fragment
         android:id="@+id/request_reading_fragment"
         android:name="RequestReadingFragment"
         android:label="Request Reading" />
+
 
     <fragment
         android:id="@+id/explore_psychics_expanded"
@@ -60,5 +62,14 @@
     <fragment
         android:id="@+id/history_fragment"
         android:name="io.getmadd.openpsychic.fragments.home.HistoryFragment"
-        android:label="HistoryFragment" />
+        android:label="HistoryFragment" >
+        <action
+            android:id="@+id/action_history_fragment_to_request_history_fragment"
+            app:destination="@id/request_history_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/request_history_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.RequestHistoryView"
+        android:label="Request History" />
 </navigation>

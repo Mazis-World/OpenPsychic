@@ -1,6 +1,7 @@
 package io.getmadd.openpsychic.fragments.home
 
 import HistoryFragmentAdapter
+import io.getmadd.openpsychic.model.Request
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -18,7 +19,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import io.getmadd.openpsychic.databinding.FragmentHistoryBinding
+import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.UserHistoryObject
 
 
@@ -27,7 +30,7 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding
     var db = Firebase.firestore
 
-    var userHistoryList = ArrayList<String>()
+    var requestlist = ArrayList<Request>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,31 +45,60 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var userId = Firebase.auth.uid
-        
-        var colRef = db.collection("users").document("$userId").collection("messagethread")
+        val userId = Firebase.auth.uid.toString()
 
-        binding.historyRecyclerView.adapter = HistoryFragmentAdapter(
-            userHistoryList
-        ) {}
+        val userRef = db.collection("users").document(userId).collection("request")
+
+        binding.historyRecyclerView.adapter = HistoryFragmentAdapter(requestlist) {}
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        colRef.get()
-            .addOnSuccessListener { result ->
-                if(result.isEmpty){
+        var rcv = binding.historyRecyclerView.adapter
+
+        userRef.get()
+            .addOnSuccessListener { userDocumentSnapshot ->
+                if (!userDocumentSnapshot.isEmpty) {
+                    // User document exists, check for the 'request' collection
+                    val requestCollection = userRef
+
+                    requestCollection.get()
+                        .addOnSuccessListener { requestQuerySnapshot ->
+                            // Clear the list before adding new items
+                            requestlist.clear()
+
+                            for (requestDocument in requestQuerySnapshot.documents) {
+                                // Process each document in the 'request' collection
+                                // For example, add data to userHistoryList
+
+                                val request = requestDocument.toObject(Request::class.java)
+
+                                if (request != null) {
+                                    requestlist.add(request)
+                                }
+                            }
+
+                            rcv!!.notifyDataSetChanged()
+
+                            if (requestQuerySnapshot.isEmpty) {
+                                // 'request' collection is empty
+                                binding.emptyHistoryTextView.visibility = View.VISIBLE
+                            } else {
+                                binding.emptyHistoryTextView.visibility = View.GONE
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            // Handle errors while fetching 'request' collection
+                            Log.e(TAG, "Error getting 'request' collection: ${exception.message}", exception)
+                        }
+
+                } else {
+                    // User document does not exist
+                    Log.d(TAG, "User document does not exist for user ID: $userId")
                     binding.emptyHistoryTextView.visibility = View.VISIBLE
-                }
-                else{
-                    binding.emptyHistoryTextView.visibility = View.GONE
-                    for (document in result) {
-                        Log.d(TAG, "${document.id} => ${document.data}")
-                        userHistoryList.add(document.id)
-                    }
-                    binding.historyRecyclerView.adapter!!.notifyDataSetChanged()
                 }
             }
             .addOnFailureListener { exception ->
-                Log.e(TAG, "Error getting documents: ${exception.message}", exception)
+                // Handle errors while fetching user document
+                Log.e(TAG, "Error getting user document: ${exception.message}", exception)
             }
 
 
@@ -94,4 +126,8 @@ class HistoryFragment : Fragment() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
 }
