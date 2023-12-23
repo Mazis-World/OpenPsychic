@@ -112,11 +112,11 @@ class RequestReadingFragment : Fragment() {
                                     // You can perform additional actions here
                                     Log.e("io.getmadd.openpsychic.model.Request Reading", "Receiver io.getmadd.openpsychic.model.Request Submitting Successfully")
                                     findNavController().popBackStack()
-                                    Toast.makeText(context,"io.getmadd.openpsychic.model.Request Submitted Succesively",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context,"Request Submitted Succesively",Toast.LENGTH_SHORT).show()
                                 }
                                 .addOnFailureListener {
                                     // Handle failure
-                                    Log.e("io.getmadd.openpsychic.model.Request Reading", it.message.toString())
+                                    Log.e("Request Reading", it.message.toString())
                                 }
                         }
                         .addOnFailureListener {

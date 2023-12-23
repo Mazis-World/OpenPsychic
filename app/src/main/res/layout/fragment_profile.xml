@@ -66,11 +66,11 @@
         android:id="@+id/psychicLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/usersnameTV"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <!-- Psychic Specialty Title -->
@@ -97,8 +97,8 @@
             android:id="@+id/psychicOnDisplayLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
             <!-- Psychic On Display Title -->
             <TextView
