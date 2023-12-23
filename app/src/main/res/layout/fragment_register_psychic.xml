@@ -6,22 +6,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/op_purple"
-    tools:context=".fragments.main.RegisterPsychicFragment">
+    tools:context=".fragments.main.RegisterPsychicFragment"
+    android:paddingLeft="@dimen/fragment_horizontal_margin"
+    android:paddingTop="@dimen/fragment_vertical_margin"
+    android:paddingRight="@dimen/fragment_horizontal_margin"
+    android:paddingBottom="@dimen/fragment_vertical_margin"
+    >
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/backimageview">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/textView2"
@@ -117,5 +127,23 @@
                 android:text="Register" />
         </LinearLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/backimageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="?attr/actionModeCloseDrawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/registeradview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-2450865968732279/9956322003"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

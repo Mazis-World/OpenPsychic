@@ -8,6 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -39,6 +42,9 @@ class SignUpFragment : Fragment() {
         val userNameET = binding.fragmentSignupUsernameEditText
 
         val signupBtn = binding.fragmentRegisterPsychicSignupButton
+        binding.signupbackimageview.setOnClickListener{
+            findNavController().popBackStack()
+        }
 
         signupBtn.setOnClickListener {
 
@@ -88,6 +94,9 @@ class SignUpFragment : Fragment() {
                     }
             }
         }
+        val adView: AdView = binding.signupadview
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     override fun onDestroyView() {

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentLaunchBinding
 
@@ -22,8 +24,6 @@ class LaunchFragment : Fragment() {
 
         _binding = FragmentLaunchBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,6 +37,10 @@ class LaunchFragment : Fragment() {
         binding.signUpButton.setOnClickListener {
             findNavController().navigate(R.id.action_launchFragment_to_signup_fragment)
         }
+        val adView: AdView = binding.launchfragmentadview
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
     }
 
     override fun onDestroyView() {

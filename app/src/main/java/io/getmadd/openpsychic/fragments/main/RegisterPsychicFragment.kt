@@ -8,6 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -81,8 +84,19 @@ class RegisterPsychicFragment : Fragment() {
                 }
             }
         }
-    }
+        binding.backimageview.setOnClickListener{
+            findNavController().popBackStack()
+        }
+        val adView: AdView = binding.registeradview
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
+    }
+    fun isUsernameValid(username: String): Boolean {
+        val regexPattern = "^[\\p{L}\\p{N}_]+$"
+        val regex = Regex(regexPattern)
+        return regex.matches(username) && !username.contains(" ")
+    }
     // getUserText
 
     fun getUserFromFields(): Psychic? {
@@ -104,7 +118,10 @@ class RegisterPsychicFragment : Fragment() {
 
         if(firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || displayname.isEmpty()) {
 
-            Toast.makeText(context,"Complete Signup Form", Toast.LENGTH_LONG).show()
+            Toast.makeText(context,"Complete Signup Form", Toast.LENGTH_SHORT).show()
+        }
+        if(!isUsernameValid(username)){
+            Toast.makeText(context,"Invalid Username", Toast.LENGTH_SHORT).show()
         }
         else{
             val psychic = Psychic(
