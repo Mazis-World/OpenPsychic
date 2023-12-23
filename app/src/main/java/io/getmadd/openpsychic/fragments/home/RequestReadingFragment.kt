@@ -46,6 +46,13 @@ class RequestReadingFragment : Fragment() {
         binding.button.setOnClickListener {
             // Retrieve data from the binding
 
+            if(binding.editTextFullName.text.isNotEmpty()
+                && binding.editTextText.text.isNotEmpty()
+                && binding.editTextFullName.text.isNotEmpty()
+                && binding.editTextEnergyFocus.text.isNotEmpty()
+                && binding.editTextDateOfBirth.text.isNotEmpty()
+                && binding.editTextSpecificQuestion.text.isNotEmpty()){
+
             val request = Request(
                 binding.editTextFullName.text.toString(),
                 binding.editTextDateOfBirth.text.toString(),
@@ -65,6 +72,10 @@ class RequestReadingFragment : Fragment() {
 
             // Save the request to the database (replace this with your database logic)
             saveRequestToDatabase(request)
+        }
+            else{
+                Toast.makeText(context,"Complete Request Form", Toast.LENGTH_SHORT).show()
+            }
 
         }
         return binding.root

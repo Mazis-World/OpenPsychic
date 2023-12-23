@@ -1,9 +1,11 @@
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -63,7 +65,12 @@ class ExplorePsychicsAdapter(
             itemView.findViewById(R.id.explore_psychics_expanded_card_background_IV)
 
         override fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) {
-            Glide.with(itemView).load(item.displayimgsrc).into(backgroundImg)
+            Log.e("ExplorePsychicsAdapter", item.displayimgsrc)
+            if(item.displayimgsrc == "null"){
+
+            }else{
+                Glide.with(itemView).load(item.displayimgsrc).into(backgroundImg)
+            }
 
             displayName.text = item.displayname
             userName.text = "@${item.username}"

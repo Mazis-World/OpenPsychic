@@ -1,5 +1,6 @@
 package io.getmadd.openpsychic.fragments.home
 
+import android.R
 import android.app.Activity
 import android.content.ContentValues
 import android.content.ContentValues.TAG
@@ -13,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
@@ -134,8 +136,8 @@ class ProfileFragment : Fragment() {
                         firstname = result.getString("firstname").toString(),
                         lastname = result.getString("lastname").toString(),
                         bio = result.getString("bio").toString(),
-                        profileimgsrc = result.getString("profileImgSrc").toString(),
-                        displayimgsrc = result.getString("displayImgSrc").toString(),
+                        profileimgsrc = result.getString("profileimgsrc").toString(),
+                        displayimgsrc = result.getString("displayimgsrc").toString(),
                         joinedlivestreams = null
                     )
 
@@ -160,8 +162,8 @@ class ProfileFragment : Fragment() {
                         firstname = result.getString("firstname").toString(),
                         lastname = result.getString("lastname").toString(),
                         bio = result.getString("bio").toString(),
-                        profileimgsrc = result.getString("profileImgSrc").toString(),
-                        displayimgsrc = result.getString("displayImgSrc").toString(),
+                        profileimgsrc = result.getString("profileimgsrc").toString(),
+                        displayimgsrc = result.getString("displayimgsrc").toString(),
                         psychicondisplay = result.getBoolean("psychicondisplay")!!,
                         psychicondisplaycategory = result.getString("psychicondisplaycategory").toString()
                     )
@@ -176,10 +178,10 @@ class ProfileFragment : Fragment() {
                     displayImgSrc = psychic?.displayimgsrc
 
                     if(psychic?.psychicondisplay == true){
-                        selectedCategory = psychic?.psychicondisplaycategory
+                        selectedCategory = psychic!!.psychicondisplaycategory
                         binding.psychicOnDisplaySwitch.isChecked = true
                         binding.categorySpinner.isEnabled = false
-
+                        categorySpinnerList(selectedCategory!!)
                     }
                 }
 
@@ -188,6 +190,34 @@ class ProfileFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+    }
+
+    private fun categorySpinnerList(selectedcategory:String){
+       val psychicCategories = listOf(
+            "Past Lives",
+            "Dream Interpretations",
+            "Love & Relationships",
+            "Fortune Telling",
+            "Palm Readings",
+            "Astrology",
+            "Lingering Spirits",
+            "Tarot Readings",
+            "General Readings"
+        )
+
+        // Creating an ArrayAdapter using the string array and a default spinner layout
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, psychicCategories)
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // Apply the adapter to the spinner
+        binding.categorySpinner.adapter = adapter
+
+        // Set the selected value programmatically (e.g., setting to "Category3")
+        val position = adapter.getPosition(selectedCategory)
+
+        binding.categorySpinner.setSelection(position)
     }
 
     private fun addPsychicToDatabase() {
@@ -212,19 +242,21 @@ class ProfileFragment : Fragment() {
     private fun removePsychicFromDatabase() {
         psychic!!.psychicondisplay = false
 
-        psychic!!.psychicondisplaycategory?.let {
-            db.collection("psychicOnDisplay")
-                .document(it)
-                .collection("psychicsOnDisplay")
-                .document(userId)
-                .delete()
-                .addOnSuccessListener {
-                    Log.d(TAG, "User removed from the psychic database")
-                    db.collection("users").document(userId).update("psychicondisplay", false, "psychicondisplaycategory", " ")
-                }
-                .addOnFailureListener { e ->
-                    Log.e(TAG, "Error removing user from the psychic database: $e")
-                }
+        selectedCategory.let {
+            if (it != null) {
+                db.collection("psychicOnDisplay")
+                    .document(it)
+                    .collection("psychicsOnDisplay")
+                    .document(userId)
+                    .delete()
+                    .addOnSuccessListener {
+                        Log.d(TAG, "User removed from the psychic database")
+                        db.collection("users").document(userId).update("psychicondisplay", false, "psychicondisplaycategory", " ")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e(TAG, "Error removing user from the psychic database: $e")
+                    }
+            }
         }
     }
 
@@ -267,7 +299,7 @@ class ProfileFragment : Fragment() {
         profileImageURI?.let {
             uploadImage(profileImgRef, it) { profileDownloadUrl ->
                 db.collection("users").document(auth.uid!!)
-                    .update("profileImgSrc", profileDownloadUrl.toString())
+                    .update("profileimgsrc", profileDownloadUrl.toString())
                     .addOnSuccessListener {
                         Log.d("UploadImageActivity", "Profile Image URL updated in Firestore.")
                     }
@@ -280,7 +312,7 @@ class ProfileFragment : Fragment() {
         backdropImageURI?.let {
             uploadImage(backdropImgRef, it) { backdropDownloadUrl ->
                 db.collection("users").document(auth.uid!!)
-                    .update("displayImgSrc", backdropDownloadUrl.toString())
+                    .update("displayimgsrc", backdropDownloadUrl.toString())
                     .addOnSuccessListener {
                         Log.d("UploadImageActivity", "Backdrop Image URL updated in Firestore.")
                     }

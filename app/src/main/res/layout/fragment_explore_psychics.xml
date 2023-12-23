@@ -8,15 +8,6 @@
     tools:context=".fragments.home.ExplorePsychics">
 
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        ads:adUnitId = "ca-app-pub-2450865968732279/9098697603"
-        ads:adSize="BANNER"
-        android:id="@+id/explorebannerad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-
     <TextView
         android:id="@+id/explore_psychics_category_textView"
         android:layout_width="wrap_content"
@@ -35,6 +26,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/explorebannerad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-2450865968732279/9098697603" />
 
     <TextView
         android:id="@+id/emptyExploreTextView"

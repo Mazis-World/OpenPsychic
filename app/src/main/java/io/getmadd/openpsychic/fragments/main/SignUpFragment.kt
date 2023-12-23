@@ -59,8 +59,8 @@ class SignUpFragment : Fragment() {
                                 "displayname" to " ",
                                 "usertype" to "user",
                                 "bio" to " ",
-                                "profileImgSrc" to " ",
-                                "displayImgSrc" to " ",
+                                "profileimgsrc" to " ",
+                                "displayimgsrc" to " ",
                                 "username" to userNameET.text.toString(),
                                 "email" to userEmailET.text.toString(),
                                 "userID" to auth.currentUser!!.uid
