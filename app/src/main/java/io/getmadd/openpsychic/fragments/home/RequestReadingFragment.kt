@@ -22,6 +22,7 @@ class RequestReadingFragment : Fragment() {
     private lateinit var binding: FragmentRequestReadingBinding
     private var db = Firebase.firestore
     private var userid = Firebase.auth.uid
+    private lateinit var psychicid: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,19 +34,15 @@ class RequestReadingFragment : Fragment() {
         lateinit var psychic: Psychic
         if (bundle != null) {
             psychic = (bundle.getSerializable("psychic") as? Psychic)!!
-            // Now you have access to the Psychic object in the Fragment
+            psychicid = psychic.userid
+            Log.e("RequestReadingFragment","Psychic Id:"+psychic.userid)
         }
-        // Set up the spinner adapter
         val readingMethods = resources.getStringArray(R.array.reading_methods)
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, readingMethods)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerReadingMethod.adapter = adapter
-
-        // Set up the click listener for the submit button
         binding.button.setOnClickListener {
-            // Retrieve data from the binding
-
             if(binding.editTextFullName.text.isNotEmpty()
                 && binding.editTextText.text.isNotEmpty()
                 && binding.editTextFullName.text.isNotEmpty()
@@ -62,7 +59,7 @@ class RequestReadingFragment : Fragment() {
                 binding.spinnerReadingMethod.selectedItem.toString(),
                 binding.editTextText.text.toString(),
                 userid!!,
-                psychic.userid,
+                psychicid,
                 Timestamp.now(),
                 "sent",
                 "request",

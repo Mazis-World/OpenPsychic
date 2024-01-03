@@ -154,7 +154,7 @@ class ProfileFragment : Fragment() {
                 else if (userType == "psychic"){
 
                     psychic = Psychic(
-                        userid = result.getString("userID").toString(),
+                        userid = result.getString("userid").toString(),
                         email = result.getString("email").toString(),
                         displayname = result.getString("displayname").toString(),
                         username = result.getString("username").toString(),

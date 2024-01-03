@@ -48,9 +48,9 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         Glide.with(this).load(psychic.displayimgsrc).into(binding.expandedBackgroundImageView)
 
         binding.requestreadingbtn.setOnClickListener{
-            val bundle = Bundle()
-            bundle.putSerializable("psychic", psychic)
-            findNavController().navigate(R.id.action_explore_psychics_expanded_to_request_reading_fragment, bundle)
+            val bundle2 = Bundle()
+            bundle2.putSerializable("psychic", psychic)
+            findNavController().navigate(R.id.action_explore_psychics_expanded_to_request_reading_fragment, bundle2)
         }
         binding.sendprivatemessagebtn.setOnClickListener{
             Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()

@@ -36,7 +36,6 @@ class RequestHistoryView : Fragment() {
             binding.closebutton.setOnClickListener{
                 findNavController().popBackStack()
             }
-
             binding.timestamptextview.text = request.timestamp.toDate().toString()
             binding.statustextview.text = request.requeststatus
             binding.fullnametextview.text = request.fullName
