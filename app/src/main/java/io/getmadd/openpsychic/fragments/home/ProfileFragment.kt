@@ -52,7 +52,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -95,11 +95,11 @@ class ProfileFragment : Fragment() {
             adRequest1,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d(ContentValues.TAG, adError.message)
+                    Log.d(TAG, adError.message)
                 }
 
                 override fun onAdLoaded(ad: InterstitialAd) {
-                    Log.d(ContentValues.TAG, "Ad was loaded.")
+                    Log.d(TAG, "Ad was loaded.")
                     activity?.let { ad.show(it) }
                 }
             }
@@ -128,7 +128,7 @@ class ProfileFragment : Fragment() {
                 if(userType == "user") {
 
                     user = User(
-                        userid = result.getString("userID").toString(),
+                        userid = result.getString("userid").toString(),
                         email = result.getString("email").toString(),
                         displayname = result.getString("displayname").toString(),
                         username = result.getString("username").toString(),
@@ -209,7 +209,7 @@ class ProfileFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, psychicCategories)
 
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
         // Apply the adapter to the spinner
         binding.categorySpinner.adapter = adapter

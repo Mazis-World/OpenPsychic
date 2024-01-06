@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.home.HistoryFragment"
-    android:background="@color/op_purple"
-    >
+    android:background="@color/op_purple">
 
-    <!-- RecyclerView for User History -->
+    <!-- Request Title -->
+    <TextView
+        android:id="@+id/requestTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:text="Request"
+        android:textColor="@color/op_purple_accent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- RecyclerView for User Request History -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/historyRecyclerView"
+        android:id="@+id/requestRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/requestTitleTextView"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:clipToPadding="false"
@@ -20,30 +34,68 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp" />
 
-    <!-- Empty View for No History -->
+    <!-- Empty View for No Request History -->
     <TextView
-        android:id="@+id/emptyHistoryTextView"
+        android:id="@+id/emptyRequestTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="16sp"
         android:fontFamily="sans-serif-black"
         android:padding="16dp"
-        android:text="Go On, Chat With A Psychic...It's Free"
-        android:textAlignment="center"
+        android:text="No requests found."
         android:textColor="@color/op_purple_foreground_text"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textStyle="italic"
         android:visibility="gone" />
 
+    <!-- Messages Title -->
+    <TextView
+        android:id="@+id/messagesTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/requestRecyclerView"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Messages"
+        android:textColor="@color/op_purple_accent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- RecyclerView for User Message History -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/messagesTitleTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:clipToPadding="false"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
+
+    <!-- Empty View for No Message History -->
+    <TextView
+        android:id="@+id/emptyMessagesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:text="No messages found."
+        android:textColor="@color/op_purple_foreground_text"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
+    <!-- AdView -->
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
-        ads:adUnitId = "ca-app-pub-2450865968732279/3052164001"
+        ads:adUnitId="ca-app-pub-2450865968732279/3052164001"
         ads:adSize="BANNER"
         android:id="@+id/historybannerad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
-
-

@@ -1,0 +1,77 @@
+<!-- res/layout/fragment_messages.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/op_purple">
+
+    <!-- Header - Conversations with [User] -->
+
+    <!-- Bubble ImageView -->
+    <TextView
+        android:id="@+id/conversationwithtextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="4dp"
+        android:text="Conversation"
+        android:textColor="@color/op_purple_accent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/messagethreadrecyclerview"
+        app:layout_constraintStart_toEndOf="@+id/messagethrheadimageview"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Message Thread RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagethreadrecyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/op_purple_accent"
+        android:clipToPadding="false"
+        android:scrollbarSize="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/messagethreadinputlayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/conversationwithtextview" />
+
+    <!-- Input Layout for Message -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/messagethreadinputlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxStrokeWidth="0dp"
+        app:endIconDrawable="@android:drawable/ic_menu_send"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@android:drawable/ic_menu_gallery">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/messagethreadedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/op_purple"
+            android:drawableEnd="@android:drawable/ic_menu_send"
+            android:drawableRight="@android:drawable/ic_menu_gallery"
+            android:hint="Send a message" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Send Button -->
+
+    <!-- Image Upload Button -->
+
+    <ImageView
+        android:id="@+id/messagethrheadimageview"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/openpsychiclogo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

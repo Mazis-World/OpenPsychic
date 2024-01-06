@@ -27,7 +27,7 @@ class RequestReadingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout using data binding
         binding = FragmentRequestReadingBinding.inflate(inflater, container, false)
         val bundle = arguments

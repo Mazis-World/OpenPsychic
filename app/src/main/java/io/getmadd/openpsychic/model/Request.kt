@@ -17,7 +17,8 @@ class Request(
     var requeststatus: String = "",
     var messagetype: String = "",
     var requestid: String = "",
-    var requesttype: String = ""
+    var requesttype: String = "",
+    var reply:String = ""
 ) : Serializable {
     // No-argument constructor for Firestore deserialization
     constructor() : this(
@@ -34,6 +35,7 @@ class Request(
         requeststatus = "",
         messagetype = "",
         requestid = "",
-        requesttype = ""
+        requesttype = "",
+        reply = ""
     )
 }

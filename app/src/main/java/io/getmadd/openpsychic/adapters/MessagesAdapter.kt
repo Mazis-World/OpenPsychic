@@ -7,11 +7,11 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import io.getmadd.openpsychic.R
-import io.getmadd.openpsychic.model.Request
+import io.getmadd.openpsychic.model.Message
 
 
-class HistoryFragmentAdapter(val items: MutableList<Request>, val listener: (Int) -> Unit) :
-    RecyclerView.Adapter<HistoryFragmentAdapter.ViewHolder>() {
+class MessagesAdapter(val items: MutableList<Message>, val listener: (Int) -> Unit) :
+    RecyclerView.Adapter<MessagesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context)
@@ -27,17 +27,18 @@ class HistoryFragmentAdapter(val items: MutableList<Request>, val listener: (Int
         var specificquestiontextview: TextView = itemView.findViewById(R.id.specificquestiontextview)
         var timestamptextview: TextView = itemView.findViewById(R.id.timestampTextView)
         var requestitemcardview: CardView = itemView.findViewById(R.id.requestitemcardview)
+        var historytypetextview: TextView = itemView.findViewById(R.id.historytypetextview)
 
-        fun bind(request: Request, pos: Int, listener: (Int) -> Unit) = with(itemView) {
-            specificquestiontextview.text = request.specificQuestion
-            timestamptextview.text = request.timestamp.toDate().toString()
-
+        fun bind(message: Message, pos: Int, listener: (Int) -> Unit) = with(itemView) {
+            specificquestiontextview.text = message.message
+            timestamptextview.text = message.timestamp.toDate().toString()
+            historytypetextview.text = "Message"
             val bundle = Bundle()
-            bundle.putSerializable("request", request)
+            bundle.putSerializable("request", message)
 
             requestitemcardview.setOnClickListener{
                 Navigation.findNavController(view = itemView)
-                    .navigate(R.id.action_history_fragment_to_request_history_fragment, bundle)
+                    .navigate(R.id.action_history_fragment_to_message_thread_fragment, bundle)
             }
         }
 

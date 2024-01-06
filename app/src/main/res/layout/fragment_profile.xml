@@ -23,7 +23,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/openpsychiclogo"
-        android:elevation="4dp" />
+        android:elevation="4dp"
+        android:scaleType="center" />
 
     <!-- Update Button -->
     <Button
@@ -33,6 +34,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="160dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/op_purple_accent"
         android:text="Update" />
 
     <!-- Editable Fields -->
@@ -132,7 +134,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/purple_200"
+        android:background="@color/op_purple_accent"
         android:gravity="top|left"
         android:hint="Bio"
         android:paddingBottom="8dp" />

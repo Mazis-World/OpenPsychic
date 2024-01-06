@@ -19,11 +19,6 @@ class ExplorePsychicsExpandedFragment: Fragment() {
     private val binding get() = _binding
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,12 +43,14 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         Glide.with(this).load(psychic.displayimgsrc).into(binding.expandedBackgroundImageView)
 
         binding.requestreadingbtn.setOnClickListener{
-            val bundle2 = Bundle()
-            bundle2.putSerializable("psychic", psychic)
-            findNavController().navigate(R.id.action_explore_psychics_expanded_to_request_reading_fragment, bundle2)
+            val bundle = Bundle()
+            bundle.putSerializable("psychic", psychic)
+            findNavController().navigate(R.id.action_explore_psychics_expanded_to_request_reading_fragment, bundle)
         }
         binding.sendprivatemessagebtn.setOnClickListener{
-            Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putSerializable("psychic", psychic)
+            findNavController().navigate(R.id.action_explore_psychics_expanded_to_message_thread_fragment, bundle)
         }
         binding.schedulelivesessionbtn.setOnClickListener{
             Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()

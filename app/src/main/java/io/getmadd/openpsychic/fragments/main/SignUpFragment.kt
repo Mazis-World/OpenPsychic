@@ -69,7 +69,7 @@ class SignUpFragment : Fragment() {
                                 "displayimgsrc" to " ",
                                 "username" to userNameET.text.toString(),
                                 "email" to userEmailET.text.toString(),
-                                "userID" to auth.currentUser!!.uid
+                                "userid" to auth.currentUser!!.uid
                             )
 
                             db.collection("users").document("$userID")
