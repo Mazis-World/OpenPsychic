@@ -1,6 +1,5 @@
 package io.getmadd.openpsychic.fragments.home
 
-import android.R
 import android.app.Activity
 import android.content.ContentValues
 import android.content.ContentValues.TAG
@@ -19,6 +18,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import android.R
 import io.getmadd.openpsychic.databinding.FragmentProfileBinding
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.User
@@ -261,8 +262,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadImages(profileImgSrc: String?, displayImgSrc: String?) {
+        Glide.with(this).load(io.getmadd.openpsychic.R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
         if (!profileImgSrc.isNullOrEmpty()) {
-            Glide.with(this).load(profileImgSrc).into(binding.profileImageView)
+            Glide.with(this).load(profileImgSrc).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
         }
         if (!displayImgSrc.isNullOrEmpty()) {
             Glide.with(this).load(displayImgSrc).into(binding.backdropImageView)

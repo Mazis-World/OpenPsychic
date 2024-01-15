@@ -3,16 +3,16 @@ package io.getmadd.openpsychic.model
 import java.io.Serializable
 
 class Psychic(
-    var userid: String,
-    var email: String,
-    var displayname: String,
-    var username: String,
-    var usertype: String,
-    var firstname: String,
-    var lastname: String,
-    var bio: String,
-    var profileimgsrc: String,
-    var displayimgsrc: String,
-    var psychicondisplay: Boolean,
-    var psychicondisplaycategory: String?
+    var userid: String? = null,
+    var email: String? = null,
+    var displayname: String? = null,
+    var username: String? = null,
+    var usertype: String? = null,
+    var firstname: String? = null,
+    var lastname: String? = null,
+    var bio: String? = null,
+    var profileimgsrc: String? = null,
+    var displayimgsrc: String? = null,
+    var psychicondisplay: Boolean? = null,
+    var psychicondisplaycategory: String?? = null
 ) : Serializable

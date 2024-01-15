@@ -10,7 +10,6 @@ class Message(
     val timestamp: Timestamp,
     val status: String
 ): Serializable {
-    // No-argument constructor for Firestore deserialization
     constructor() : this(
         receiverid = "",
         senderid= "",

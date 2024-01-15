@@ -34,7 +34,7 @@ class RequestReadingFragment : Fragment() {
         lateinit var psychic: Psychic
         if (bundle != null) {
             psychic = (bundle.getSerializable("psychic") as? Psychic)!!
-            psychicid = psychic.userid
+            psychicid = psychic.userid!!
             Log.e("RequestReadingFragment","Psychic Id:"+psychic.userid)
         }
         val readingMethods = resources.getStringArray(R.array.reading_methods)

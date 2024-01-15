@@ -35,20 +35,22 @@
         android:paddingBottom="8dp" />
 
     <!-- Empty View for No Request History -->
+
+    <!-- Messages Title -->
     <TextView
         android:id="@+id/emptyRequestTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/requestTitleTextView"
+        android:layout_alignParentEnd="true"
         android:fontFamily="sans-serif-black"
-        android:padding="16dp"
+        android:padding="8dp"
         android:text="No requests found."
         android:textColor="@color/op_purple_foreground_text"
         android:textSize="18sp"
         android:textStyle="italic"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
-    <!-- Messages Title -->
     <TextView
         android:id="@+id/messagesTitleTextView"
         android:layout_width="wrap_content"
@@ -76,20 +78,22 @@
         android:paddingBottom="8dp" />
 
     <!-- Empty View for No Message History -->
+
+    <!-- AdView -->
     <TextView
         android:id="@+id/emptyMessagesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/messagesTitleTextView"
+        android:layout_marginTop="4dp"
         android:fontFamily="sans-serif-black"
-        android:padding="16dp"
+        android:padding="8dp"
         android:text="No messages found."
         android:textColor="@color/op_purple_foreground_text"
         android:textSize="18sp"
         android:textStyle="italic"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
-    <!-- AdView -->
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         ads:adUnitId="ca-app-pub-2450865968732279/3052164001"

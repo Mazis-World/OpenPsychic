@@ -19,9 +19,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentHistoryBinding
 import io.getmadd.openpsychic.model.Message
+import io.getmadd.openpsychic.model.MessageMetaData
 
 
 class HistoryFragment : Fragment() {
@@ -30,7 +32,7 @@ class HistoryFragment : Fragment() {
     var db = Firebase.firestore
 
     var requestlist = ArrayList<Request>()
-    var messageslist = ArrayList<Message>()
+    var messageslist = ArrayList<MessageMetaData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +49,13 @@ class HistoryFragment : Fragment() {
 
         val userId = Firebase.auth.uid.toString()
 
-        val requestref = db.collection("users").document(userId).collection("request")
-        val messagesref = db.collection("users").document(userId).collection("messages")
+        val requestref = db.collection("users")
+            .document(userId)
+            .collection("request")
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+        val messagesref = db.collection("users")
+            .document(userId)
+            .collection("messages")
 
         binding.requestRecyclerView.adapter = RequestAdapter(requestlist) {}
         binding.requestRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -119,7 +126,7 @@ class HistoryFragment : Fragment() {
                                 // Process each document in the 'request' collection
                                 // For example, add data to userHistoryList
 
-                                val message = requestDocument.toObject(Message::class.java)
+                                val message = requestDocument.toObject(MessageMetaData::class.java)
 
                                 if (message != null) {
                                     messageslist.add(message)
@@ -130,9 +137,9 @@ class HistoryFragment : Fragment() {
 
                             if (messageQuerySnapshot.isEmpty) {
                                 // 'request' collection is empty
-                                binding.emptyRequestTextView.visibility = View.VISIBLE
+                                binding.emptyMessagesTextView.visibility = View.VISIBLE
                             } else {
-                                binding.emptyRequestTextView.visibility = View.GONE
+                                binding.emptyMessagesTextView.visibility = View.GONE
                             }
                         }
                         .addOnFailureListener { exception ->
@@ -143,7 +150,7 @@ class HistoryFragment : Fragment() {
                 } else {
                     // User document does not exist
                     Log.d(TAG, "User document does not exist for user ID: $userId")
-                    binding.emptyRequestTextView.visibility = View.VISIBLE
+                    binding.emptyMessagesTextView.visibility = View.VISIBLE
                 }
             }
             .addOnFailureListener { exception ->

@@ -24,7 +24,7 @@ class RequestAdapter(val items: MutableList<Request>, val listener: (Int) -> Uni
         holder.bind(items[position], position, listener)
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var specificquestiontextview: TextView = itemView.findViewById(R.id.specificquestiontextview)
+        var specificquestiontextview: TextView = itemView.findViewById(R.id.titletextview)
         var timestamptextview: TextView = itemView.findViewById(R.id.timestampTextView)
         var requestitemcardview: CardView = itemView.findViewById(R.id.requestitemcardview)
 

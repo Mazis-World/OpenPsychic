@@ -65,7 +65,7 @@ class ExplorePsychicsAdapter(
             itemView.findViewById(R.id.explore_psychics_expanded_card_background_IV)
 
         override fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) {
-            Log.e("ExplorePsychicsAdapter", item.displayimgsrc)
+            Log.e("ExplorePsychicsAdapter", item.displayimgsrc!!)
             if(item.displayimgsrc == "null"){
 
             }else{
