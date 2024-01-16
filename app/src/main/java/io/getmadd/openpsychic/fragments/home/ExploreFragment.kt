@@ -56,6 +56,9 @@ class ExploreFragment : Fragment() {
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
 
+        binding.exploreseemorebutton.setOnClickListener{
+            findNavController().navigate(R.id.action_explore_fragment_to_subscribe_premium_fragment)
+        }
 
         binding.homeCategory0.setOnClickListener {
             bundle.putString("category_type", getString(R.string.category_spirit))

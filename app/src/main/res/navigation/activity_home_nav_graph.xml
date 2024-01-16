@@ -4,6 +4,10 @@
     android:id="@+id/nav_graph2"
     app:startDestination="@id/explore_fragment">
 
+    <fragment
+        android:id="@+id/subscribe_premium_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.SubscribeFragment"
+        android:label="Subscrbie Fragment" />
 
     <fragment
         android:id="@+id/message_thread_fragment"
@@ -54,6 +58,9 @@
         <action
             android:id="@+id/action_explore_fragment_to_explore_article_fragment"
             app:destination="@id/explore_article_fragment" />
+        <action
+            android:id="@+id/action_explore_fragment_to_subscribe_premium_fragment"
+            app:destination="@id/subscribe_premium_fragment" />
     </fragment>
 
     <fragment
