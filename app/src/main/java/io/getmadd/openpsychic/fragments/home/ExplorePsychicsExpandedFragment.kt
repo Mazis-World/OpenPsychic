@@ -53,8 +53,11 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         binding.expandedDisplayNameTextView.text = psychic.displayname
         binding.expandedUsernameTextView.text = "@"+psychic.username
 
-        Glide.with(this).load(psychic.displayimgsrc).into(binding.expandedBackgroundImageView)
-
+        if(psychic.displayimgsrc != " "){
+            Glide.with(this).load(psychic.displayimgsrc).into(binding.expandedBackgroundImageView)
+        }
+        else
+            Glide.with(this).load(R.drawable.openpsychiclogo).into(binding.expandedBackgroundImageView)
 
         db.collection("users").document(userId)
             .get()

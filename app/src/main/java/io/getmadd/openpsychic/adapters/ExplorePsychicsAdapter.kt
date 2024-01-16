@@ -66,10 +66,10 @@ class ExplorePsychicsAdapter(
 
         override fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) {
             Log.e("ExplorePsychicsAdapter", item.displayimgsrc!!)
-            if(item.displayimgsrc == "null"){
-
-            }else{
+            if(item.displayimgsrc != " "){
                 Glide.with(itemView).load(item.displayimgsrc).into(backgroundImg)
+            }else{
+                Glide.with(itemView).load(R.drawable.openpsychiclogo).into(backgroundImg)
             }
 
             displayName.text = item.displayname
