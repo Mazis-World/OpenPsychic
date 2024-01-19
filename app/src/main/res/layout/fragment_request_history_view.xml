@@ -3,224 +3,375 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/op_purple">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/op_purple"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/requestreplyinputlayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Request Details -->
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Mark As Closed"
-            android:textColor="@color/op_red"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/timestamptextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Dec 21, 2023"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <TextView
-            android:id="@+id/statustextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Status"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timestamptextview" />
-
-        <TextView
-            android:id="@+id/fullnametextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:text="John Doe"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dobtextview" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Request"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/usernamettextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="&quot;@doejohn&quot;"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fullnametextview" />
-
-        <TextView
-            android:id="@+id/dobtextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="DOB: 11/21/84"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/energyfocustextview" />
-
-        <!-- Add more TextViews for other request details -->
-
-        <!-- Message Input -->
-
-        <TextView
-            android:id="@+id/subjecttextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:text="Subject: What is my future?"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statustextview" />
-
-        <TextView
-            android:id="@+id/energyfocustextview"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Energy Focus: Love"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subjecttextview" />
-
-        <TextView
-            android:id="@+id/opentoinsightstextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Open To Insights: Yes"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/energyfocustextview"
-            app:layout_constraintTop_toBottomOf="@+id/subjecttextview" />
-
-        <TextView
-            android:id="@+id/preferredreadingmethodtextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Preferred Reading Method"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/dobtextview"
-            app:layout_constraintTop_toBottomOf="@+id/opentoinsightstextview" />
-
-        <TextView
-            android:id="@+id/requestmessagetextview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Request Message"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernamettextview" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-        <!-- Send Button -->
-        <TextView
-            android:id="@+id/replytextview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Request Message"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/op_purple_accent"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/requestmessagetextview" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/replyreditextinputlayout"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            app:endIconCheckable="false"
-            app:endIconDrawable="@android:drawable/ic_menu_send"
-            app:hintTextColor="@color/op_purple_accent"
-            app:layout_constraintBottom_toTopOf="@+id/closebutton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/replyedittext"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
-                android:backgroundTint="@color/op_purple"
-                android:drawableEnd="@android:drawable/ic_menu_send"
-                android:ems="10"
-                android:hint="What do you think?"
-                android:inputType="text|textMultiLine"
-                android:textColorHint="@color/op_purple_accent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:background="@color/op_purple_accent"
+                android:backgroundTint="@color/op_purple_accent"
+                app:cardBackgroundColor="@color/op_purple_accent"
+                app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/closebutton"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/relativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Request Details -->
+
+                        <TextView
+                            android:id="@+id/timestamptextview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Dec 21, 2023"
+                            android:textColor="@color/op_purple"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/statustextview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Status"
+                            android:textColor="@color/op_purple"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Request"
+                            android:textColor="@color/op_purple"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Add more TextViews for other request details -->
+
+                        <!-- Message Input -->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/op_purple"
+                            android:backgroundTint="@color/op_purple"
+                            app:cardCornerRadius="6dp">
+
+                            <TextView
+                                android:id="@+id/fullnametextview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:padding="8dp"
+                                android:text="Full Name: John Doe"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textSize="14sp" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:cardBackgroundColor="@color/op_purple"
+                            app:cardCornerRadius="6dp">
+
+                            <TextView
+                                android:id="@+id/usernamettextview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:text="User Name: @doejohn"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textSize="14sp" />
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            app:cardBackgroundColor="@color/op_purple"
+                            app:cardCornerRadius="6dp">
+
+                            <TextView
+                                android:id="@+id/dobtextview2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:text="DOB: 11/21/84"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textSize="14sp"
+                                tools:layout_editor_absoluteX="24dp"
+                                tools:layout_editor_absoluteY="271dp" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/op_purple"
+                            app:cardCornerRadius="6dp">
+
+                            <TextView
+                                android:id="@+id/preferredreadingmethodtextview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="8dp"
+                                android:text="Reading Method"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textSize="14sp" />
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            app:cardBackgroundColor="@color/op_purple"
+                            app:cardCornerRadius="6dp">
+
+                            <TextView
+                                android:id="@+id/opentoinsightstextview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:text="Open To Insights: Yes"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textSize="14sp" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:background="@color/op_purple"
+                            app:cardCornerRadius="6dp">
+
+                            <TextView
+                                android:id="@+id/energyfocustextview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/op_purple"
+                                android:padding="8dp"
+                                android:text="Energy Focus: Love"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textSize="14sp" />
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardBackgroundColor="@color/op_purple"
+                        app:cardCornerRadius="6dp">
+
+                        <TextView
+                            android:id="@+id/subjecttextview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/op_purple"
+                            android:padding="8dp"
+                            android:text="Subject: What is my future?"
+                            android:textColor="@color/op_purple_foreground_text"
+                            android:textSize="14sp" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:cardCornerRadius="6dp">
+
+                        <TextView
+                            android:id="@+id/requestmessagetextview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/op_purple"
+                            android:padding="8dp"
+                            android:text="Request Message"
+                            android:textColor="@color/op_purple_foreground_text"
+                            android:textSize="14sp" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/psychic_request_response_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <Button
+                            android:id="@+id/requestacceptbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:backgroundTint="@color/op_purple"
+                            android:text="Accept"
+                            android:textColor="#8BC34A"
+                            app:icon="@drawable/check_mark"
+                            app:iconTint="#8BC34A" />
+
+                        <Button
+                            android:id="@+id/requestdenybutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:backgroundTint="@color/op_purple"
+                            android:text="Deny"
+                            android:textColor="#F44336"
+                            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+                            app:iconTint="#F44336" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/requestrepliesrecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/statuscupdatelayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/statusupdatetextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:textColor="#9B4BC0" />
+
+                <TextView
+                    android:id="@+id/statustimestamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#9D4CC3" />
+
+                <TextView
+                    android:id="@+id/closerequesttextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:foregroundGravity="clip_horizontal"
+                    android:padding="8dp"
+                    android:text="Close Request"
+                    android:textAlignment="center"
+                    android:textColor="#E91E63"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Input Layout for Message -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/requestreplyinputlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ECC3FF"
+        android:visibility="gone"
+        app:boxStrokeWidth="0dp"
+        app:endIconDrawable="@android:drawable/ic_menu_send"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@android:drawable/ic_menu_gallery">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/replyinputedittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Close"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:background="@color/op_purple"
+            android:hint="Message" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

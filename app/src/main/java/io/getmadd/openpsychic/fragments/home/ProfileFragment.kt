@@ -262,12 +262,17 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadImages(profileImgSrc: String?, displayImgSrc: String?) {
-        Glide.with(this).load(io.getmadd.openpsychic.R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
-        if (!profileImgSrc.isNullOrEmpty()) {
+        if (profileImgSrc != " ") {
             Glide.with(this).load(profileImgSrc).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
+        }else{
+            Glide.with(this).load(io.getmadd.openpsychic.R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
         }
-        if (!displayImgSrc.isNullOrEmpty()) {
+        if (displayImgSrc != " ") {
             Glide.with(this).load(displayImgSrc).into(binding.backdropImageView)
+        }
+        else{
+            Glide.with(this).load(io.getmadd.openpsychic.R.drawable.openpsychiclogo).into(binding.backdropImageView)
+
         }
     }
 

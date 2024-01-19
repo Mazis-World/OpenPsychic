@@ -89,6 +89,7 @@ class ExplorePsychicsExpandedFragment: Fragment() {
                 Toast.makeText(context,"Psychic Function Not Allowed",Toast.LENGTH_SHORT).show()
             }
             else {
+                usermetadata.psychicprofileimgsrc = psychic.profileimgsrc
                 val bundle = Bundle()
                 bundle.putSerializable("psychic", psychic)
                 bundle.putSerializable("usermetadata",usermetadata)

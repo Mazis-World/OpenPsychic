@@ -1,5 +1,6 @@
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,8 +47,8 @@ class MessageThreadAdapter(private val messageList: ArrayList<Message>, val data
             timestamp.text = content.timestamp.toDate().toString()
             Glide.with(this).load(R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(image)
 
-            if(data.receiverid != null) {
-                if (data.receiverid == content.senderid) {
+            if(content.senderid != null) {
+                if (userid != content.senderid) {
                     Glide.with(this).load(data.psychicprofileimgsrc)
                         .apply(RequestOptions.circleCropTransform()).into(image)
                 } else {

@@ -16,6 +16,7 @@ import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentRequestReadingBinding
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
+import io.getmadd.openpsychic.model.RequestStatusUpdate
 
 class RequestReadingFragment : Fragment() {
 
@@ -102,6 +103,9 @@ class RequestReadingFragment : Fragment() {
                         .addOnSuccessListener {
                             // io.getmadd.openpsychic.model.Request saved successfully
                             // You can perform additional actions here
+                            var requestStatusUpdate = RequestStatusUpdate()
+                            requestStatusUpdate.status = "created"
+                            requestStatusUpdate.timestamp = Timestamp.now()
                             Log.e("io.getmadd.openpsychic.model.Request Reading", "Sender io.getmadd.openpsychic.model.Request Submitting Successfully")
                             receiverref.set(request)
                                 .addOnSuccessListener {
@@ -110,6 +114,8 @@ class RequestReadingFragment : Fragment() {
                                     Log.e("io.getmadd.openpsychic.model.Request Reading", "Receiver io.getmadd.openpsychic.model.Request Submitting Successfully")
                                     findNavController().popBackStack()
                                     Toast.makeText(context,"Request Submitted Succesively",Toast.LENGTH_SHORT).show()
+                                    senderref.collection("status").document().set(requestStatusUpdate)
+                                    receiverref.collection("status").document().set(requestStatusUpdate)
                                 }
                                 .addOnFailureListener {
                                     // Handle failure

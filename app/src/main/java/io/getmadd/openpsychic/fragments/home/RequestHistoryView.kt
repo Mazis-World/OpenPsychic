@@ -1,23 +1,42 @@
 package io.getmadd.openpsychic.fragments.home
 
+import RequestMessagesAdapter
 import android.os.Bundle
-import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentRequestHistoryViewBinding
+import io.getmadd.openpsychic.model.Message
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
+import io.getmadd.openpsychic.model.RequestStatusUpdate
 
 
 class RequestHistoryView : Fragment() {
     private lateinit var binding: FragmentRequestHistoryViewBinding
+    private var userid = Firebase.auth.uid
+    private var usertype = "null"
+    private var db = Firebase.firestore
+    lateinit var request: Request
+    var messagelist = ArrayList<Message>()
+
+    lateinit var userrequestfef: DocumentReference
+    lateinit var psychicrequestref: DocumentReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,96 +45,196 @@ class RequestHistoryView : Fragment() {
         // Inflate the layout using data binding
         binding = FragmentRequestHistoryViewBinding.inflate(inflater, container, false)
         val bundle = arguments
-        lateinit var request: Request
         var userPsychic: Psychic
-        var db = Firebase.firestore
-        var userid = Firebase.auth.uid
-        var usertype = "null"
-
-        db.collection("users").document(userid!!).get()
-            .addOnSuccessListener { result ->
-                usertype = result.getString("usertype").toString()
-            }
-
-        var input : TextInputLayout = binding.replyreditextinputlayout
 
         if (bundle != null) {
 
             request = (bundle.getSerializable("request") as? Request)!!
             // Now you have access to the Psychic object in the Fragment
-            binding.closebutton.setOnClickListener {
-                findNavController().popBackStack()
-            }
             binding.timestamptextview.text = request.timestamp.toDate().toString()
             binding.statustextview.text = request.requeststatus
-            binding.fullnametextview.text = request.fullName
-            binding.subjecttextview.text = request.specificQuestion
-            binding.dobtextview.text = "DOB: " + request.dateOfBirth
+            binding.fullnametextview.text = "Full Name: "+request.fullName
+            binding.subjecttextview.text = "Subject: " + request.specificQuestion
             binding.energyfocustextview.text = "Energy Focus: " + request.energyFocus
             binding.preferredreadingmethodtextview.text =
-                "Preferred Reading Method: " + request.preferredReadingMethod
-            binding.opentoinsightstextview.text = "Open To Insights: " + request.openToInsights
-            binding.requestmessagetextview.text = request.message
-            binding.usernamettextview.visibility = View.GONE
+                "Reading Method: " + request.preferredReadingMethod
+            binding.opentoinsightstextview.text = "Open To Insights: ${if (request.openToInsights) "Y" else "N"}"
+            binding.requestmessagetextview.text = "Message: " + request.message
+        }
 
-            val userrequestfef = db.collection("users").document("$userid").collection("requests").document(request.senderid)
-            val psychicrequestref = db.collection("users").document("$userid").collection("requests").document(request.receiverid)
-
-            userrequestfef.get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        // The document exists, you can now update it
-                        val requestData = documentSnapshot.data
-                        // Continue to the next step
-                    } else {
-                        println("No such document!")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    println("Error getting document: $exception")
-                }
-
-            if(usertype == "psychic"){
-                binding.replyreditextinputlayout.visibility = View.VISIBLE
-
-                input.setEndIconOnClickListener {
-                    if(binding.replyedittext.text.toString() != ""){
-                        var txt = binding.replyedittext.text
-                        val reply = hashMapOf(
-                            "reply" to txt,
-                        )
-
-                        userrequestfef.update(reply as Map<String, Any>)
-                            .addOnSuccessListener {
-                                println("Document successfully updated!")
-                            }
-                            .addOnFailureListener { exception ->
-                                println("Error updating document: $exception")
-                            }
-
-                        psychicrequestref.update(reply as Map<String, Any>)
-                            .addOnSuccessListener {
-                                println("Document successfully updated!")
-                            }
-                            .addOnFailureListener { exception ->
-                                println("Error updating document: $exception")
-                            }
-
-                        binding.replytextview.text = txt
-                        binding.replyedittext.text =  Editable.Factory.getInstance().newEditable(" ")
-                        binding.replyedittext.visibility = View.GONE
-                    }
-                }
-            }
-            else{
-                binding.replyreditextinputlayout.visibility = View.GONE
+        db.collection("users").document(userid!!).get()
+            .addOnSuccessListener { result ->
+                usertype = result.getString("usertype").toString()
+                requeststatuslistener()
             }
 
-            if(request.reply.isNotEmpty()){
-                binding.replytextview.text = request.reply
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        userrequestfef = db.collection("users").document(request.senderid).collection("request").document(request.receiverid).collection("status").document()
+        psychicrequestref = db.collection("users").document(request.receiverid).collection("request").document(request.senderid).collection("status").document()
+        var requeststatus = RequestStatusUpdate()
+
+        binding.requestacceptbutton.setOnClickListener{
+
+            requeststatus.status = "accepted"
+            requeststatus.timestamp = Timestamp.now()
+            userrequestfef.set(requeststatus)
+            psychicrequestref.set(requeststatus)
+            binding.psychicRequestResponseLayout.visibility = View.GONE
+            binding.statuscupdatelayout.visibility = View.VISIBLE
+        }
+        binding.requestdenybutton.setOnClickListener{
+            requeststatus.status = "denied"
+            requeststatus.timestamp = Timestamp.now()
+            userrequestfef.set(requeststatus)
+            psychicrequestref.set(requeststatus)
+            binding.psychicRequestResponseLayout.visibility = View.GONE
+            binding.statuscupdatelayout.visibility = View.VISIBLE
+        }
+
+        binding.requestreplyinputlayout.setEndIconOnClickListener{
+            var userrequestref = db.collection("users").document(request.senderid).collection("request").document(request.receiverid).collection("messages")
+            var psychicrequestref = db.collection("users").document(request.receiverid).collection("request").document(request.senderid).collection("messages")
+            var message = Message()
+            if(binding.replyinputedittext.text!!.isNotEmpty()){
+                message.status = "sent"
+                message.message = binding.replyinputedittext.text.toString()
+                message.senderid = userid.toString()
+                message.receiverid = " "
+                message.timestamp = Timestamp.now()
+                psychicrequestref.document().set(message)
+                userrequestref.document().set(message)
+                binding.replyinputedittext.setText(" ")
             }
         }
-        return binding.root
+
+        binding.closerequesttextview.setOnClickListener{
+            requeststatus.status = "closed"
+            requeststatus.timestamp = Timestamp.now()
+            userrequestfef.set(requeststatus)
+            psychicrequestref.set(requeststatus)
+        }
+
+        binding.requestrepliesrecyclerview.adapter = RequestMessagesAdapter(messagelist,{})
+        binding.requestrepliesrecyclerview.layoutManager = LinearLayoutManager(context)
+
+        messageslistener()
+    }
+
+    fun messageslistener(){
+        var messagesref = db.collection("users").document(request.senderid).collection("request").document(request.receiverid).collection("messages")
+        var psychicmessagesref = db.collection("users").document(request.receiverid).collection("request").document(request.senderid).collection("messages")
+
+        messagesref
+            .orderBy("timestamp", Query.Direction.ASCENDING)
+            .addSnapshotListener { querySnapshot, exception ->
+                if (exception != null) {
+                    // Handle the exception
+                    return@addSnapshotListener
+                }
+
+                val messagesList = mutableListOf<Message>()
+                for (document in querySnapshot!!.documents) {
+                    val message = document.toObject(Message::class.java)
+                    if (message != null) {
+                        messagesList.add(message)
+                    }
+                }
+                (binding.requestrepliesrecyclerview.adapter as? RequestMessagesAdapter)?.apply {
+                    messagelist.clear()
+                    messagelist.addAll(messagesList)
+                    notifyDataSetChanged()
+                }
+            }    }
+
+    fun requeststatuslistener(){
+        var listenerRegistration: ListenerRegistration? = null
+        var userrequestfef = db.collection("users").document(request.receiverid).collection("request").document(request.senderid).collection("status").orderBy("timestamp")
+        var  psychicrequestref = db.collection("users").document(request.senderid).collection("request").document(request.receiverid).collection("status").orderBy("timestamp").orderBy("timestamp")
+
+        lateinit var requestref: Query
+
+        fun startListeningToField(fieldName: String, callback: (RequestStatusUpdate) -> Unit) {
+
+            requestref = if (usertype == "user"){
+                userrequestfef
+            } else{
+                psychicrequestref
+            }
+
+            listenerRegistration = requestref.addSnapshotListener { documentSnapshot, e ->
+                if (e != null) {
+                    // Handle errors
+                    return@addSnapshotListener
+                }
+
+                if (documentSnapshot != null) {
+                    Log.e("status", documentSnapshot.size().toString())
+                }
+
+
+                if (documentSnapshot != null && !documentSnapshot.isEmpty) {
+                    Log.e("status", documentSnapshot.size().toString())
+                    var statusupdate = RequestStatusUpdate()
+                    statusupdate.status = documentSnapshot.documents.last().data?.get("status").toString()
+                    statusupdate.timestamp = documentSnapshot.documents.last().data?.get("timestamp") as Timestamp
+
+                    callback.invoke((statusupdate ?: "") as RequestStatusUpdate)
+//                    } else {
+//                        // Handle the case where the field doesn't exist in the document
+//                    }
+                } else {
+                    var statusupdate = RequestStatusUpdate()
+                    statusupdate.status = "sent"
+                    callback.invoke((statusupdate ?: "") as RequestStatusUpdate)
+                    // Handle the case where the document doesn't exist
+                }
+            }
+        }
+
+        startListeningToField("status") {
+            Log.e("status", it.status)
+            view?.let { it1 -> statusupdateview(it.status,it.timestamp , it1) }
+        }
+    }
+
+    fun statusupdateview(requeststatus: String, statustimestamp: Timestamp, viewBinding:View  ){
+        val statuslayout = viewBinding.findViewById<LinearLayout>(R.id.psychic_request_response_layout)
+        val requestinputlayout = viewBinding.findViewById<LinearLayout>(R.id.requestreplyinputlayout)
+        val statusupdatelayout = viewBinding.findViewById<LinearLayout>(R.id.statuscupdatelayout)
+        val repliesrecycler = viewBinding.findViewById<RecyclerView>(R.id.requestrepliesrecyclerview)
+        val statusupdatetextview = viewBinding.findViewById<TextView>(R.id.statusupdatetextview)
+        val statusupdatetimestamptextview = viewBinding.findViewById<TextView>(R.id.statustimestamp)
+        val closerequesttextview = viewBinding.findViewById<TextView>(R.id.closerequesttextview)
+
+        Log.e("status", usertype)
+
+        if(usertype == "psychic" && requeststatus == "sent" || usertype == "psychic" && requeststatus == "created"){
+            statuslayout.visibility = View.VISIBLE
+        }
+        if(requeststatus == "created" || requeststatus == "sent"){
+            statusupdatetextview.text = "Request Created"
+        }
+        if(requeststatus == "accepted"){
+            statuslayout.visibility = View.GONE
+            requestinputlayout.visibility = View.VISIBLE
+            statusupdatelayout.visibility = View.VISIBLE
+            closerequesttextview.visibility = View.VISIBLE
+            statusupdatetextview.text = "Request Accepted"
+        }
+        if(requeststatus == "denied"){
+            statusupdatelayout.visibility = View.VISIBLE
+            statusupdatetextview.text = "Request Denied"
+        }
+        if(requeststatus == "closed"){
+            closerequesttextview.visibility = View.GONE
+            requestinputlayout.visibility = View.GONE
+            statusupdatetextview.text = "Request Closed"
+        }
+        statusupdatetimestamptextview.text = statustimestamp.toDate().toString()
     }
 
 }

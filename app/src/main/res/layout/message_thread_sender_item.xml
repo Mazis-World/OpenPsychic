@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="@color/op_purple"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="Received message"
-                android:textColor="@color/op_purple" />
+                android:textColor="@color/op_purple_foreground_text" />
 
         </com.google.android.material.card.MaterialCardView>
 

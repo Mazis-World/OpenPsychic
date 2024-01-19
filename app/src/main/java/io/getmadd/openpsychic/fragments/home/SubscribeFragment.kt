@@ -23,7 +23,9 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsBinding
 import io.getmadd.openpsychic.databinding.FragmentSubscribePremiumBinding
 import io.getmadd.openpsychic.model.Psychic
@@ -32,6 +34,7 @@ import io.getmadd.openpsychic.model.Psychic
 class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
 
     private lateinit var _binding: FragmentSubscribePremiumBinding
+    private lateinit var customLayout: View
     private val binding get() = _binding
     val db = Firebase.firestore
     private lateinit var billingClient: BillingClient
@@ -50,6 +53,7 @@ class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                     // Billing client is ready. You can query purchases or make purchases here.
+                    Log.e("BillingClient",billingResult.responseCode.toString() )
                 }
             }
 
@@ -73,12 +77,27 @@ class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
     }
 
     private fun handlePurchase(purchase: Purchase) {
-        // Handle the purchase here, you can update UI or grant the purchased content
+        val db = Firebase.firestore
+        val uid = Firebase.auth.uid
+        val subsref = db.collection("subscriptions").document("$uid")
+        val userref = db.collection("users").document("$uid")
+
+    // Handle the purchase here, you can update UI or grant the purchased content
+        val subscriptionData = hashMapOf(
+            "orderid" to purchase.orderId,
+            "autorenewing" to purchase.isAutoRenewing,
+            "startDate" to purchase.purchaseTime,
+        )
+
+        userref.update("ispremium",true)
+        subsref.collection("subscriptions").document(purchase.orderId!!).set(subscriptionData)
+        userref.collection("subscriptions").document(purchase.orderId!!).set(subscriptionData)
+        binding.root.addView(customLayout)
     }
 
     // To initiate the purchase
     private fun initiatePurchase() {
-        val skuList = listOf("new_user_subscription")
+        val skuList = listOf("openpsychicpremium")
         val params = SkuDetailsParams.newBuilder()
             .setSkusList(skuList)
             .setType(BillingClient.SkuType.SUBS)
@@ -86,12 +105,13 @@ class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
 
         billingClient.querySkuDetailsAsync(params) { billingResult, skuDetailsList ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+                Log.e("Billing Client", skuDetailsList.toString())
                 for (skuDetails in skuDetailsList) {
-                    val flowParams = BillingFlowParams.newBuilder()
-                        .setSkuDetails(skuDetails)
-                        .build()
-
-                    billingClient.launchBillingFlow(requireActivity(), flowParams)
+                        val flowParams = BillingFlowParams.newBuilder()
+                            .setSkuDetails(skuDetails)
+                            .build()
+                        Log.e("BillingClient",flowParams.toString() )
+                        billingClient.launchBillingFlow(requireActivity(), flowParams)
                 }
             }
         }
@@ -107,6 +127,7 @@ class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSubscribePremiumBinding.inflate(inflater, container, false)
+        customLayout = inflater.inflate(R.layout.view_welcome_subscriber, container, false)
         return binding.root
 
     }
@@ -116,6 +137,7 @@ class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.subscribepremiumbutton.setOnClickListener{
+            Log.e("BillingClient","Subscribe Premium" )
             initiatePurchase()
         }
     }

@@ -4,11 +4,11 @@ import com.google.firebase.Timestamp
 import java.io.Serializable
 
 class Message(
-    val receiverid: String,
-    val senderid: String,
-    val message: String,
-    val timestamp: Timestamp,
-    val status: String
+    var receiverid: String,
+    var senderid: String,
+    var message: String,
+    var timestamp: Timestamp,
+    var status: String
 ): Serializable {
     constructor() : this(
         receiverid = "",
