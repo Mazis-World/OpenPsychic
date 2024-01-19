@@ -3,11 +3,13 @@ package io.getmadd.openpsychic.fragments.home
 import RequestMessagesAdapter
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -112,10 +114,18 @@ class RequestHistoryView : Fragment() {
         }
 
         binding.closerequesttextview.setOnClickListener{
-            requeststatus.status = "closed"
-            requeststatus.timestamp = Timestamp.now()
-            userrequestfef.set(requeststatus)
-            psychicrequestref.set(requeststatus)
+            AlertDialog.Builder(requireActivity(),R.style.AlertDialogCustom)
+                .setTitle("Are you sure you'd like to close this request?")
+                .setPositiveButton("CLOSE",) { _, _ ->
+                    requeststatus.status = "closed"
+                    requeststatus.timestamp = Timestamp.now()
+                    userrequestfef.set(requeststatus)
+                    psychicrequestref.set(requeststatus)
+                }
+                .setNegativeButton("CANCEL") { dialog, _ ->
+                    dialog.cancel()
+                }
+                .create().show()
         }
 
         binding.requestrepliesrecyclerview.adapter = RequestMessagesAdapter(messagelist,{})
