@@ -55,6 +55,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="msg_token_fmt">Token: %s</string>
 
 
 </resources>
