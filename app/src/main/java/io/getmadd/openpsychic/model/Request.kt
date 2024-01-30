@@ -18,6 +18,7 @@ class Request(
     var messagetype: String = "",
     var requestid: String = "",
     var requesttype: String = "",
+    var requestcategory: String = "",
     var reply:String = ""
 ) : Serializable {
     // No-argument constructor for Firestore deserialization
@@ -36,6 +37,7 @@ class Request(
         messagetype = "",
         requestid = "",
         requesttype = "",
+        requestcategory = "",
         reply = ""
     )
 }

@@ -1,0 +1,60 @@
+<!-- dialog_rating.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@color/op_purple"
+    android:backgroundTint="@color/op_purple"
+    android:elevation="4dp"
+    app:cardBackgroundColor="@color/op_purple">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="start"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Rating Bar -->
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Review Psychic Experience"
+            android:textColor="@color/op_purple_accent"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/op_purple_foreground_text"
+            android:foregroundTint="@color/op_purple_foreground_text"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/op_purple_foreground_text"
+            android:progressTint="@color/op_gold"
+            android:stepSize="1.0" />
+
+        <!-- Message Field -->
+        <EditText
+            android:id="@+id/messageEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/op_purple_foreground_text"
+            android:hint="Optional message..."
+            android:textColorHint="@color/op_purple_foreground_text"
+            android:textCursorDrawable="@color/op_purple_foreground_text"
+            app:strokeColor="@color/op_purple_foreground_text" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/op_purple_accent"
+            android:text="Submit" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

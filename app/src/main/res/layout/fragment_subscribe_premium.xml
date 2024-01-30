@@ -198,7 +198,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/op_gold"
                 android:padding="8dp"
-                android:text="SUBSCRIBE FOR 3.99/Mo"
+                android:text="SUBSCRIBE"
                 android:textStyle="bold" />
 
             <TextView

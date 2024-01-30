@@ -16,4 +16,9 @@
         <item>Astrology</item>
         <item>Numerology</item>
     </string-array>
+    <string-array name="request_type">
+        <item>Text Reading</item>
+        <item>Voice Reading</item>
+        <item>Video Reading</item>
+    </string-array>
 </resources>

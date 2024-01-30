@@ -18,7 +18,7 @@ import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
 import io.getmadd.openpsychic.model.RequestStatusUpdate
 
-class RequestReadingFragment : Fragment() {
+class RequestReadingFragment(category: String) : Fragment() {
 
     private lateinit var binding: FragmentRequestReadingBinding
     private var db = Firebase.firestore
@@ -65,8 +65,9 @@ class RequestReadingFragment : Fragment() {
                 "sent",
                 "request",
                 " ",
-                "reading"
-            )
+                "Text Reading",
+                psychic.psychicondisplaycategory!!
+                )
 
             // Save the request to the database (replace this with your database logic)
             saveRequestToDatabase(request)

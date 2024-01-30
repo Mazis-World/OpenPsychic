@@ -7,8 +7,12 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +31,7 @@ import io.getmadd.openpsychic.model.Message
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
 import io.getmadd.openpsychic.model.RequestStatusUpdate
-
+import androidx.fragment.app.FragmentManager
 
 class RequestHistoryView : Fragment() {
     private lateinit var binding: FragmentRequestHistoryViewBinding
@@ -243,8 +247,31 @@ class RequestHistoryView : Fragment() {
             closerequesttextview.visibility = View.GONE
             requestinputlayout.visibility = View.GONE
             statusupdatetextview.text = "Request Closed"
+            requestClosedRateReviewPsychic()
         }
         statusupdatetimestamptextview.text = statustimestamp.toDate().toString()
     }
 
+    fun requestClosedRateReviewPsychic() {
+        var userreview = db.collection("users").document(request.receiverid).collection("request").document(request.senderid).collection("review")
+
+        if (usertype == "user") {
+            userreview.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val documentSnapshot = task.result
+                    if (documentSnapshot == null || documentSnapshot.isEmpty) {
+                        // The collection doesn't exist or is empty
+                        // Show your dialog here
+                        val dialog = RatingDialogFragment(request)
+                        dialog.show(fragmentManager!!,"RequestReviewDialog")
+                    }
+                } else {
+                    // review submitted
+                    // An error occurred while fetching the collection
+                    // Handle the error as needed
+                    // task.exception?.let { handleException(it) }
+                }
+            }
+        }
+    }
 }
