@@ -28,7 +28,7 @@
             android:textStyle="bold" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/explorepsychicsratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/op_purple_foreground_text"

@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.include.topNavBellIconImageView.setOnClickListener {
-            Toast.makeText(this,"No Notifications",Toast.LENGTH_LONG).show()
+            navController.navigate(R.id.notification_fragment)
         }
 
 

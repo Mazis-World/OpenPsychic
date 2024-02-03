@@ -1,11 +1,6 @@
 package io.getmadd.openpsychic.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "UserProfile")
-data class User(
-    @PrimaryKey
+class User(
     var userid: String,
     var email: String,
     var displayname: String,

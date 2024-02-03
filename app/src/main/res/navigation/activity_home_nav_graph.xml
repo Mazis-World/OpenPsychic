@@ -20,6 +20,10 @@
         android:name="RequestReadingFragment"
         android:label="Request Reading" />
 
+    <fragment
+        android:id="@+id/notification_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.NotificationFragment"
+        android:label="Notification Reading" />
 
     <fragment
         android:id="@+id/explore_psychics_expanded"

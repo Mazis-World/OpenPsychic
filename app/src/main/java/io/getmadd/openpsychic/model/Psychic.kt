@@ -2,7 +2,7 @@ package io.getmadd.openpsychic.model
 
 import java.io.Serializable
 
-class Psychic(
+class Psychic (
     var userid: String? = null,
     var email: String? = null,
     var displayname: String? = null,

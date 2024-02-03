@@ -22,7 +22,7 @@
         android:theme="@style/Theme.OpenPsychic.NoActionBar"
         tools:targetApi="31">
         <service
-            android:name="MessagingService"
+            android:name="NotificationsService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -56,6 +56,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".services.SubscriptionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.vending.RECEIVE_SUBSCRIPTION_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

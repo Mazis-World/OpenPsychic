@@ -24,6 +24,7 @@ import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentHistoryBinding
 import io.getmadd.openpsychic.model.Message
 import io.getmadd.openpsychic.model.MessageMetaData
+import io.getmadd.openpsychic.services.UserPreferences
 
 
 class HistoryFragment : Fragment() {
@@ -158,28 +159,33 @@ class HistoryFragment : Fragment() {
                 Log.e(TAG, "Error getting user document: ${exception.message}", exception)
             }
 
+        var prefs = UserPreferences(requireContext())
+        var subscriptionstate = prefs.subscriptionstate
 
-        val adView: AdView = binding.historybannerad
-        val adRequest: AdRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        if(subscriptionstate == "active"){
+        }else {
+            val adView: AdView = binding.historybannerad
+            val adRequest: AdRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
 
-        val adRequest1 = AdRequest.Builder().build()
+            val adRequest1 = AdRequest.Builder().build()
 
-        InterstitialAd.load(
-            context!!,
-            "ca-app-pub-2450865968732279/8716388373",
-            adRequest1,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d(TAG, adError.message)
+            InterstitialAd.load(
+                context!!,
+                "ca-app-pub-2450865968732279/8716388373",
+                adRequest1,
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.d(TAG, adError.message)
+                    }
+
+                    override fun onAdLoaded(ad: InterstitialAd) {
+                        Log.d(TAG, "Ad was loaded.")
+                        activity?.let { ad.show(it) }
+                    }
                 }
-
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    Log.d(TAG, "Ad was loaded.")
-                    activity?.let { ad.show(it) }
-                }
-            }
-        )
+            )
+        }
 
     }
 

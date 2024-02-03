@@ -6,7 +6,8 @@
     android:layout_height="225dp"
     android:layout_margin="8dp"
     android:elevation="4dp"
-    android:radius="8dp">
+    android:radius="8dp"
+    app:cardCornerRadius="6dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,7 +53,30 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- RatingBar in the upper right corner -->
+
         </LinearLayout>
 
     </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="-8dp"
+        android:layout_marginRight="-70dp">
+
+        <RatingBar
+            android:id="@+id/explorepsychicsratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="@color/op_gold"
+            android:rating="3"
+            android:scaleX=".3"
+            android:scaleY=".3"
+            android:stepSize="0.5" />
+    </FrameLayout>
+
 </androidx.cardview.widget.CardView>

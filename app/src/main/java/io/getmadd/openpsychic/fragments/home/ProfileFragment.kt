@@ -31,6 +31,7 @@ import android.R
 import io.getmadd.openpsychic.databinding.FragmentProfileBinding
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.User
+import io.getmadd.openpsychic.services.UserPreferences
 
 class ProfileFragment : Fragment() {
 
@@ -69,58 +70,65 @@ class ProfileFragment : Fragment() {
         binding.profileImageView.setOnClickListener {
             selectImage(binding.profileImageView)
         }
-        binding.updateButton.setOnClickListener {
-            updateUserDate()
-        }
-        // Add listener to the on/off switch
-        binding.psychicOnDisplaySwitch.setOnCheckedChangeListener { _, isChecked ->
-            handlePsychicOnDisplaySwitchChanged(isChecked)
-        }
+//        binding.updateButton.setOnClickListener {
+//            updateUserDate()
+//        }
+//        // Add listener to the on/off switch
+//        binding.psychicOnDisplaySwitch.setOnCheckedChangeListener { _, isChecked ->
+//            handlePsychicOnDisplaySwitchChanged(isChecked)
+//        }
 
-        // Add listener to the spinner
-        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // Handle the selection change
-                selectedCategory = parent?.getItemAtPosition(position).toString()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Handle case where nothing is selected (optional)
-            }
-        }
-        val adRequest1 = AdRequest.Builder().build()
-
-        InterstitialAd.load(
-            context!!,
-            "ca-app-pub-2450865968732279/3376431783",
-            adRequest1,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d(TAG, adError.message)
-                }
-
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    Log.d(TAG, "Ad was loaded.")
-                    activity?.let { ad.show(it) }
-                }
-            }
-        )
+//        // Add listener to the spinner
+//        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                // Handle the selection change
+//                selectedCategory = parent?.getItemAtPosition(position).toString()
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//                // Handle case where nothing is selected (optional)
+//            }
+//        }
 
     }
 
     private fun handlePsychicOnDisplaySwitchChanged(isChecked: Boolean) {
-        if (isChecked) {
-            // The switch is enabled, perform action to add the user to the database
-            addPsychicToDatabase()
-            binding.categorySpinner.isEnabled = false
-        } else {
-            // The switch is disabled, perform action to remove the user from the database
-            removePsychicFromDatabase()
-            binding.categorySpinner.isEnabled = true
-        }
+//        if (isChecked) {
+//            // The switch is enabled, perform action to add the user to the database
+//            addPsychicToDatabase()
+//            binding.categorySpinner.isEnabled = false
+//        } else {
+//            // The switch is disabled, perform action to remove the user from the database
+//            removePsychicFromDatabase()
+//            binding.categorySpinner.isEnabled = true
+//        }
     }
 
     private fun setupUI() {
+        var prefs = UserPreferences(requireContext())
+        var subscriptionstate = prefs.subscriptionstate
+
+        if(subscriptionstate == "active"){
+        }else {
+            val adRequest1 = AdRequest.Builder().build()
+
+            InterstitialAd.load(
+                context!!,
+                "ca-app-pub-2450865968732279/3376431783",
+                adRequest1,
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.d(TAG, adError.message)
+                    }
+
+                    override fun onAdLoaded(ad: InterstitialAd) {
+                        Log.d(TAG, "Ad was loaded.")
+                        activity?.let { ad.show(it) }
+                    }
+                }
+            )
+        }
+
         db.collection("users").document(userId)
             .get()
             .addOnSuccessListener { result ->
@@ -143,7 +151,7 @@ class ProfileFragment : Fragment() {
                     )
 
                     binding.displayNameTV.text = "Base User "
-                    binding.psychicLayout.visibility = View.GONE
+//                    binding.psychicLayout.visibility = View.GONE
 
                     binding.usersnameTV.text = "@" + user?.username
                     binding.bioEditText.text = Editable.Factory.getInstance()
@@ -169,7 +177,7 @@ class ProfileFragment : Fragment() {
                         psychicondisplaycategory = result.getString("psychicondisplaycategory").toString()
                     )
 
-                    binding.psychicLayout.visibility = View.VISIBLE
+//                    binding.psychicLayout.visibility = View.VISIBLE
                     binding.displayNameTV.text = psychic?.displayname
 
                     binding.usersnameTV.text = "@" + psychic?.username
@@ -180,8 +188,8 @@ class ProfileFragment : Fragment() {
 
                     if(psychic?.psychicondisplay == true){
                         selectedCategory = psychic!!.psychicondisplaycategory
-                        binding.psychicOnDisplaySwitch.isChecked = true
-                        binding.categorySpinner.isEnabled = false
+//                        binding.psychicOnDisplaySwitch.isChecked = true
+//                        binding.categorySpinner.isEnabled = false
                         categorySpinnerList(selectedCategory!!)
                     }
                 }
@@ -213,12 +221,12 @@ class ProfileFragment : Fragment() {
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
         // Apply the adapter to the spinner
-        binding.categorySpinner.adapter = adapter
+//        binding.categorySpinner.adapter = adapter
 
         // Set the selected value programmatically (e.g., setting to "Category3")
         val position = adapter.getPosition(selectedCategory)
 
-        binding.categorySpinner.setSelection(position)
+//        binding.categorySpinner.setSelection(position)
     }
 
     private fun addPsychicToDatabase() {

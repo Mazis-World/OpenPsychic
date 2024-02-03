@@ -81,15 +81,18 @@ class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
         val uid = Firebase.auth.uid
         val subsref = db.collection("subscriptions").document("$uid")
         val userref = db.collection("users").document("$uid")
+        val thirtyonedays = 1646467200
 
     // Handle the purchase here, you can update UI or grant the purchased content
         val subscriptionData = hashMapOf(
             "orderid" to purchase.orderId,
+            "purchasetoken" to purchase.purchaseToken,
             "autorenewing" to purchase.isAutoRenewing,
-            "startDate" to purchase.purchaseTime,
+            "stardate" to purchase.purchaseTime,
+            "enddate" to purchase.purchaseTime + thirtyonedays, //logic for purchase time + 30 days
+            "state" to "active" // active or inactive
         )
 
-        userref.update("ispremium",true)
         subsref.collection("subscriptions").document(purchase.orderId!!).set(subscriptionData)
         userref.collection("subscriptions").document(purchase.orderId!!).set(subscriptionData)
         binding.root.addView(customLayout)

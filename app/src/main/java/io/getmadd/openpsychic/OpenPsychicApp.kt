@@ -1,27 +1,27 @@
 package io.getmadd.openpsychic
-import RoomDb
 import android.app.Activity
 import android.app.Application
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
-import android.widget.Toast
+import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.firestore.FirebaseFirestore
 import io.getmadd.openpsychic.activity.HomeActivity
 import io.getmadd.openpsychic.activity.MainActivity
-import io.getmadd.openpsychic.services.AppRepo
+import io.getmadd.openpsychic.model.Psychic
+import io.getmadd.openpsychic.model.User
+import io.getmadd.openpsychic.services.UserPreferences
 import java.util.*
 
 // real ad unit id = ca-app-pub-2450865968732279/1583553486
@@ -34,14 +34,16 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
 
     private lateinit var appOpenAdManager: AppOpenAdManager
     private var currentActivity: Activity? = null
-    val repository by lazy { currentActivity?.let { AppRepo(it.application) } }
-    val database by lazy { currentActivity?.let { RoomDb.getDatabase(it.applicationContext) } }
+    private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+    private var activesubscription = false
 
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(this)
-
-        val auth = FirebaseAuth.getInstance()
+        FirebaseApp.initializeApp(this)
+        db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
         auth.addAuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser == null) {
                 if (javaClass != MainActivity::class.java) {
@@ -50,6 +52,7 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
                     startActivity(intent)
                 }
             } else {
+                saveusertosharedprefs()
                 Log.i("firebase", "AuthState changed to " + firebaseAuth.currentUser!!.uid)
                 if (javaClass != HomeActivity::class.java) {
                     var intent = Intent(this, HomeActivity::class.java)
@@ -58,9 +61,10 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
                 }
             }
         }
-
         // Log the Mobile Ads SDK version.
         Log.d(LOG_TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion())
+
+
         MobileAds.initialize(this) {}
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         appOpenAdManager = AppOpenAdManager()
@@ -136,7 +140,7 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
          */
         fun loadAd(context: Context) {
             // Do not load ad if there is an unused ad or one is already loading.
-            if (isLoadingAd || isAdAvailable()) {
+            if (isLoadingAd || isAdAvailable() || activesubscription) {
                 return
             }
 
@@ -255,6 +259,46 @@ class OpenPsychicApp : Application(), Application.ActivityLifecycleCallbacks, Li
             isShowingAd = true
             appOpenAd!!.show(activity)
         }
+    }
+
+    fun saveusertosharedprefs(){
+        var userid = auth.uid
+        var sharedpref = UserPreferences(this)
+
+        db.collection("users").document(userid!!)
+            .get()
+            .addOnSuccessListener { result ->
+                sharedpref.saveUser(
+                        userid = result.getString("userid").toString(),
+                        email = result.getString("email").toString(),
+                        displayname = result.getString("displayname").toString(),
+                        username = result.getString("username").toString(),
+                        usertype = result.getString("usertype").toString(),
+                        firstname = result.getString("firstname").toString(),
+                        lastname = result.getString("lastname").toString(),
+                        bio = result.getString("bio").toString(),
+                        profileimgsrc = result.getString("profileimgsrc").toString(),
+                        displayimgsrc = result.getString("displayimgsrc").toString(),
+                )
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+
+
+        db.collection("users").document(userid).collection("subscriptions").whereEqualTo("state","active")
+            .get()
+            .addOnSuccessListener { result ->
+                Log.e("Subscription", result.toString())
+                if(!result.isEmpty){
+                    result.documents[0].getString("state")?.let { Log.e("Subscription", it) }
+                    sharedpref.saveSubscription("active")
+                    activesubscription = true
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
     }
 
 }

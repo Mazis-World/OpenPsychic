@@ -14,7 +14,7 @@ import com.google.firebase.messaging.RemoteMessage
 import io.getmadd.openpsychic.activity.MainActivity
 import java.util.Random
 
-class MessagingService : FirebaseMessagingService() {
+class NotificationsService : FirebaseMessagingService() {
 
     override fun onCreate() {
         super.onCreate()

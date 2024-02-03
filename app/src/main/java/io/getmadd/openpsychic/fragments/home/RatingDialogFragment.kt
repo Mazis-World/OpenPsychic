@@ -28,7 +28,7 @@ class RatingDialogFragment(request: Request) : DialogFragment() {
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.dialog_rating_psychic, null)
 
-        val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar)
+        val ratingBar = view.findViewById<RatingBar>(R.id.explorepsychicsratingBar)
         val messageEditText = view.findViewById<EditText>(R.id.messageEditText)
         val submitButton =view.findViewById<Button>(R.id.submitButton)
 
