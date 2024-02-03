@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:cardBackgroundColor="@color/op_purple"
+            app:cardCornerRadius="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:orientation="vertical"
-                    android:paddingBottom="10dp">
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:id="@+id/displayNameTV"
@@ -85,39 +86,15 @@
         <!-- Editable Fields -->
 
         <!-- Grouped Layout for Psychic Specialty and On Display State -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="6dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView11">
-
-            <EditText
-                android:id="@+id/bioEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/psychicLayout"
-                android:layout_alignParentBottom="true"
-                android:background="@color/op_purple_accent"
-                android:gravity="top|left"
-                android:hint="Bio"
-                android:paddingBottom="8dp"
-                android:visibility="visible" />
-        </androidx.cardview.widget.CardView>
 
         <View
             android:id="@+id/divider14"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="8dp"
             android:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView12" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView11" />
 
         <include
             android:id="@+id/include4"
