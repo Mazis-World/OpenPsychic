@@ -17,10 +17,11 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView11"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_margin="8dp"
             app:cardBackgroundColor="@color/op_purple"
             app:cardCornerRadius="6dp"
+            app:layout_constraintBottom_toTopOf="@+id/divider14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -28,21 +29,33 @@
             <ImageView
                 android:id="@+id/backdropImageView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/op_logo" />
 
+            <Button
+                android:id="@+id/updateButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right"
+                android:backgroundTint="#00DB8FFF"
+                android:text="Update"
+                android:textColor="@color/white"
+                android:visibility="visible" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
                 <ImageView
                     android:id="@+id/profileImageView"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="100dp"
                     android:elevation="4dp"
                     android:scaleType="center" />
 
@@ -51,15 +64,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:orientation="vertical"
-                    android:paddingBottom="20dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/displayNameTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:hint="Display Name"
                         android:textColor="@color/op_gold"
@@ -69,7 +79,7 @@
                         android:id="@+id/usersnameTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:layout_gravity="bottom"
                         android:layout_marginEnd="16dp"
                         android:hint="Username"
                         android:textColor="@color/op_purple_accent"
@@ -99,10 +109,11 @@
         <include
             android:id="@+id/include4"
             layout="@layout/banner_subscribe"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/divider7"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,72 +144,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider7">
 
-            <TextView
-                android:id="@+id/textView24"
+            <LinearLayout
+                android:id="@+id/accountlayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="8dp"
-                android:text="Settings"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/textView26"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Account "
-                    android:textSize="20sp" />
-
-                <ImageView
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                android:background="?android:attr/listDivider"
-                android:backgroundTint="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:text="Psychic"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Account "
-                    android:textSize="20sp" />
+                    android:padding="8dp"
+                    android:text="Account"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/imageView7"
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:layout_weight="1" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/down_arrow" />
             </LinearLayout>
 
             <View
@@ -209,15 +177,31 @@
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/textView28"
+            <LinearLayout
+                android:id="@+id/notificationslayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="8dp"
-                android:text="Notifications"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Notifications"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/down_arrow" />
+
+            </LinearLayout>
 
             <View
                 android:id="@+id/divider10"
@@ -227,15 +211,30 @@
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/textView29"
+            <LinearLayout
+                android:id="@+id/privacylayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="8dp"
-                android:text="Privacy "
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Privacy "
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/down_arrow" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/divider6"
@@ -245,33 +244,62 @@
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/textView30"
+            <LinearLayout
+                android:id="@+id/aboutlayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="8dp"
-                android:text="About"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="About"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/down_arrow" />
+            </LinearLayout>
 
             <View
-                android:id="@+id/divider5"
+                android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_weight="1"
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/textView31"
+            <LinearLayout
+                android:id="@+id/termslayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="8dp"
-                android:text="Terms &amp; Policies"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Terms &amp; Policies "
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/down_arrow" />
+
+            </LinearLayout>
 
             <View
                 android:id="@+id/divider4"
@@ -281,15 +309,61 @@
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/textView33"
+            <LinearLayout
+                android:id="@+id/helplayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="8dp"
-                android:text="Help"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Help"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/down_arrow" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="#FFFFFF" />
+
+            <LinearLayout
+                android:id="@+id/rateuslayoutbutton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Rate us on Google Play "
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/down_arrow" />
+
+            </LinearLayout>
 
             <View
                 android:id="@+id/divider9"
@@ -299,17 +373,19 @@
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="#FFFFFF" />
 
-            <Button
-                android:id="@+id/button2"
+            <TextView
+                android:id="@+id/logouttextbutton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:padding="8dp"
-                android:text="Logout " />
+                android:text="Logout"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textView36"
+                android:id="@+id/versionnumbertextview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center|center_horizontal"
@@ -320,75 +396,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/psychicLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <!-- Psychic Specialty Title -->
-            <TextView
-                android:id="@+id/psychicSpecialtyTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Psychic Specialty"
-                android:textColor="@color/op_gold"
-                android:textSize="18sp" />
-
-            <!-- Dropdown List -->
-            <Spinner
-                android:id="@+id/categorySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:clickable="false"
-                android:entries="@array/psychic_categories"
-                android:prompt="@string/select_category" />
-
-            <!-- Psychic On Display Layout -->
-            <LinearLayout
-                android:id="@+id/psychicOnDisplayLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
-
-                <!-- Psychic On Display Title -->
-                <TextView
-                    android:id="@+id/psychicOnDisplayTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Psychic On Display"
-                    android:textColor="@color/op_gold"
-                    android:textSize="18sp" />
-
-                <!-- On/Off Switch -->
-                <Switch
-                    android:id="@+id/psychicOnDisplaySwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:thumbTint="@color/op_gold"
-                    android:trackTint="@color/op_purple_accent" />
-            </LinearLayout>
-
-        </LinearLayout>
-
         <!-- Bio EditText -->
-
-        <Button
-            android:id="@+id/updateButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/op_purple_accent"
-            android:text="Update"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -39,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
                 .setNegativeButton("Cancel") { dialog, which ->
                     dialog.cancel()
                 }.create().show()
-
         }
 
         binding.include.topNavBellIconImageView.setOnClickListener {

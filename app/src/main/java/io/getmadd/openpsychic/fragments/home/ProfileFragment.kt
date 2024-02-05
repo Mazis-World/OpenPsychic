@@ -1,22 +1,24 @@
 package io.getmadd.openpsychic.fragments.home
 
 import android.app.Activity
-import android.content.ContentValues
+import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.ads.AdRequest
@@ -27,7 +29,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import android.R
+import io.getmadd.openpsychic.BuildConfig
+import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentProfileBinding
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.User
@@ -50,6 +53,8 @@ class ProfileFragment : Fragment() {
     private var user: User? = null
     private var psychic: Psychic? = null
     private var selectedCategory: String? = null
+    var versionName: String = BuildConfig.VERSION_NAME
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,9 +75,49 @@ class ProfileFragment : Fragment() {
         binding.profileImageView.setOnClickListener {
             selectImage(binding.profileImageView)
         }
-//        binding.updateButton.setOnClickListener {
-//            updateUserDate()
-//        }
+        binding.updateButton.setOnClickListener {
+            updateUserDate()
+        }
+
+        binding.accountlayoutbutton.setOnClickListener{
+            findNavController().navigate(R.id.account_fragment)
+        }
+        binding.notificationslayoutbutton.setOnClickListener{
+//            findNavController().navigate(R.id.notification_fragment)
+        }
+        binding.privacylayoutbutton.setOnClickListener{
+            Toast.makeText(context, "Privacy",Toast.LENGTH_SHORT).show()
+        }
+        binding.aboutlayoutbutton.setOnClickListener{
+            Toast.makeText(context, "About",Toast.LENGTH_SHORT).show()
+        }
+        binding.termslayoutbutton.setOnClickListener{
+            Toast.makeText(context, "Terms",Toast.LENGTH_SHORT).show()
+        }
+        binding.helplayoutbutton.setOnClickListener{
+            Toast.makeText(context, "Help",Toast.LENGTH_SHORT).show()
+        }
+        binding.rateuslayoutbutton.setOnClickListener{
+            openAppPageForRating()
+        }
+        binding.logouttextbutton.setOnClickListener{
+            val builder: AlertDialog.Builder =
+                AlertDialog.Builder(ContextThemeWrapper(context, R.style.AlertDialogCustom))
+
+            builder
+                .setMessage("Are you sure you want to logout?")
+                .setTitle("Logout")
+                .setCancelable(false)
+                .setPositiveButton("Logout") { dialog, which ->
+                    FirebaseAuth.getInstance().signOut()
+                }
+                .setNegativeButton("Cancel") { dialog, which ->
+                    dialog.cancel()
+                }.create().show()
+        }
+        binding.versionnumbertextview.text = "V." + versionName
+
+
 //        // Add listener to the on/off switch
 //        binding.psychicOnDisplaySwitch.setOnCheckedChangeListener { _, isChecked ->
 //            handlePsychicOnDisplaySwitchChanged(isChecked)
@@ -90,6 +135,15 @@ class ProfileFragment : Fragment() {
 //            }
 //        }
 
+    }
+
+    fun openAppPageForRating() {
+        try {
+            startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=io.getmadd.openpsychic")));
+        } catch (e: ActivityNotFoundException) {
+            // If Play Store app is not installed, open the URL in a web browser
+            startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=io.getmadd.openpsychic")));
+        }
     }
 
     private fun handlePsychicOnDisplaySwitchChanged(isChecked: Boolean) {
@@ -215,10 +269,10 @@ class ProfileFragment : Fragment() {
         )
 
         // Creating an ArrayAdapter using the string array and a default spinner layout
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, psychicCategories)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, psychicCategories)
 
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         // Apply the adapter to the spinner
 //        binding.categorySpinner.adapter = adapter

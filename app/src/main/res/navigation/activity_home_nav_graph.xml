@@ -4,10 +4,16 @@
     android:id="@+id/nav_graph2"
     app:startDestination="@id/explore_fragment">
 
+
+    <fragment
+        android:id="@+id/account_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.AccountFragment"
+        android:label="Account Fragment" />
+
     <fragment
         android:id="@+id/subscribe_premium_fragment"
         android:name="io.getmadd.openpsychic.fragments.home.SubscribeFragment"
-        android:label="Subscrbie Fragment" />
+        android:label="Subscribe Fragment" />
 
     <fragment
         android:id="@+id/message_thread_fragment"
