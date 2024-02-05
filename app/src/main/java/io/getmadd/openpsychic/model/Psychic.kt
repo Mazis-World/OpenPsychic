@@ -1,5 +1,6 @@
 package io.getmadd.openpsychic.model
 
+import com.google.firebase.Timestamp
 import java.io.Serializable
 
 class Psychic (
@@ -14,5 +15,23 @@ class Psychic (
     var profileimgsrc: String? = null,
     var displayimgsrc: String? = null,
     var psychicondisplay: Boolean? = null,
-    var psychicondisplaycategory: String?? = null
-) : Serializable
+    var psychicondisplaycategory: String? = null,
+    var psychicrating: Float? = null
+) : Serializable {
+    constructor() : this(
+        userid = "",
+        email = "",
+        displayname = "",
+        username = "",
+        usertype = "",
+        firstname = "",
+        lastname = "",
+        bio = "",
+        profileimgsrc = "",
+        displayimgsrc = "",
+        psychicondisplay = false,
+        psychicondisplaycategory = "",
+        psychicrating = 0.0F,
+
+    )
+}

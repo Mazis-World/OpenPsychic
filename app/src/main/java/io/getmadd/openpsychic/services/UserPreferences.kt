@@ -33,28 +33,49 @@ class UserPreferences(context: Context) {
         editor.apply()
     }
 
-    val uid: String?
+    var uid: String?
         get() = sharedPreferences.getString(key_uid, "")
-    val email: String?
+        set(value) = sharedPreferences.edit().putString(key_uid, value).apply()
+
+    var email: String?
         get() = sharedPreferences.getString(key_email, "")
-    val displayname: String?
+        set(value) = sharedPreferences.edit().putString(key_email, value).apply()
+
+    var displayname: String?
         get() = sharedPreferences.getString(key_displayname, "")
-    val username: String?
+        set(value) = sharedPreferences.edit().putString(key_displayname, value).apply()
+
+    var username: String?
         get() = sharedPreferences.getString(key_username, "")
-    val usertype: String?
+        set(value) = sharedPreferences.edit().putString(key_username, value).apply()
+
+    var usertype: String?
         get() = sharedPreferences.getString(key_usertype, "")
-    val firstname: String?
+        set(value) = sharedPreferences.edit().putString(key_usertype, value).apply()
+
+    var firstname: String?
         get() = sharedPreferences.getString(key_firstname, "")
-    val lastname: String?
+        set(value) = sharedPreferences.edit().putString(key_firstname, value).apply()
+
+    var lastname: String?
         get() = sharedPreferences.getString(key_lastname, "")
-    val bio: String?
+        set(value) = sharedPreferences.edit().putString(key_lastname, value).apply()
+
+    var bio: String?
         get() = sharedPreferences.getString(key_bio, "")
-    val profileimgsrc: String?
+        set(value) = sharedPreferences.edit().putString(key_bio, value).apply()
+
+    var profileimgsrc: String?
         get() = sharedPreferences.getString(key_profileimgsrc, "")
-    val displayimgsrc: String?
+        set(value) = sharedPreferences.edit().putString(key_profileimgsrc, value).apply()
+
+    var displayimgsrc: String?
         get() = sharedPreferences.getString(key_displayimgsrc, "")
-    val subscriptionstate: String?
+        set(value) = sharedPreferences.edit().putString(key_displayimgsrc, value).apply()
+
+    var subscriptionstate: String?
         get() = sharedPreferences.getString(key_subscriptionstate, "")
+        set(value) = sharedPreferences.edit().putString(key_subscriptionstate, value).apply()
 
     companion object {
         private const val pref_name = "user_prefs"

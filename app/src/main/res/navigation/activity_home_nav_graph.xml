@@ -3,7 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph2"
     app:startDestination="@id/explore_fragment">
-
+    <fragment
+        android:id="@+id/privacy_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.PrivacyFragment"
+        android:label="Privacy Fragment" />
+    <fragment
+        android:id="@+id/notif_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.NotificationsFragment"
+        android:label="Notifications Fragment" />
+    <fragment
+        android:id="@+id/terms_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.TermsFragment"
+        android:label="Terms Fragment" />
 
     <fragment
         android:id="@+id/account_fragment"

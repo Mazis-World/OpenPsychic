@@ -21,7 +21,46 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <EditText
+                    android:id="@+id/usernameEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="User Name"
+                    android:textColor="@color/op_purple_foreground_text"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/nameupdatebutton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="update"
+                    android:textColor="@color/op_purple_accent" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="@color/op_purple_foreground_text" />
+        </LinearLayout>
+
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -33,15 +72,19 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <TextView
+            <EditText
+                android:id="@+id/displaynameedittext"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Display Name"
                 android:textColor="@color/op_purple_foreground_text"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:background="@android:color/transparent"
+                />
 
             <Button
+                android:id="@+id/displaynameupdatebutton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,41 +112,7 @@
             android:padding="8dp">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="FullName"
-                android:textColor="@color/op_purple_foreground_text"
-                android:textSize="18sp" />
-
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="update"
-                android:textColor="@color/op_purple_accent" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="?android:attr/listDivider"
-            android:backgroundTint="@color/op_purple_foreground_text" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
+                android:id="@+id/biographytextview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -112,6 +121,7 @@
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/biographyupdatebutton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,19 +150,22 @@
             android:padding="8dp">
 
             <TextView
+                android:id="@+id/emailedittext"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:text="Email"
                 android:textColor="@color/op_purple_foreground_text"
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/emailupdatebutton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="update"
-                android:textColor="@color/op_purple_accent" />
+                android:textColor="#A6EFCEFF" />
         </LinearLayout>
 
         <View
@@ -188,7 +201,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="update"
-                android:textColor="@color/op_purple_accent" />
+                android:textColor="#A6EFCEFF">
+
+            </Button>
         </LinearLayout>
 
         <View
@@ -211,19 +226,22 @@
             android:padding="8dp">
 
             <TextView
+                android:id="@+id/phonenumberedittext"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:text="Phone Number"
                 android:textColor="@color/op_purple_foreground_text"
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/phoneupdatebutton"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="update"
-                android:textColor="@color/op_purple_accent" />
+                android:textColor="#A6EFCEFF" />
         </LinearLayout>
 
         <View
@@ -234,205 +252,215 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Psychic"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Country of Origin"
-                android:textColor="@color/op_purple_foreground_text"
-                android:textSize="18sp" />
-
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="update"
-                android:textColor="@color/op_purple_accent" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="?android:attr/listDivider"
-            android:backgroundTint="@color/op_purple_foreground_text" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Year of Origin"
-                android:textColor="@color/op_purple_foreground_text"
-                android:textSize="18sp" />
-
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="update"
-                android:textColor="@color/op_purple_accent" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="?android:attr/listDivider"
-            android:backgroundTint="@color/op_purple_foreground_text" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/psychicLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!-- Psychic Specialty Title -->
-        <TextView
-            android:id="@+id/psychicSpecialtyTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Psychic Specialty"
-            android:textColor="@color/op_purple_foreground_text"
-            android:textSize="18sp" />
-
-        <!-- Dropdown List -->
-        <Spinner
-            android:id="@+id/categorySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:clickable="false"
-            android:entries="@array/psychic_categories"
-            android:prompt="@string/select_category" />
-
-        <!-- Psychic On Display Layout -->
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/op_purple_foreground_text" />
-
-    <LinearLayout
-        android:id="@+id/psychicOnDisplayLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <!-- Psychic On Display Title -->
-        <TextView
-            android:id="@+id/psychicOnDisplayTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Psychic On Display"
-            android:textColor="@color/op_purple_foreground_text"
-            android:textSize="18sp" />
-
-        <!-- On/Off Switch -->
-        <Switch
-            android:id="@+id/psychicOnDisplaySwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:thumbTint="@color/op_gold"
-            android:trackTint="@color/op_purple_accent" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/op_purple_foreground_text" />
-
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Payment Methods"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
+            android:id="@+id/psychicsettingslayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Psychic"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Add A Payment Method"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Country of Origin"
+                        android:textColor="@color/op_purple_foreground_text"
+                        android:textSize="18sp" />
+
+                    <Button
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="update"
+                        android:textColor="@color/op_purple_accent" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?android:attr/listDivider"
+                    android:backgroundTint="@color/op_purple_foreground_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/p"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Year of Origin"
+                        android:textColor="@color/op_purple_foreground_text"
+                        android:textSize="18sp" />
+
+                    <Button
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="update"
+                        android:textColor="@color/op_purple_accent" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?android:attr/listDivider"
+                    android:backgroundTint="@color/op_purple_foreground_text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/psychicLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Psychic Specialty Title -->
+                <TextView
+                    android:id="@+id/psychicSpecialtyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Psychic Specialty"
                     android:textColor="@color/op_purple_foreground_text"
                     android:textSize="18sp" />
+
+                <!-- Dropdown List -->
+                <Spinner
+                    android:id="@+id/categorySpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="false"
+                    android:entries="@array/psychic_categories"
+                    android:prompt="@string/select_category" />
+
+                <!-- Psychic On Display Layout -->
 
             </LinearLayout>
 
             <View
+                android:id="@+id/view4"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="@color/op_purple_foreground_text" />
 
+            <LinearLayout
+                android:id="@+id/psychicOnDisplayLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <!-- Psychic On Display Title -->
+                <TextView
+                    android:id="@+id/psychicOnDisplayTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Psychic On Display"
+                    android:textColor="@color/op_purple_foreground_text"
+                    android:textSize="18sp" />
+
+                <!-- On/Off Switch -->
+                <Switch
+                    android:id="@+id/psychicOnDisplaySwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:thumbTint="@color/op_gold"
+                    android:trackTint="@color/op_purple_accent" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="@color/op_purple_foreground_text" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Payment Methods"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Add A Payment Method"
+                            android:textColor="@color/op_purple_foreground_text"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="@color/op_purple_foreground_text" />
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
 </ScrollView>

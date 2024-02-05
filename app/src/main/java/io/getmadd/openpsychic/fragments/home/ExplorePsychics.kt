@@ -18,6 +18,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsBinding
+import io.getmadd.openpsychic.model.MessageMetaData
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.services.UserPreferences
 
@@ -62,20 +63,8 @@ class ExplorePsychics : Fragment() {
 
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
-                    val psychic = Psychic(
-                        username = document.getString("username")!!,
-                        displayname = document.getString("displayname")!!,
-                        email = document.getString("email")!!,
-                        userid = document.getString("userid")!!,
-                        firstname = document.getString("firstname")!!,
-                        lastname = document.getString("lastname")!!,
-                        displayimgsrc = document.getString("displayimgsrc")!!,
-                        profileimgsrc = document.getString("profileimgsrc")!!,
-                        bio = document.getString("bio")!!,
-                        usertype = document.getString("usertype")!!,
-                        psychicondisplay = document.getBoolean("psychicondisplay")!!,
-                        psychicondisplaycategory = document.getString("psychicondisplaycategory")!!,
-                    )
+                    val psychic = document.toObject(Psychic::class.java)
+
                     listofPsychics.add(psychic)
                 }
                 binding.recyclerView.adapter?.notifyDataSetChanged()

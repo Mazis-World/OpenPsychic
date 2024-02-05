@@ -1,9 +1,11 @@
+import android.media.Rating
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.cardview.widget.CardView
@@ -61,6 +63,7 @@ class ExplorePsychicsAdapter(
         private val cvItem: CardView = itemView.findViewById(R.id.fragment_explore_psychics_card)
         private val displayName: TextView = itemView.findViewById(R.id.displayNameTextView)
         private val userName: TextView = itemView.findViewById(R.id.usernameTextView)
+        private val starRating: RatingBar = itemView.findViewById(R.id.explorepsychicsratingBar)
         private val backgroundImg: ImageView =
             itemView.findViewById(R.id.explore_psychics_expanded_card_background_IV)
 
@@ -81,6 +84,8 @@ class ExplorePsychicsAdapter(
             cvItem.setOnClickListener {
                 findNavController(view = itemView).navigate(R.id.action_explore_psychics_to_explore_psychics_expanded, bundle)
             }
+
+            starRating.rating = item.psychicrating!!
         }
     }
 }

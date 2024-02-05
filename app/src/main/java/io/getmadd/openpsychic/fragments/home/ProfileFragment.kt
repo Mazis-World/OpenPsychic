@@ -78,21 +78,20 @@ class ProfileFragment : Fragment() {
         binding.updateButton.setOnClickListener {
             updateUserDate()
         }
-
         binding.accountlayoutbutton.setOnClickListener{
             findNavController().navigate(R.id.account_fragment)
         }
         binding.notificationslayoutbutton.setOnClickListener{
-//            findNavController().navigate(R.id.notification_fragment)
+            findNavController().navigate(R.id.notif_fragment)
+        }
+        binding.termslayoutbutton.setOnClickListener{
+            findNavController().navigate(R.id.terms_fragment)
         }
         binding.privacylayoutbutton.setOnClickListener{
-            Toast.makeText(context, "Privacy",Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.privacy_fragment)
         }
         binding.aboutlayoutbutton.setOnClickListener{
             Toast.makeText(context, "About",Toast.LENGTH_SHORT).show()
-        }
-        binding.termslayoutbutton.setOnClickListener{
-            Toast.makeText(context, "Terms",Toast.LENGTH_SHORT).show()
         }
         binding.helplayoutbutton.setOnClickListener{
             Toast.makeText(context, "Help",Toast.LENGTH_SHORT).show()
@@ -205,11 +204,8 @@ class ProfileFragment : Fragment() {
                     )
 
                     binding.displayNameTV.text = "Base User "
-//                    binding.psychicLayout.visibility = View.GONE
 
                     binding.usersnameTV.text = "@" + user?.username
-//                    binding.bioEditText.text = Editable.Factory.getInstance()
-//                        .newEditable(user?.bio ?: "Edit Your Bio")
                     profileImgSrc = user?.profileimgsrc
                     displayImgSrc = user?.displayimgsrc
 
@@ -405,12 +401,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateUserDate() {
-//        val updatedBio = binding.bioEditText.text.toString()
         if (profileImageURI != null || backdropImageURI != null) {
             uploadImageToFirebaseStorage()
         }
-//        if (updatedBio.isNotEmpty()) {
-//            db.collection("users").document(auth.uid!!).update("bio", updatedBio)
-//        }
     }
 }
