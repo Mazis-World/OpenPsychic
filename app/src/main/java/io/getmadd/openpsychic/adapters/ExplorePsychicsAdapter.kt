@@ -23,17 +23,10 @@ class ExplorePsychicsAdapter(
 ) : RecyclerView.Adapter<ExplorePsychicsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return if ((viewType + 1) % 3 == 0) {
-            AdViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.explore_psychics_ad_item, parent, false)
-            )
-        } else {
-            PsychicViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fragment_explore_psychics_card, parent, false)
-            )
-        }
+        return  PsychicViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.fragment_explore_psychics_card, parent, false)
+        )
     }
 
     override fun getItemCount() = items.size
@@ -85,7 +78,10 @@ class ExplorePsychicsAdapter(
                 findNavController(view = itemView).navigate(R.id.action_explore_psychics_to_explore_psychics_expanded, bundle)
             }
 
-            starRating.rating = item.psychicrating!!
+            if(item.psychicrating != null){
+                starRating.rating = item.psychicrating!!
+            }
+            else starRating.rating = 0F
         }
     }
 }

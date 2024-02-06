@@ -15,10 +15,20 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/textView38"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add A Payment Method"
+            android:textColor="@color/op_purple_foreground_text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/textView36"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Biography "
+            android:padding="8dp"
+            android:text="Payment Provider "
             android:textColor="@color/op_purple_foreground_text"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -27,18 +37,45 @@
             android:id="@+id/paymentprovideredittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:background="#00FFFFFF"
             android:gravity="top"
-            android:hint="Say what you need to say."
+            android:hint="ex: Chime"
             android:inputType="textMultiLine"
-            android:minLines="5"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@color/op_purple_foreground_text"
+            android:textColorHint="@color/op_purple_foreground_text"
+            android:textCursorDrawable="@color/op_gold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:gravity="top"
+            android:hint="Payment Address"
+            android:inputType="textMultiLine"
+            android:padding="8dp"
+            android:textColor="@color/op_purple_foreground_text"
+            android:textColorHint="@color/op_purple_foreground_text"
+            android:textCursorDrawable="@color/op_gold"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/paymentaddresset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:gravity="top"
+            android:hint="ex: @Chimebag"
+            android:inputType="textMultiLine"
+            android:maxLines="1"
+            android:padding="8dp"
             android:textColor="@color/op_purple_foreground_text"
             android:textColorHint="@color/op_purple_foreground_text"
             android:textCursorDrawable="@color/op_gold" />
 
         <Button
-            android:id="@+id/updateButton"
+            android:id="@+id/addpaymentupdatebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

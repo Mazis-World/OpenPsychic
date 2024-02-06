@@ -13,10 +13,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.R
+import io.getmadd.openpsychic.adapters.PaymentMethodAdapter
 import io.getmadd.openpsychic.databinding.FragmentAccountBinding
+import io.getmadd.openpsychic.model.PaymentMethod
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.services.UserPreferences
 import java.util.Calendar
@@ -32,6 +35,7 @@ class AccountFragment: Fragment() {
     private var psychicondisplay = false
     private lateinit var psychicondisplaycategory: String
     private var psychic = Psychic()
+    var listpaymentmethods = ArrayList<PaymentMethod>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,6 +90,24 @@ class AccountFragment: Fragment() {
                 .addOnFailureListener { exception ->
                     Log.w(ContentValues.TAG, "Error getting documents.", exception)
                 }
+
+        binding.paymentmethodrecyclerview.layoutManager = LinearLayoutManager(context)
+        binding.paymentmethodrecyclerview.adapter = PaymentMethodAdapter(items = listpaymentmethods) {}
+
+        db.collection("users").document(prefs.uid!!).collection("paymentmethods")
+            .get()
+            .addOnSuccessListener { result ->
+                for(result in result){
+                    var method = result.toObject(PaymentMethod::class.java)
+                    listpaymentmethods.add(method)
+                }
+
+                binding.paymentmethodrecyclerview.adapter?.notifyDataSetChanged()
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
 
     }
 
@@ -154,7 +176,6 @@ class AccountFragment: Fragment() {
         binding.biographytextview.text = prefs.bio
         binding.emailedittext.text = prefs.email
 
-
         binding.nameupdatebutton.setOnClickListener {
             if(psychicondisplay){
                 Toast.makeText(context, "Psychic On Display, Cannot Update", Toast.LENGTH_SHORT).show()
@@ -186,7 +207,7 @@ class AccountFragment: Fragment() {
         binding.biographylayoutbutton.setOnClickListener{
             val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_update_bio, null)
 
-            val bioEditText = dialogView.findViewById<EditText>(R.id.bioEditText)
+            val bioEditText = dialogView.findViewById<EditText>(R.id.paymentprovideredittext)
             val updateButton = dialogView.findViewById<Button>(R.id.updateButton)
 
             val builder = AlertDialog.Builder(context!!)
@@ -203,7 +224,6 @@ class AccountFragment: Fragment() {
             }
             dialog.show()
 
-
             updateButton.setOnClickListener {
                 val updatedBio = bioEditText.text.toString()
                 if(prefs.bio != updatedBio && updatedBio != " "){
@@ -217,6 +237,32 @@ class AccountFragment: Fragment() {
                 dialog.dismiss()
             }
         }
+        binding.addpaymentmethodlayoutbutton.setOnClickListener{
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_payment_add, null)
+
+            val updatebutton = dialogView.findViewById<Button>(R.id.addpaymentupdatebutton)
+            val provider = dialogView.findViewById<EditText>(R.id.paymentprovideredittext)
+            val address = dialogView.findViewById<EditText>(R.id.paymentaddresset)
+
+            val builder = AlertDialog.Builder(context!!)
+                .setView(dialogView)
+            val dialog = builder.create()
+
+            updatebutton.setOnClickListener {
+                val method = PaymentMethod()
+
+                if(provider.text.isNotEmpty() && address.text.isNotEmpty()){
+                    method.provider = provider.text.toString()
+                    method.address = address.text.toString()
+                    db.collection("users").document(prefs.uid!!).collection("paymentmethods").document().set(method).addOnCompleteListener{
+                        Toast.makeText(context ,"Success!", Toast.LENGTH_SHORT).show()
+                    }
+                    dialog.dismiss()
+                }
+            }
+
+            dialog.show()
+        }
     }
 
     fun isYearValid(year: Int): Boolean {
@@ -225,7 +271,6 @@ class AccountFragment: Fragment() {
         val latestValidYear = currentYear // Adjust this based on your requirements
         return year in earliestValidYear..latestValidYear
     }
-
 
     private fun handlePsychicOnDisplaySwitchChanged(isChecked: Boolean) {
         if (isChecked) {
@@ -248,7 +293,7 @@ class AccountFragment: Fragment() {
             .document(selectedCategory!!)
             .collection("psychicsOnDisplay")
             .document(prefs.uid!!)
-            .set(psychic!!)
+            .set(psychic)
             .addOnSuccessListener {
                 Log.d(ContentValues.TAG, "User added as a psychic with category: $selectedCategory")
                 db.collection("users").document(prefs.uid!!).update("psychicondisplay", true, "psychicondisplaycategory", selectedCategory)
@@ -288,7 +333,6 @@ class AccountFragment: Fragment() {
 
     private fun removePsychicFromDatabase() {
        psychicondisplay = false
-
         selectedCategory.let {
             if (it != null) {
                 db.collection("psychicOnDisplay")

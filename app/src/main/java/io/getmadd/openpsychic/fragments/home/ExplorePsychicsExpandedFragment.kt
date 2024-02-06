@@ -49,7 +49,12 @@ class ExplorePsychicsExpandedFragment: Fragment() {
             psychic = (bundle.getSerializable("psychic") as? Psychic)!!
             // Now you have access to the Psychic object in the Fragment
         }
-        binding.explorepsychicexpandedsratingBar.rating = psychic.psychicrating!!
+        if(psychic.psychicrating != null){
+            binding.explorepsychicexpandedsratingBar.rating = psychic.psychicrating!!
+        }
+        else {
+            binding.explorepsychicexpandedsratingBar.rating = 0F
+        }
         binding.expandedBioTextView.text = psychic.bio
         binding.expandedDisplayNameTextView.text = psychic.displayname
         binding.expandedUsernameTextView.text = "@"+psychic.username
