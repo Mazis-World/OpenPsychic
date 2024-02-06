@@ -51,8 +51,6 @@ class ProfileFragment : Fragment() {
     private var displayImgSrc: String? = null
     private var userType: String? = null
     private var user: User? = null
-    private var psychic: Psychic? = null
-    private var selectedCategory: String? = null
     var versionName: String = BuildConfig.VERSION_NAME
 
 
@@ -116,53 +114,23 @@ class ProfileFragment : Fragment() {
         }
         binding.versionnumbertextview.text = "V." + versionName
 
-
-//        // Add listener to the on/off switch
-//        binding.psychicOnDisplaySwitch.setOnCheckedChangeListener { _, isChecked ->
-//            handlePsychicOnDisplaySwitchChanged(isChecked)
-//        }
-
-//        // Add listener to the spinner
-//        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                // Handle the selection change
-//                selectedCategory = parent?.getItemAtPosition(position).toString()
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                // Handle case where nothing is selected (optional)
-//            }
-//        }
-
     }
 
     fun openAppPageForRating() {
         try {
-            startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=io.getmadd.openpsychic")));
+            startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=io.getmadd.openpsychic")))
         } catch (e: ActivityNotFoundException) {
             // If Play Store app is not installed, open the URL in a web browser
-            startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=io.getmadd.openpsychic")));
+            startActivity( Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=io.getmadd.openpsychic")))
         }
-    }
-
-    private fun handlePsychicOnDisplaySwitchChanged(isChecked: Boolean) {
-//        if (isChecked) {
-//            // The switch is enabled, perform action to add the user to the database
-//            addPsychicToDatabase()
-//            binding.categorySpinner.isEnabled = false
-//        } else {
-//            // The switch is disabled, perform action to remove the user from the database
-//            removePsychicFromDatabase()
-//            binding.categorySpinner.isEnabled = true
-//        }
     }
 
     private fun setupUI() {
         var prefs = UserPreferences(requireContext())
         var subscriptionstate = prefs.subscriptionstate
 
-        if(subscriptionstate == "active"){
-        }else {
+        if (subscriptionstate == "active") {
+        } else {
             val adRequest1 = AdRequest.Builder().build()
 
             InterstitialAd.load(
@@ -182,154 +150,24 @@ class ProfileFragment : Fragment() {
             )
         }
 
-        db.collection("users").document(userId)
-            .get()
-            .addOnSuccessListener { result ->
-                userType = result.getString("usertype").toString()
+        binding.usersnameTV.text = "@${prefs.username}"
+        binding.displayNameTV.text = prefs.displayname
 
-                if(userType == "user") {
+        loadImages(prefs.profileimgsrc, prefs.displayimgsrc)
 
-                    user = User(
-                        userid = result.getString("userid").toString(),
-                        email = result.getString("email").toString(),
-                        displayname = result.getString("displayname").toString(),
-                        username = result.getString("username").toString(),
-                        usertype = result.getString("usertype").toString(),
-                        firstname = result.getString("firstname").toString(),
-                        lastname = result.getString("lastname").toString(),
-                        bio = result.getString("bio").toString(),
-                        profileimgsrc = result.getString("profileimgsrc").toString(),
-                        displayimgsrc = result.getString("displayimgsrc").toString(),
-                        joinedlivestreams = null
-                    )
-
-                    binding.displayNameTV.text = "Base User "
-
-                    binding.usersnameTV.text = "@" + user?.username
-                    profileImgSrc = user?.profileimgsrc
-                    displayImgSrc = user?.displayimgsrc
-
-                }
-                else if (userType == "psychic"){
-
-                    psychic = Psychic(
-                        userid = result.getString("userid").toString(),
-                        email = result.getString("email").toString(),
-                        displayname = result.getString("displayname").toString(),
-                        username = result.getString("username").toString(),
-                        usertype = result.getString("usertype").toString(),
-                        firstname = result.getString("firstname").toString(),
-                        lastname = result.getString("lastname").toString(),
-                        bio = result.getString("bio").toString(),
-                        profileimgsrc = result.getString("profileimgsrc").toString(),
-                        displayimgsrc = result.getString("displayimgsrc").toString(),
-                        psychicondisplay = result.getBoolean("psychicondisplay")!!,
-                        psychicondisplaycategory = result.getString("psychicondisplaycategory").toString()
-                    )
-
-//                    binding.psychicLayout.visibility = View.VISIBLE
-                    binding.displayNameTV.text = psychic?.displayname
-
-                    binding.usersnameTV.text = "@" + psychic?.username
-//                    binding.bioEditText.text = Editable.Factory.getInstance()
-//                        .newEditable(psychic?.bio ?: "Edit Your Bio")
-                    profileImgSrc = psychic?.profileimgsrc
-                    displayImgSrc = psychic?.displayimgsrc
-
-                    if(psychic?.psychicondisplay == true){
-                        selectedCategory = psychic!!.psychicondisplaycategory
-//                        binding.psychicOnDisplaySwitch.isChecked = true
-//                        binding.categorySpinner.isEnabled = false
-                        categorySpinnerList(selectedCategory!!)
-                    }
-                }
-
-                loadImages(profileImgSrc,displayImgSrc)
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
-    }
-
-    private fun categorySpinnerList(selectedcategory:String){
-       val psychicCategories = listOf(
-            "Past Lives",
-            "Dream Interpretations",
-            "Love & Relationships",
-            "Fortune Telling",
-            "Palm Readings",
-            "Astrology",
-            "Lingering Spirits",
-            "Tarot Readings",
-            "General Readings"
-        )
-
-        // Creating an ArrayAdapter using the string array and a default spinner layout
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, psychicCategories)
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // Apply the adapter to the spinner
-//        binding.categorySpinner.adapter = adapter
-
-        // Set the selected value programmatically (e.g., setting to "Category3")
-        val position = adapter.getPosition(selectedCategory)
-
-//        binding.categorySpinner.setSelection(position)
-    }
-
-    private fun addPsychicToDatabase() {
-
-        psychic!!.psychicondisplay = true
-        psychic!!.psychicondisplaycategory = selectedCategory
-
-        db.collection("psychicOnDisplay")
-            .document(selectedCategory!!)
-            .collection("psychicsOnDisplay")
-            .document(userId)
-            .set(psychic!!)
-            .addOnSuccessListener {
-                Log.d(TAG, "User added as a psychic with category: $selectedCategory")
-                db.collection("users").document(userId).update("psychicondisplay", true, "psychicondisplaycategory", selectedCategory)
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Error adding user as a psychic: $e")
-            }
-    }
-
-    private fun removePsychicFromDatabase() {
-        psychic!!.psychicondisplay = false
-
-        selectedCategory.let {
-            if (it != null) {
-                db.collection("psychicOnDisplay")
-                    .document(it)
-                    .collection("psychicsOnDisplay")
-                    .document(userId)
-                    .delete()
-                    .addOnSuccessListener {
-                        Log.d(TAG, "User removed from the psychic database")
-                        db.collection("users").document(userId).update("psychicondisplay", false, "psychicondisplaycategory", " ")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e(TAG, "Error removing user from the psychic database: $e")
-                    }
-            }
-        }
     }
 
     private fun loadImages(profileImgSrc: String?, displayImgSrc: String?) {
         if (profileImgSrc != " ") {
             Glide.with(this).load(profileImgSrc).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
         }else{
-            Glide.with(this).load(io.getmadd.openpsychic.R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
+            Glide.with(this).load(R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
         }
         if (displayImgSrc != " ") {
             Glide.with(this).load(displayImgSrc).into(binding.backdropImageView)
         }
         else{
-            Glide.with(this).load(io.getmadd.openpsychic.R.drawable.openpsychiclogo).into(binding.backdropImageView)
+            Glide.with(this).load(R.drawable.openpsychiclogo).into(binding.backdropImageView)
 
         }
     }

@@ -196,14 +196,14 @@ class RequestHistoryView : Fragment() {
                     statusupdate.status = documentSnapshot.documents.last().data?.get("status").toString()
                     statusupdate.timestamp = documentSnapshot.documents.last().data?.get("timestamp") as Timestamp
 
-                    callback.invoke((statusupdate ?: "") as RequestStatusUpdate)
+                    callback.invoke(statusupdate)
 //                    } else {
 //                        // Handle the case where the field doesn't exist in the document
 //                    }
                 } else {
                     var statusupdate = RequestStatusUpdate()
                     statusupdate.status = "sent"
-                    callback.invoke((statusupdate ?: "") as RequestStatusUpdate)
+                    callback.invoke(statusupdate)
                     // Handle the case where the document doesn't exist
                 }
             }

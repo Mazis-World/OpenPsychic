@@ -44,8 +44,8 @@ class RequestMessagesAdapter(val items: MutableList<Message>, val listener: (Int
 
         fun bind(message: Message, pos: Int, listener: (Int) -> Unit) = with(itemView) {
 
-            messagetv.setText("${message.message}")
-            timestamptv.setText(message.timestamp.toDate().toString())
+            messagetv.text = "${message.message}"
+            timestamptv.text = message.timestamp.toDate().toString()
 
             if(1 == 1){
                 Glide.with(this).load(R.drawable.openpsychiclogo)

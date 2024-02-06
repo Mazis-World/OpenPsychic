@@ -39,6 +39,7 @@
 
     <string name="promo_card_text">Psychics Are Good For Your Health</string>
     <string name="select_category">Select Category</string>
+    <string name="select_country">Select Country</string>
 
     <!-- Login Fragment -->
     <string name="prompt_email">Email</string>
