@@ -34,6 +34,9 @@ class PrivacyFragment: Fragment() {
     }
 
     private fun setupUI(){
+        binding.terminateaccount.setOnClickListener{
+            Toast.makeText(context,"We're unable to terminate your account just yet, please try again later.", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

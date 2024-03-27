@@ -226,7 +226,7 @@ class RequestHistoryView : Fragment() {
 
         Log.e("status", usertype)
 
-        if(usertype == "psychic" && requeststatus == "sent" || usertype == "psychic" && requeststatus == "created"){
+        if((usertype == "psychic" && requeststatus == "sent") || (usertype == "psychic" && requeststatus == "created")){
             statuslayout.visibility = View.VISIBLE
         }
         if(requeststatus == "created" || requeststatus == "sent"){

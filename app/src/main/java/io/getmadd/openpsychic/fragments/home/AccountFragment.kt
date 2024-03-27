@@ -101,9 +101,7 @@ class AccountFragment: Fragment() {
                     var method = result.toObject(PaymentMethod::class.java)
                     listpaymentmethods.add(method)
                 }
-
                 binding.paymentmethodrecyclerview.adapter?.notifyDataSetChanged()
-
             }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
@@ -185,7 +183,6 @@ class AccountFragment: Fragment() {
                     prefs.username = binding.usernameEditText.text.toString()
                     Toast.makeText(context, " Username Updated", Toast.LENGTH_SHORT).show()
                 }
-
             }
             else{
                 Toast.makeText(context, "Invalid Username", Toast.LENGTH_SHORT).show()
@@ -260,7 +257,6 @@ class AccountFragment: Fragment() {
                     dialog.dismiss()
                 }
             }
-
             dialog.show()
         }
     }
@@ -274,11 +270,9 @@ class AccountFragment: Fragment() {
 
     private fun handlePsychicOnDisplaySwitchChanged(isChecked: Boolean) {
         if (isChecked) {
-            // The switch is enabled, perform action to add the user to the database
             addPsychicToDatabase()
             binding.categorySpinner.isEnabled = false
         } else {
-            // The switch is disabled, perform action to remove the user from the database
             removePsychicFromDatabase()
             binding.categorySpinner.isEnabled = true
         }
@@ -316,18 +310,10 @@ class AccountFragment: Fragment() {
             "General Readings"
         )
 
-        // Creating an ArrayAdapter using the string array and a default spinner layout
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, psychicCategories)
-
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // Apply the adapter to the spinner
         binding.categorySpinner.adapter = adapter
-
-        // Set the selected value programmatically (e.g., setting to "Category3")
         val position = adapter.getPosition(selectedCategory)
-
         binding.categorySpinner.setSelection(position)
     }
 

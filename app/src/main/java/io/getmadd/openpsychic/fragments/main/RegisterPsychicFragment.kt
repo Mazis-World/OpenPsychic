@@ -1,14 +1,21 @@
 package io.getmadd.openpsychic.fragments.main
 
 import android.content.ContentValues.TAG
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingFlowParams
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.PurchasesUpdatedListener
+import com.android.billingclient.api.SkuDetailsParams
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.firebase.Firebase
@@ -19,12 +26,13 @@ import io.getmadd.openpsychic.databinding.FragmentRegisterPsychicBinding
 import io.getmadd.openpsychic.model.Psychic
 
 
-class RegisterPsychicFragment : Fragment() {
+class RegisterPsychicFragment : Fragment(), PurchasesUpdatedListener {
 
     private var _binding: FragmentRegisterPsychicBinding? = null
     private lateinit var auth: FirebaseAuth
     private val binding get() = _binding!!
-    
+    private var psychic: Psychic? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,64 +48,106 @@ class RegisterPsychicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val signupBtn = binding.fragmentRegisterPsychicSignupButton
+
+        signupBtn.setOnClickListener {
+            psychic = getUserFromFields()
+
+            if (psychic != null) {
+
+                psychic?.let { registerPsychic(it) }
+
+//                val billingClient = BillingClient.newBuilder(requireContext())
+//                    .setListener(this)
+//                    .enablePendingPurchases()
+//                    .build()
+//
+//                billingClient.startConnection(object : BillingClientStateListener {
+//                    override fun onBillingSetupFinished(billingResult: BillingResult) {
+//                        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+//                            // Billing client is ready
+//                            val skuDetailsParams = SkuDetailsParams.newBuilder()
+//                                .setSkusList(listOf("real_psychic_registration_fee"))
+//                                .setType(BillingClient.SkuType.INAPP)
+//                                .build()
+//
+//                            billingClient.querySkuDetailsAsync(skuDetailsParams) { billingResult, skuDetailsList ->
+//                                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+//                                    val skuDetails =
+//                                        skuDetailsList.find { it.sku == "real_psychic_registration_fee" }
+//                                    skuDetails?.let {
+//                                        val flowParams = BillingFlowParams.newBuilder()
+//                                            .setSkuDetails(it)
+//                                            .build()
+//                                        billingClient.launchBillingFlow(
+//                                            requireActivity(),
+//                                            flowParams
+//                                        )
+//                                    }
+//                                } else {
+//                                    // Handle error
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    override fun onBillingServiceDisconnected() {
+//                        // Try to restart the connection on the next request to
+//                        // Google Play by calling the startConnection() method.
+//                    }
+//                })
+            }
+        }
+
+        binding.backimageview.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+    }
+
+    fun registerPsychic(psychic: Psychic) {
         val db = Firebase.firestore
         val passwordET = binding.fragmentRegisterPsychicPasswordEditText
 
-
-        signupBtn.setOnClickListener {
-
-            val psychic = getUserFromFields()
-
-            if(psychic != null){
-                psychic.email.let { it1 ->
-                    auth.createUserWithEmailAndPassword(it1.toString(), passwordET.text.toString())
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInUserWithEmail:success")
-                                val newUser = auth.currentUser
-                                var userID = ""
-                                if (newUser != null) {
-                                    psychic.userid = newUser.uid
-                                    userID = newUser.uid
-                                }
-
-                                db.collection("users").document(userID).set(psychic)
-                                    .addOnSuccessListener { documentReference ->
-                                        Log.d(TAG, "DocumentSnapshot added with ID: ${userID}")
-                                    }
-                                    .addOnFailureListener { e ->
-                                        Log.w(TAG, "Error adding document", e)
-                                    }
-
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInUserWithEmail:failure", task.exception)
-                                Toast.makeText(
-                                    context,
-                                    "Authentication failed.",
-                                    Toast.LENGTH_SHORT,
-                                ).show()
-                            }
+        psychic.email.let { it1 ->
+            auth.createUserWithEmailAndPassword(it1.toString(), passwordET.text.toString())
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInUserWithEmail:success")
+                        val newUser = auth.currentUser
+                        var userID = ""
+                        if (newUser != null) {
+                            psychic.userid = newUser.uid
+                            userID = newUser.uid
                         }
-                }
-            }
-        }
-        binding.backimageview.setOnClickListener{
-            findNavController().popBackStack()
-        }
-        val adView: AdView = binding.registeradview
-        val adRequest: AdRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
 
+                        db.collection("users").document(userID).set(psychic)
+                            .addOnSuccessListener { documentReference ->
+                                Log.d(TAG, "DocumentSnapshot added with ID: ${userID}")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error adding document", e)
+                            }
+
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInUserWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            context,
+                            "Authentication failed.",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
+                }
+        }
     }
+
     fun isUsernameValid(username: String): Boolean {
         val regexPattern = "^[\\p{L}\\p{N}_]+$"
         val regex = Regex(regexPattern)
         return regex.matches(username) && !username.contains(" ")
     }
-    // getUserText
 
     fun getUserFromFields(): Psychic? {
 
@@ -116,14 +166,13 @@ class RegisterPsychicFragment : Fragment() {
         val displayname = displaynameET.text.toString()
 
 
-        if(firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || displayname.isEmpty()) {
+        if (firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || displayname.isEmpty()) {
 
-            Toast.makeText(context,"Complete Signup Form", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Complete Signup Form", Toast.LENGTH_SHORT).show()
         }
-        if(!isUsernameValid(username)){
-            Toast.makeText(context,"Invalid Username", Toast.LENGTH_SHORT).show()
-        }
-        else{
+        if (!isUsernameValid(username)) {
+            Toast.makeText(context, "Invalid Username", Toast.LENGTH_SHORT).show()
+        } else {
             val psychic = Psychic(
                 userid = " ",
                 email = email,
@@ -137,7 +186,7 @@ class RegisterPsychicFragment : Fragment() {
                 usertype = "psychic",
                 username = username,
                 bio = " "
-                )
+            )
 
             return psychic
         }
@@ -148,5 +197,23 @@ class RegisterPsychicFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onPurchasesUpdated(
+        billingResult: BillingResult,
+        purchases: MutableList<Purchase>?
+    ) {
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            for (purchase in purchases) {
+                // Handle the purchase here--
+                // You might want to verify the purchase and grant access to the user
+
+                psychic?.let { registerPsychic(it) }
+            }
+        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            // Handle user cancellation
+        } else {
+            // Handle other error cases
+        }
     }
 }

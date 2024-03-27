@@ -51,10 +51,15 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         }
         if(psychic.psychicrating != null){
             binding.explorepsychicexpandedsratingBar.rating = psychic.psychicrating!!
+            binding.ratingnumtextview.text = psychic.psychicrating.toString()
         }
         else {
             binding.explorepsychicexpandedsratingBar.rating = 0F
         }
+       if(psychic.psychicoriginyear != null){
+           binding.sincedatetextview.text = psychic.psychicoriginyear.toString()
+       }
+
         binding.expandedBioTextView.text = psychic.bio
         binding.expandedDisplayNameTextView.text = psychic.displayname
         binding.expandedUsernameTextView.text = "@"+psychic.username
@@ -105,10 +110,10 @@ class ExplorePsychicsExpandedFragment: Fragment() {
                 )
             }
         }
-        binding.schedulelivesessionbtn.setOnClickListener{
-            Toast.makeText(context,"We're Working On It",Toast.LENGTH_SHORT).show()
-        }
 
+        binding.startvoicethread.setOnClickListener{
+
+        }
     }
 
 

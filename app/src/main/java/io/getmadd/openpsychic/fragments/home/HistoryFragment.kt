@@ -162,31 +162,27 @@ class HistoryFragment : Fragment() {
         var prefs = UserPreferences(requireContext())
         var subscriptionstate = prefs.subscriptionstate
 
-        if(subscriptionstate == "active"){
-        }else {
-            val adView: AdView = binding.historybannerad
-            val adRequest: AdRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
+        val adView: AdView = binding.historybannerad
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
-            val adRequest1 = AdRequest.Builder().build()
+        val adRequest1 = AdRequest.Builder().build()
 
-            InterstitialAd.load(
-                context!!,
-                "ca-app-pub-2450865968732279/8716388373",
-                adRequest1,
-                object : InterstitialAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(TAG, adError.message)
-                    }
-
-                    override fun onAdLoaded(ad: InterstitialAd) {
-                        Log.d(TAG, "Ad was loaded.")
-                        activity?.let { ad.show(it) }
-                    }
+        InterstitialAd.load(
+            context!!,
+            "ca-app-pub-2450865968732279/8716388373",
+            adRequest1,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(TAG, adError.message)
                 }
-            )
-        }
 
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    Log.d(TAG, "Ad was loaded.")
+                    activity?.let { ad.show(it) }
+                }
+            }
+        )
     }
 
 }

@@ -114,7 +114,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/divider7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -175,14 +175,16 @@
                 android:layout_height="2dp"
                 android:layout_weight="1"
                 android:background="?android:attr/listDivider"
-                android:backgroundTint="#FFFFFF" />
+                android:backgroundTint="#FFFFFF"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/notificationslayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView22"
@@ -216,7 +218,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView29"
@@ -242,14 +245,16 @@
                 android:layout_height="2dp"
                 android:layout_weight="1"
                 android:background="?android:attr/listDivider"
-                android:backgroundTint="#FFFFFF" />
+                android:backgroundTint="#FFFFFF"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/aboutlayoutbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView30"
@@ -275,7 +280,8 @@
                 android:layout_height="2dp"
                 android:layout_weight="1"
                 android:background="?android:attr/listDivider"
-                android:backgroundTint="#FFFFFF" />
+                android:backgroundTint="#FFFFFF"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/termslayoutbutton"
@@ -314,7 +320,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -339,7 +346,8 @@
                 android:layout_height="2dp"
                 android:layout_weight="1"
                 android:background="?android:attr/listDivider"
-                android:backgroundTint="#FFFFFF" />
+                android:backgroundTint="#FFFFFF"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/rateuslayoutbutton"

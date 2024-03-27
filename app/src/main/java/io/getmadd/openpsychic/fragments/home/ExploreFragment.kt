@@ -50,39 +50,29 @@ class ExploreFragment : Fragment() {
         Log.e("ExploreFragment", subscriptionstate!!)
 
 
-        when (subscriptionstate) {
-            "active" -> {
-                binding.include.subscribecardview.visibility = View.GONE
-            }
-            else -> {
-                binding.include.subscribecardview.visibility = View.VISIBLE
-                val adRequest1 = AdRequest.Builder().build()
+        val adRequest1 = AdRequest.Builder().build()
 
-                InterstitialAd.load(
-                    context!!,
-                    "ca-app-pub-2450865968732279~5202685556",
-                    adRequest1,
-                    object : InterstitialAdLoadCallback() {
-                        override fun onAdFailedToLoad(adError: LoadAdError) {
-                            Log.d(ContentValues.TAG, adError.message)
-                        }
+        InterstitialAd.load(
+            context!!,
+            "ca-app-pub-2450865968732279~5202685556",
+            adRequest1,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(ContentValues.TAG, adError.message)
+                }
 
-                        override fun onAdLoaded(ad: InterstitialAd) {
-                            Log.d(ContentValues.TAG, "Ad was loaded.")
-                            activity?.let { ad.show(it) }
-                        }
-                    }
-                )
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    Log.d(ContentValues.TAG, "Ad was loaded.")
+                    activity?.let { ad.show(it) }
+                }
             }
-        }
+        )
 
         setupUI(bundle)
     }
 
     fun setupUI(bundle: Bundle){
-        binding.include.exploreseemorebutton.setOnClickListener{
-            findNavController().navigate(R.id.action_explore_fragment_to_subscribe_premium_fragment)
-        }
+
         binding.homeCategory0.setOnClickListener {
             bundle.putString("category_type", getString(R.string.category_spirit))
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics, bundle)

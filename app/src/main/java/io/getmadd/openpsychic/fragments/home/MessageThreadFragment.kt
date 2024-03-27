@@ -53,7 +53,6 @@ class MessageThreadFragment: Fragment() {
         lateinit var userprofileimgsrc: String
         lateinit var username: String
 
-
         if (bundle != null) {
             if (bundle.getSerializable("psychic") != null) {
                 psychic = (bundle.getSerializable("psychic") as? Psychic)!!
@@ -62,6 +61,8 @@ class MessageThreadFragment: Fragment() {
                         .apply(
                             RequestOptions.circleCropTransform()
                         )
+                        .error(Glide.with(this).load(R.drawable.openpsychiclogo)
+                            .apply(RequestOptions.circleCropTransform()))
                         .into(binding.messagethrheadimageview)
                 } else {
                     Glide.with(this).load(R.drawable.openpsychiclogo)
@@ -181,7 +182,6 @@ class MessageThreadFragment: Fragment() {
                         messageMap["message"] = "$text"
                         messageMap["status"] = "sent"
                     }
-
                     val metadata = hashMapOf(
                         "senderid" to senderUserId,
                         "receiverid" to receiverUserId,
@@ -214,7 +214,6 @@ class MessageThreadFragment: Fragment() {
                                     receivermessagestampref.set(metadata)
                                 }
                             }
-
 
                             sendermessageref.document().set(messageMap)
                                 .addOnCompleteListener(object : OnCompleteListener<Void?> {

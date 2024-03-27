@@ -33,10 +33,6 @@
                 android:textColor="#DB8FFF"
                 android:textSize="24sp" />
 
-            <include
-                android:id="@+id/include"
-                layout="@layout/banner_subscribe" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"

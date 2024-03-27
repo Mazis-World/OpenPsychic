@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/op_purple"
+    android:padding="16dp"
+    android:id="@+id/fragmentprivacypolicy"
+    tools:context=".fragments.PrivacyPolicyFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:text="Privacy Policy"
+            android:textColor="@color/op_purple_accent"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text='1. Overview  The Open Psychic service (referred to as "we," "us," or "our") provides a platform that allows users to connect with psychics from around the world. By accessing or using our service, you agree to comply with and be bound by the following terms and conditions ("Services Policy"). Please read these terms carefully before using our service.  2. Service Description  Our service allows users to browse psychic profiles, select a psychic, and connect with them for readings or other services. We do not provide psychic services directly but facilitate the connection between users and psychics.  3. User Conduct  When using our service, you agree to conduct yourself in a respectful and lawful manner. You are prohibited from using our service for any illegal or unauthorized purpose, including but not limited to violating any laws in your jurisdiction.  4. Service Availability  While we strive to provide a reliable and uninterrupted service, we do not guarantee that our service will be available at all times. We reserve the right to modify or discontinue our service without notice at any time.  5. User Accounts  In order to use certain features of our service, you may be required to create a user account. You are responsible for maintaining the confidentiality of your account credentials and for any activities that occur under your account.  6. Payment  Our service may offer paid features or services. By using these features or services, you agree to pay the specified fees. All payments are non-refundable unless otherwise stated.  7. Intellectual Property  All content and materials provided through our service, including but not limited to text, images, videos, and logos, are the property of Open Psychic or its licensors and are protected by copyright and other intellectual property laws.  8. Disclaimer  Our service is provided "as is" and without warranties of any kind, either express or implied. We do not guarantee the accuracy, completeness, or reliability of any information provided by psychics through our service.  9. Limitation of Liability  To the fullest extent permitted by law, Open Psychic shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from (a) your use or inability to use our service; (b) any unauthorized access to or use of our servers and/or any personal information stored therein; (c) any interruptions or errors in the operation of our service; or (d) any other matter relating to our service.  10. Governing Law  These Terms of Service shall be governed by and construed in accordance with the laws of the United States and the State of [Your State], without regard to its conflict of law principles.  11. Changes to the Services Policy  We reserve the right to modify or update this Services Policy at any time. Any changes will be effective immediately upon posting the revised Services Policy on our website. Your continued use of our service after any such changes constitutes your acceptance of the new terms.  12. Contact Us  If you have any questions or concerns about this Services Policy, please contact us at [openpsychic@gmail.com].'
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</ScrollView>

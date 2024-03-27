@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import io.getmadd.openpsychic.databinding.FragmentNotificationsBinding
 
@@ -28,6 +29,11 @@ class NotificationsFragment: Fragment() {
     }
 
     private fun setupUI(){
+        binding.switch1.isEnabled = false
+
+        binding.notificationSwitchLayout.setOnClickListener{
+            Toast.makeText(context,"We're working on Notifications, Keep Your App Updated", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

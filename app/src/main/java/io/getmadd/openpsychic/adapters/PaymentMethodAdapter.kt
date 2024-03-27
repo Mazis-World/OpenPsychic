@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.model.PaymentMethod
@@ -23,18 +24,13 @@ class PaymentMethodAdapter(val items: ArrayList<PaymentMethod>, val listener: (I
         holder.bind(items[position], position, listener)
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var provider: EditText = itemView.findViewById(R.id.provideredittext)
-        var address: EditText = itemView.findViewById(R.id.addressedittext)
-        var updatebutton: Button = itemView.findViewById(R.id.updatepaymentmethodbutton)
+        var provider: TextView = itemView.findViewById(R.id.provideredittext)
+        var address: TextView = itemView.findViewById(R.id.addressedittext)
 
         fun bind(method: PaymentMethod, pos: Int, listener: (Int) -> Unit) = with(itemView) {
-            provider.setText(method.provider)
-            address.setText(method.address)
+            provider.text = method.provider
+            address.text = method.address
 
-            updatebutton.setOnClickListener {
-
-            }
         }
     }
-
 }

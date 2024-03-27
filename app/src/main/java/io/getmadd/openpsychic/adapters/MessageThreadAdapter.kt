@@ -45,7 +45,6 @@ class MessageThreadAdapter(private val messageList: ArrayList<Message>, val data
         fun bind(content: Message, pos: Int, listener: (Int) -> Unit) = with(itemView) {
             message.text = content.message
             timestamp.text = content.timestamp.toDate().toString()
-            Glide.with(this).load(R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(image)
 
             if(content.senderid != null) {
                 if (userid != content.senderid) {
@@ -55,6 +54,10 @@ class MessageThreadAdapter(private val messageList: ArrayList<Message>, val data
                     Glide.with(this).load(data.userprofileimgsrc)
                         .apply(RequestOptions.circleCropTransform()).into(image)
                 }
+            }
+
+            if((data.psychicprofileimgsrc ==  null) || (data.userprofileimgsrc == null)){
+                Glide.with(this).load(R.drawable.openpsychiclogo).apply(RequestOptions.circleCropTransform()).into(image)
             }
         }
     }

@@ -18,7 +18,7 @@ import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
 import io.getmadd.openpsychic.model.RequestStatusUpdate
 
-class RequestReadingFragment(category: String) : Fragment() {
+class RequestReadingFragment() : Fragment() {
 
     private lateinit var binding: FragmentRequestReadingBinding
     private var db = Firebase.firestore
