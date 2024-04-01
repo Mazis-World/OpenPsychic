@@ -13,8 +13,8 @@ android {
         applicationId "io.getmadd.openpsychic"
         minSdk 24
         targetSdk 34
-        versionCode 32
-        versionName "1.07000005"
+        versionCode 33
+        versionName "1.07000006"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -39,6 +39,7 @@ import io.getmadd.openpsychic.services.UserPreferences
 class ProfileFragment : Fragment() {
 
     private lateinit var _binding: FragmentProfileBinding
+    private lateinit var prefs: UserPreferences
     private val binding get() = _binding
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -51,8 +52,7 @@ class ProfileFragment : Fragment() {
     private var displayImgSrc: String? = null
     private var userType: String? = null
     private var user: User? = null
-    var versionName: String = BuildConfig.VERSION_NAME
-
+    private var versionName: String = BuildConfig.VERSION_NAME
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +64,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        prefs = UserPreferences(requireContext())
         setupUI()
 
         binding.backdropImageView.setOnClickListener {
@@ -113,7 +113,6 @@ class ProfileFragment : Fragment() {
                 }.create().show()
         }
         binding.versionnumbertextview.text = "V." + versionName
-
     }
 
     fun openAppPageForRating() {
@@ -126,7 +125,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupUI() {
-        var prefs = UserPreferences(requireContext())
         var subscriptionstate = prefs.subscriptionstate
 
         if (subscriptionstate == "active") {
@@ -168,7 +166,6 @@ class ProfileFragment : Fragment() {
         }
         else{
             Glide.with(this).load(R.drawable.openpsychiclogo).into(binding.backdropImageView)
-
         }
     }
 
@@ -183,11 +180,12 @@ class ProfileFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.data?.let { selectedImage ->
-                    selectedView?.setImageURI(selectedImage)
                     if (selectedView == binding.backdropImageView) {
+                        Glide.with(this).load(selectedImage).into(binding.backdropImageView)
                         backdropImageURI = selectedImage
                     }
                     if (selectedView == binding.profileImageView) {
+                        Glide.with(this).load(selectedImage).apply(RequestOptions.circleCropTransform()).into(binding.profileImageView)
                         profileImageURI = selectedImage
                     }
                 }
@@ -205,6 +203,7 @@ class ProfileFragment : Fragment() {
                     .update("profileimgsrc", profileDownloadUrl.toString())
                     .addOnSuccessListener {
                         Log.d("UploadImageActivity", "Profile Image URL updated in Firestore.")
+                        prefs.profileimgsrc = profileDownloadUrl
                     }
                     .addOnFailureListener { e ->
                         Log.e("UploadImageActivity", "Error updating profile image URL in Firestore: $e")
@@ -218,6 +217,7 @@ class ProfileFragment : Fragment() {
                     .update("displayimgsrc", backdropDownloadUrl.toString())
                     .addOnSuccessListener {
                         Log.d("UploadImageActivity", "Backdrop Image URL updated in Firestore.")
+                        prefs.displayimgsrc = backdropDownloadUrl
                     }
                     .addOnFailureListener { e ->
                         Log.e("UploadImageActivity", "Error updating backdrop image URL in Firestore: $e")

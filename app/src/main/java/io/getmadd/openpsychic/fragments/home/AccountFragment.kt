@@ -106,7 +106,6 @@ class AccountFragment: Fragment() {
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
-
     }
 
     private fun setupUI(){
