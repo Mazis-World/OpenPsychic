@@ -32,6 +32,7 @@ class HomeActivity : AppCompatActivity() {
             it.navigateUp()
             it.navigate(R.id.explore_fragment)
         }
+
         val builder: AlertDialog.Builder =
             AlertDialog.Builder(ContextThemeWrapper(this, R.style.AlertDialogCustom))
 
@@ -56,6 +57,9 @@ class HomeActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_explore -> {
                     navController?.navigate(R.id.explore_fragment)
+                }
+                R.id.navigation_dreams -> {
+                    navController?.navigate(R.id.dreams_fragment)
                 }
                 R.id.navigation_history -> {
                     navController?.navigate(R.id.history_fragment)

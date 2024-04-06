@@ -39,7 +39,6 @@
         android:name="io.getmadd.openpsychic.fragments.home.MessageThreadFragment"
         android:label="Message Thread" />
 
-
     <fragment
         android:id="@+id/request_reading_fragment"
         android:name="RequestReadingFragment"
@@ -98,6 +97,10 @@
         android:label="Explore Article" >
     </fragment>
 
+    <fragment
+        android:id="@+id/dreams_fragment"
+        android:name="io.getmadd.openpsychic.fragments.features.DreamsFragment"
+        android:label="DreamFragment" />
 
     <fragment
         android:id="@+id/profile_fragment"

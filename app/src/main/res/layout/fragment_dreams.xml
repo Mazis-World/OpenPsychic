@@ -1,0 +1,24 @@
+<!-- fragment_dreams.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- RecyclerView to display the list of dreams -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_dreams"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/op_purple" />
+
+    <!-- Floating Action Button for adding a dream -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_dream"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/op_grey"
+        android:contentDescription="Add Dream"
+        android:src="@android:drawable/ic_menu_add" />
+
+</FrameLayout>

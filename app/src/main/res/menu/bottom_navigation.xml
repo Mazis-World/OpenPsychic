@@ -9,15 +9,21 @@
         android:title="@string/navigation_explore"
         app:showAsAction="never" />
     <item
+        android:id="@+id/navigation_dreams"
+        android:icon="@android:drawable/btn_radio"
+        android:orderInCategory="200"
+        android:title="@string/navigation_dreams"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/navigation_history"
         android:icon="@android:drawable/ic_menu_recent_history"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         android:title="@string/navigation_history"
         app:showAsAction="never" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="?android:attr/fingerprintAuthDrawable"
-        android:orderInCategory="300"
+        android:orderInCategory="400"
         android:title="@string/navigation_profile"
         app:showAsAction="never|withText" />
 </menu>

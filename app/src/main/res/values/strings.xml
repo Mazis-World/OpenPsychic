@@ -10,6 +10,7 @@
 
     <!-- Bottom Navigation -->
     <string name="navigation_explore" translatable="false">Explore</string>
+    <string name="navigation_dreams" translatable="false">Dreams</string>
     <string name="navigation_history" translatable="false">History</string>
     <string name="navigation_profile" translatable="false">Profile</string>
 
