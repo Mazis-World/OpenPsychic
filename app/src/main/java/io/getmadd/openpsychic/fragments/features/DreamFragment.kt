@@ -37,14 +37,13 @@ class DreamsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_dreams, container, false)
-
-        prefs = UserPreferences(requireContext())
-
-        val fabAddDream: FloatingActionButton = view.findViewById(R.id.fab_add_dream)
         recyclerView = view.findViewById(R.id.recycler_view_dreams)
-        recyclerView.layoutManager = LinearLayoutManager(context)
 
         getDreamsFromFirestore()
+        prefs = UserPreferences(requireContext())
+        val fabAddDream: FloatingActionButton = view.findViewById(R.id.fab_add_dream)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
 
         fabAddDream.setOnClickListener {
             showMakePostBottomSheet()
@@ -54,11 +53,11 @@ class DreamsFragment : Fragment() {
     }
 
     private fun getDreamsFromFirestore() {
+        val dreams = mutableListOf<Dream>()
         firestore.collection("dreamPost")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
-                val dreams = mutableListOf<Dream>()
                 for (document in result) {
                     val dream = document.toObject(Dream::class.java)
                     dreams.add(dream)
@@ -68,6 +67,9 @@ class DreamsFragment : Fragment() {
             .addOnFailureListener { e ->
                 // Handle failure
             }
+        val itemViewTracker = ItemViewTracker(recyclerView,dreams)
+        recyclerView.addOnScrollListener(itemViewTracker)
+
     }
 
     private fun updateAdapter(dreams: List<Dream>) {

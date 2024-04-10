@@ -9,6 +9,7 @@ data class Dream(
     val timestamp: Timestamp = Timestamp.now(),
     val date: String = "",
     val hearts: Int = 0,
+    val views: Int = 0,
     val replies: Int = 0,
     val viewCount: Int = 0,
     val userProfileImgSrc: String = "",

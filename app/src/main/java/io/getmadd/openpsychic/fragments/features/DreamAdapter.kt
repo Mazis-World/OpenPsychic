@@ -22,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.getField
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.services.UserPreferences
 import java.text.SimpleDateFormat
@@ -64,11 +65,13 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
         private val likedDreams = HashSet<String>()
         private val commentsList = mutableListOf<Comment>()
         private val adapter = CommentsAdapter(commentsList)
+        private val user = FirebaseAuth.getInstance()
 
         fun bind(dream: Dream) {
             commentsList.clear()
             val commentsRef = firestore.collection("dreamPost").document(dream.dreamId).collection("comments")
-            val docRef = FirebaseFirestore.getInstance().collection("dreams").document(dream.dreamId)
+            val docRef = FirebaseFirestore.getInstance().collection("dreamPost").document(dream.dreamId)
+            val heartersRef = FirebaseFirestore.getInstance().collection("dreamPost").document(dream.dreamId).collection("hearters")
             val layoutManager = LinearLayoutManager(itemView.context)
             commentsRecyclerView.layoutManager = layoutManager
             commentsRecyclerView.adapter = adapter
@@ -101,7 +104,37 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
                     Log.d(TAG, "No comments found")
                 }
             }
+            heartersRef.document(auth.uid.toString()).get().addOnSuccessListener {
+                if (it.exists()) {
+                    heart.setImageResource(R.drawable.ic_heart_filled)
+                }
+                else{
+                    heart.setImageResource(R.drawable.ic_heart)
+                }
+            }
 
+            heartersRef.addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null ){
+                    heartCounts.visibility = View.VISIBLE
+                    heartCounts.text = snapshot.documents.count().toString()
+
+                    for (document in snapshot.documents) {
+                        val comment = document.toObject(Comment::class.java)
+                        if (comment != null) {
+                            commentsList.add(comment)
+                        }
+                    }
+                    notifyItemChanged(adapterPosition)
+                } else {
+                    heartCounts.visibility = View.GONE
+                    Log.d(TAG, "Current data: null")
+                }
+            }
 
             docRef.addSnapshotListener { snapshot, e ->
                 if (e != null) {
@@ -110,19 +143,8 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
                 }
 
                 if (snapshot != null && snapshot.exists()) {
-                    val dream = snapshot.toObject(Dream::class.java)
-                    // Update UI with dream data
-
-                    if (dream != null) {
-                        if(dream.hearts == 0) {
-                            heartCounts.visibility = View.GONE
-                        }else {
-                            heartCounts.visibility = View.VISIBLE
-                            heartCounts.text = dream.hearts.toString()
-                            viewsCounts.text = dream.viewCount.toString()
-                            notifyItemChanged(adapterPosition)
-                        }
-                    }
+                    viewsCounts.text = snapshot.getField<Int>("views").toString()
+                    notifyItemChanged(adapterPosition)
                 } else {
                     Log.d(TAG, "Current data: null")
                 }
@@ -140,12 +162,17 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
 
             heart.setOnClickListener {
                 if (likedDreams.contains(dream.dreamId)) {
+                    heartersRef.document(auth.uid.toString()).delete()
                     likedDreams.remove(dream.dreamId)
                     heart.setImageResource(R.drawable.ic_heart)
                 } else {
+                    heartersRef.document(auth.uid.toString()).set({
+                        "dreamId" to dream.dreamId
+                    })
                     likedDreams.add(dream.dreamId)
                     heart.setImageResource(R.drawable.ic_heart_filled)
                 }
+
             }
 
             reply.setOnClickListener {
@@ -160,7 +187,7 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
 
                 if(commentEditText.text.isNotEmpty()){
 
-                    val comment = Dream(
+                    val comment = Comment(
                         dreamId = dream.dreamId,
                         content = commentEditText.text.toString(),
                         userId = auth.uid.toString(),
