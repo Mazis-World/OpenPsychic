@@ -30,7 +30,7 @@ class RatingDialogFragment(request: Request) : DialogFragment() {
 
         val ratingBar = view.findViewById<RatingBar>(R.id.explorepsychicsratingBar)
         val messageEditText = view.findViewById<EditText>(R.id.messageEditText)
-        val submitButton =view.findViewById<Button>(R.id.submitButton)
+        val submitButton =view.findViewById<Button>(R.id.postCommentButton)
 
         val builder = AlertDialog.Builder(requireActivity())
             .setView(view)

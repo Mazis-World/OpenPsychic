@@ -38,7 +38,6 @@ class DreamsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_dreams, container, false)
 
-
         prefs = UserPreferences(requireContext())
 
         val fabAddDream: FloatingActionButton = view.findViewById(R.id.fab_add_dream)
@@ -72,7 +71,7 @@ class DreamsFragment : Fragment() {
     }
 
     private fun updateAdapter(dreams: List<Dream>) {
-        val adapter = DreamAdapter(dreams)
+        val adapter = DreamAdapter(context,dreams)
         recyclerView.adapter = adapter
     }
 
@@ -123,39 +122,6 @@ class DreamsFragment : Fragment() {
             .addOnFailureListener { e ->
                 // Handle error
                 Log.w(TAG, "Error adding document", e)
-            }
-    }
-
-    private fun addReplyToFirestore(parentDreamId: String, content: String) {
-
-        val reply = hashMapOf(
-            "userId" to FirebaseAuth.getInstance().currentUser?.uid,
-            "content" to content,
-            "timestamp" to Timestamp.now(),
-            "date" to getCurrentDate(),
-            "parentDreamId" to parentDreamId
-        )
-
-        firestore.collection("dreams")
-            .document(parentDreamId)
-            .collection("replies")
-            .add(reply)
-            .addOnSuccessListener { documentReference ->
-                val dreamId = documentReference.id
-                firestore.collection("dreams")
-                    .document(parentDreamId)
-                    .collection("replies")
-                    .document(dreamId)
-                    .update("dreamId", dreamId)
-                    .addOnSuccessListener {
-                        Log.d(TAG, "Reply added with ID: $dreamId")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w(TAG, "Error updating dreamThreadId", e)
-                    }
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding reply", e)
             }
     }
 

@@ -51,7 +51,7 @@
 
         <!-- Submit Button -->
         <Button
-            android:id="@+id/submitButton"
+            android:id="@+id/postCommentButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/op_purple_accent"

@@ -1,8 +1,8 @@
 import com.google.firebase.Timestamp
 import java.io.Serializable
 
-// Dream.kt
-data class Dream(
+// Comment.kt
+data class Comment(
     val dreamId: String = "",
     val userId: String = "",
     val content: String = "",
@@ -10,7 +10,6 @@ data class Dream(
     val date: String = "",
     val hearts: Int = 0,
     val replies: Int = 0,
-    val viewCount: Int = 0,
     val userProfileImgSrc: String = "",
     val userName: String = ""
 ) : Serializable
