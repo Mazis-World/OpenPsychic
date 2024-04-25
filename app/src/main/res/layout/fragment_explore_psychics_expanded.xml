@@ -55,8 +55,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal"
-                            android:padding="8dp"
-                            tools:visibility="gone">
+                            android:padding="8dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -220,12 +219,38 @@
 
             </LinearLayout>
 
-            <!-- Information Bar -->
-            <!-- Adjust this margin as needed -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/op_purple" />
 
-            <!-- Display Name and @Username -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/op_purple_foreground_accent"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <!-- Divider -->
 
-            <!-- Star Rating -->
+
+                <!-- Placeholder TextView -->
+                <TextView
+                    android:id="@+id/noReviewsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Give this psychic advisor a review."
+                    android:textColor="@color/op_grey"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+                <!-- RecyclerView for Reviews -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reviewsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <FrameLayout
@@ -242,7 +267,7 @@
                 android:isIndicator="true"
                 android:numStars="5"
                 android:progressTint="@color/op_gold"
-                android:rating="3"
+                android:rating="3.5"
                 android:scaleX=".3"
                 android:scaleY=".3"
                 android:stepSize="0.5" />

@@ -1,3 +1,4 @@
+import android.content.ContentValues
 import android.media.Rating
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import com.google.firebase.firestore.FirebaseFirestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.model.Psychic
 
@@ -70,6 +72,30 @@ class ExplorePsychicsAdapter(
 
             displayName.text = item.displayname
             userName.text = "@${item.username}"
+            val db = FirebaseFirestore.getInstance()
+
+
+            db.collection("users").document("${item.userid}")
+                .get()
+                .addOnSuccessListener { result ->
+                    item.psychicrating = result.getDouble("psychicrating")
+                    item.psychicratingcount = result.getDouble("psychicratingcount")
+                    starRating.rating =
+                        (item.psychicrating?.div(item.psychicratingcount!!))?.toFloat() ?: 3.5F
+
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                }
+
+            db.collection("users").document("${item.userid}").collection("request")
+                .get()
+                .addOnSuccessListener { result ->
+                  item.requestcount = result.size()
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                }
 
             val bundle = Bundle()
             bundle.putSerializable("psychic", item)
@@ -79,10 +105,7 @@ class ExplorePsychicsAdapter(
             }
 
 
-            if(item.psychicrating != null){
-                starRating.rating = item.psychicrating!!
-            }
-            else starRating.rating = 5F
+
         }
     }
 }

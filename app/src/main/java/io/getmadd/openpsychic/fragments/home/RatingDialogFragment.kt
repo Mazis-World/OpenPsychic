@@ -2,13 +2,16 @@ package io.getmadd.openpsychic.fragments.home
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.model.Request
@@ -47,6 +50,7 @@ class RatingDialogFragment(item: Any) : DialogFragment() {
                     var userreview = db.collection("users").document(item.senderid).collection("request").document(item.receiverid).collection("review")
                     var psychicreview = db.collection("users").document(item.receiverid).collection("request").document(item.senderid).collection("review")
                     var psychicreviewspublic = db.collection("users").document(item.receiverid).collection("reviews").document()
+
                     val reviewMap = mapOf(
                         "uid" to item.senderid,
                         "fullname" to item.fullName,
@@ -63,11 +67,12 @@ class RatingDialogFragment(item: Any) : DialogFragment() {
                     userreview.add(reviewMap)
                     psychicreview.add(reviewMap)
                     psychicreviewspublic.set(reviewMap)
+                    addRating(item.receiverid,rating)
                 }
                 is Review -> {
                     var item = item as Review
                     var psychicreviewspublic = db.collection("users").document(item.psychicuid).collection("reviews")
-                    var userreviewspublic = db.collection("users").document(item.uid).collection("reviews")
+                    var userreviewspublic = db.collection("users").document(item.uid!!).collection("reviews")
                     item.reviewrating = rating.toInt()
                     item.reviewmessage = message
                     item.reviewtimestamp = Timestamp.now()
@@ -75,7 +80,7 @@ class RatingDialogFragment(item: Any) : DialogFragment() {
                     item.username = prefs.username!!
                     psychicreviewspublic.add(item)
                     userreviewspublic.add(item)
-
+                    addRating(item.psychicuid,rating)
                 }
             }
 
@@ -87,5 +92,31 @@ class RatingDialogFragment(item: Any) : DialogFragment() {
         }
 
         return dialog
+    }
+
+    fun addRating(psychicId:String, rating: Float){
+        val db = FirebaseFirestore.getInstance()
+        val psychicUserRef = db.collection("users").document(psychicId)
+
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(psychicUserRef)
+            val currentRating = snapshot.getDouble("psychicrating") ?: 0.0
+            val currentRatingCount = snapshot.getLong("psychicratingcount") ?: 0
+
+            val newRating = currentRating + rating
+            val newRatingCount = currentRatingCount + 1
+
+            // Update the fields
+            transaction.update(psychicUserRef, "psychicrating", newRating)
+            transaction.update(psychicUserRef, "psychicratingcount", newRatingCount)
+
+            null
+        }.addOnSuccessListener {
+            // Transaction success
+            Log.d(TAG, "Transaction success!")
+        }.addOnFailureListener { e ->
+            // Transaction failed
+            Log.w(TAG, "Transaction failure.", e)
+        }
     }
 }

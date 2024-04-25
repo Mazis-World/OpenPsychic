@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.getField
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.services.UserPreferences
+import io.getmadd.openpsychic.utils.AppUtils
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -189,7 +190,7 @@ class DreamAdapter(private val context: Context?, private val dreams: List<Dream
                         userId = auth.uid.toString(),
                         userProfileImgSrc = prefs?.profileimgsrc!!,
                         userName = prefs?.username!!,
-                        date = getCurrentDate()
+                        date = AppUtils.getCurrentDate()
                     )
                     firestore.collection("dreamPost").document(dream.dreamId).collection("comments").add(comment)
                     commentEditText.text.clear()
@@ -197,12 +198,6 @@ class DreamAdapter(private val context: Context?, private val dreams: List<Dream
                 }
             }
         }
-    }
-
-    private fun getCurrentDate(): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = Calendar.getInstance().time
-        return dateFormat.format(date)
     }
 
     companion object {

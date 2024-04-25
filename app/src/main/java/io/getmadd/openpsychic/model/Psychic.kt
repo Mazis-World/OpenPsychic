@@ -16,7 +16,8 @@ class Psychic (
     var displayimgsrc: String? = null,
     var psychicondisplay: Boolean? = null,
     var psychicondisplaycategory: String? = null,
-    var psychicrating: Float? = null,
+    var psychicrating: Double? = null,
+    var psychicratingcount: Double? = null,
     var psychicoriginyear: Int? = null,
     var psychicorigincountry: String? = null,
     var requestcount: Int? = null

@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp
 import java.io.Serializable
 
 data class Review(
-    val uid: String,
+    val uid: String? = null,
     var profileimgsrc: String? = null,
     var username: String? = null,
     val fullname: String? = null,
@@ -17,4 +17,5 @@ data class Review(
     var reviewmessage: String? = null,
     var reviewtimestamp: Timestamp? = null
 ): Serializable {
+    constructor() : this(null, null, null, null, "", null, null, null, null, null, null, null)
 }

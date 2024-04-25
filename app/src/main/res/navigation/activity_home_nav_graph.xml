@@ -6,7 +6,12 @@
     <fragment
         android:id="@+id/messages_fragment"
         android:name="io.getmadd.openpsychic.fragments.home.MessagesFragment"
-        android:label="Messages Fragment" />
+        android:label="Messages Fragment">
+        <action
+            android:id="@+id/action_messages_fragment_to_message_thread_fragment"
+            app:destination="@id/message_thread_fragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/privacy_policy_fragment"
         android:name="io.getmadd.openpsychic.fragments.PrivacyPolicyFragment"
@@ -118,9 +123,6 @@
         <action
             android:id="@+id/action_history_fragment_to_request_history_fragment"
             app:destination="@id/request_history_fragment" />
-        <action
-            android:id="@+id/action_history_fragment_to_message_thread_fragment"
-            app:destination="@id/message_thread_fragment" />
     </fragment>
 
     <fragment

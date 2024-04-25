@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsExpandedBinding
+import io.getmadd.openpsychic.fragments.features.DreamAdapter
+import io.getmadd.openpsychic.fragments.features.ReviewsAdapter
 import io.getmadd.openpsychic.model.MessageMetaData
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Review
@@ -52,12 +55,12 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         }
 
         if(psychic.psychicrating != null){
-            binding.explorepsychicexpandedsratingBar.rating = psychic.psychicrating!!
-            binding.ratingnumtextview.text = psychic.psychicrating.toString()
+            binding.explorepsychicexpandedsratingBar.rating = (psychic.psychicrating!! / psychic.psychicratingcount!!).toFloat()
+            binding.ratingnumtextview.text = (psychic.psychicrating!! / psychic.psychicratingcount!!).toString()
         }
         else {
-            binding.explorepsychicexpandedsratingBar.rating = 5F
-            binding.ratingnumtextview.text = "5.0"
+            binding.explorepsychicexpandedsratingBar.rating = 3.5F
+            binding.ratingnumtextview.text = "3.5"
 
         }
        if(psychic.psychicoriginyear != null){
@@ -91,6 +94,38 @@ class ExplorePsychicsExpandedFragment: Fragment() {
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
+
+        val firestore = FirebaseFirestore.getInstance()
+        val reviewsRef = firestore.collection("users").document(psychic.userid.toString()).collection("reviews")
+        val reviewsList = mutableListOf<Review>()
+        val layoutManager = LinearLayoutManager(context)
+        val adapter = ReviewsAdapter(reviewsList)
+
+        binding.reviewsRecyclerView.layoutManager = layoutManager
+        binding.reviewsRecyclerView.adapter = adapter
+
+        reviewsRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.e("Review Listener", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && !snapshot.isEmpty) {
+                binding.noReviewsTextView.visibility = View.GONE
+                binding.reviewsRecyclerView.visibility = View.VISIBLE
+                reviewsList.clear()
+                for (document in snapshot.documents) {
+                    val review = document.toObject(Review::class.java)
+                    if (review != null) {
+                        reviewsList.add(review)
+                    }
+                }
+                adapter.notifyDataSetChanged()
+            } else {
+                Log.d("Review Listener", "No comments found")
+            }
+        }
+
         binding.requestreadingbtn.setOnClickListener{
             if(userType == "psychic") {
                 Toast.makeText(context,"Psychic Function Not Allowed",Toast.LENGTH_SHORT).show()

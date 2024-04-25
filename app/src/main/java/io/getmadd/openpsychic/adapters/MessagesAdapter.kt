@@ -47,7 +47,7 @@ class MessagesAdapter(val items: MutableList<MessageMetaData>, val listener: (In
 
             requestitemcardview.setOnClickListener{
                 Navigation.findNavController(view = itemView)
-                    .navigate(R.id.action_history_fragment_to_message_thread_fragment, bundle)
+                    .navigate(R.id.action_messages_fragment_to_message_thread_fragment, bundle)
             }
         }
 

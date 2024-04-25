@@ -73,7 +73,7 @@
             android:isIndicator="true"
             android:numStars="5"
             android:progressTint="@color/op_gold"
-            android:rating="3"
+            android:rating="3.5"
             android:scaleX=".3"
             android:scaleY=".3"
             android:stepSize="0.5" />
