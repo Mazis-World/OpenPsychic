@@ -12,4 +12,5 @@ class User(
     var profileimgsrc: String,
     var displayimgsrc: String,
     var joinedlivestreams: ArrayList<String>?,
+    var requestcount: Int
 )

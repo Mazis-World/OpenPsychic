@@ -1,21 +1,76 @@
-<!-- layout_make_post.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/op_purple"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/image_view_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/op_purple_accent" />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Dream"
+            android:textAlignment="center"
+            android:textColor="@color/op_purple_accent"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <!-- EditText for Dream Content -->
     <EditText
         android:id="@+id/edit_text_post_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/op_purple_foreground_text"
+        android:gravity="start|top"
         android:hint="Enter your dream content"
-        android:maxLines="5" />
+        android:padding="16dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/op_purple_accent" />
 
-    <Button
-        android:id="@+id/button_post"
-        android:layout_width="wrap_content"
+    <!-- Post Button Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Post" />
+        android:gravity="end"
+        android:padding="8dp">
+
+        <!-- Post Button -->
+        <TextView
+            android:id="@+id/button_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post"
+            android:textColor="@color/op_purple_accent"
+            android:textSize="18sp"
+            android:padding="8dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -2,9 +2,7 @@ package io.getmadd.openpsychic.fragments.features
 
 import Comment
 import Dream
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.getField
 import io.getmadd.openpsychic.R
@@ -29,11 +26,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
+class DreamAdapter(private val context: Context?, private val dreams: List<Dream>) :
     RecyclerView.Adapter<DreamAdapter.DreamViewHolder>() {
-    val firestore = FirebaseFirestore.getInstance()
-    val auth = FirebaseAuth.getInstance()
-    private var prefs = context?.let { UserPreferences(it) }
+    private val firestore = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    private val prefs = context?.let { UserPreferences(it) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DreamViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_dream, parent, false)
@@ -56,12 +53,13 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
         private val commentSection: LinearLayout = itemView.findViewById(R.id.commentSection)
         private val reply: ImageButton = itemView.findViewById(R.id.button_reply)
         private val heart: ImageButton = itemView.findViewById(R.id.button_like)
+        private val dreamPostDate: TextView = itemView.findViewById(R.id.text_dream_post_date)
         private val postCommentButton: Button = itemView.findViewById(R.id.commentButton)
         private val commentEditText: EditText = itemView.findViewById(R.id.commentEditText)
+        private val commentsRecyclerView: RecyclerView = itemView.findViewById(R.id.commentsRecyclerView)
         private val viewCommentsButton: TextView = itemView.findViewById(R.id.text_view_comments)
         private val heartCounts: TextView = itemView.findViewById(R.id.hearts_count)
         private val viewsCounts: TextView = itemView.findViewById(R.id.view_count)
-        private val commentsRecyclerView: RecyclerView = itemView.findViewById(R.id.commentsRecyclerView)
         private val likedDreams = HashSet<String>()
         private val commentsList = mutableListOf<Comment>()
         private val adapter = CommentsAdapter(commentsList)
@@ -70,21 +68,24 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
         fun bind(dream: Dream) {
             commentsList.clear()
             val commentsRef = firestore.collection("dreamPost").document(dream.dreamId).collection("comments")
-            val docRef = FirebaseFirestore.getInstance().collection("dreamPost").document(dream.dreamId)
-            val heartersRef = FirebaseFirestore.getInstance().collection("dreamPost").document(dream.dreamId).collection("hearters")
+            val docRef = firestore.collection("dreamPost").document(dream.dreamId)
+            val heartersRef = firestore.collection("dreamPost").document(dream.dreamId).collection("hearters")
             val layoutManager = LinearLayoutManager(itemView.context)
             commentsRecyclerView.layoutManager = layoutManager
             commentsRecyclerView.adapter = adapter
             dreamContentTextView.text = dream.content
             dreamUserName.text = dream.userName
-            Glide.with(itemView).load(dream.userProfileImgSrc)
-                .error(Glide.with(itemView).load(R.drawable.openpsychiclogo))
+            Glide.with(itemView)
+                .load(dream.userProfileImgSrc)
+                .placeholder(R.drawable.openpsychiclogo) // Use the op_logo drawable as the placeholder
                 .apply(RequestOptions.circleCropTransform())
                 .into(dreamProfileImageView)
 
+            dreamPostDate.text = dream.date
+
             commentsRef.addSnapshotListener { snapshot, e ->
                 if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
+                    Log.e(TAG, "Listen failed.", e)
                     return@addSnapshotListener
                 }
 
@@ -92,7 +93,7 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
                     viewCommentsButton.visibility = View.VISIBLE
                     viewCommentsButton.text = "View ${snapshot.size()} Comments"
 
-                    commentsList.clear() // Clear the existing comments
+                    commentsList.clear()
                     for (document in snapshot.documents) {
                         val comment = document.toObject(Comment::class.java)
                         if (comment != null) {
@@ -104,22 +105,22 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
                     Log.d(TAG, "No comments found")
                 }
             }
+
             heartersRef.document(auth.uid.toString()).get().addOnSuccessListener {
                 if (it.exists()) {
                     heart.setImageResource(R.drawable.ic_heart_filled)
-                }
-                else{
+                } else {
                     heart.setImageResource(R.drawable.ic_heart)
                 }
             }
 
             heartersRef.addSnapshotListener { snapshot, e ->
                 if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
+                    Log.e(TAG, "Listen failed.", e)
                     return@addSnapshotListener
                 }
 
-                if (snapshot != null ){
+                if (snapshot != null) {
                     heartCounts.visibility = View.VISIBLE
                     heartCounts.text = snapshot.documents.count().toString()
 
@@ -138,7 +139,7 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
 
             docRef.addSnapshotListener { snapshot, e ->
                 if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
+                    Log.e(TAG, "Listen failed.", e)
                     return@addSnapshotListener
                 }
 
@@ -166,13 +167,10 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
                     likedDreams.remove(dream.dreamId)
                     heart.setImageResource(R.drawable.ic_heart)
                 } else {
-                    heartersRef.document(auth.uid.toString()).set({
-                        "dreamId" to dream.dreamId
-                    })
+                    heartersRef.document(auth.uid.toString()).set(mapOf("dreamId" to dream.dreamId))
                     likedDreams.add(dream.dreamId)
                     heart.setImageResource(R.drawable.ic_heart_filled)
                 }
-
             }
 
             reply.setOnClickListener {
@@ -184,24 +182,20 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
             }
 
             postCommentButton.setOnClickListener {
-
-                if(commentEditText.text.isNotEmpty()){
-
+                if (commentEditText.text.isNotEmpty()) {
                     val comment = Comment(
                         dreamId = dream.dreamId,
                         content = commentEditText.text.toString(),
                         userId = auth.uid.toString(),
                         userProfileImgSrc = prefs?.profileimgsrc!!,
                         userName = prefs?.username!!,
-                        date = getCurrentDate(),
-                        )
-
+                        date = getCurrentDate()
+                    )
                     firestore.collection("dreamPost").document(dream.dreamId).collection("comments").add(comment)
                     commentEditText.text.clear()
                     commentSection.visibility = View.GONE
                 }
             }
-
         }
     }
 
@@ -210,5 +204,8 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
         val date = Calendar.getInstance().time
         return dateFormat.format(date)
     }
-}
 
+    companion object {
+        private const val TAG = "DreamAdapter"
+    }
+}

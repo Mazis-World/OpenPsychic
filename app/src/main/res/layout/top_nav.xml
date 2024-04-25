@@ -37,13 +37,27 @@
             android:textColor="#ECC3FF"
             android:textSize="24sp" />
 
-        <ImageView
-            android:id="@+id/top_nav_bell_icon_imageView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center|center_horizontal|center_vertical"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/bell_icon" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8sp">
+
+            <ImageView
+                android:id="@+id/top_nav_bell_icon_imageView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_weight=".5"
+                app:srcCompat="@drawable/bell_icon" />
+
+            <ImageView
+                android:id="@+id/messages_icon_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_weight=".5"
+                app:srcCompat="@drawable/message" />
+        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.appbar.AppBarLayout>

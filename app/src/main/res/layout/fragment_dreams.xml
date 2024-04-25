@@ -8,7 +8,8 @@
         android:id="@+id/recycler_view_dreams"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/op_purple" />
+        android:background="@color/op_purple"
+        android:overScrollMode="never"/>
 
     <!-- Floating Action Button for adding a dream -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

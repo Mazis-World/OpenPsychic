@@ -1,13 +1,10 @@
 package io.getmadd.openpsychic.activity
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.ContextThemeWrapper
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import io.getmadd.openpsychic.R
@@ -53,6 +50,10 @@ class HomeActivity : AppCompatActivity() {
             navController?.navigate(R.id.notification_fragment)
         }
 
+        binding.include.messagesIconImageView.setOnClickListener {
+            navController?.navigate(R.id.messages_fragment)
+        }
+
         binding.includeBottomNavigationView.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_explore -> {
@@ -61,7 +62,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.navigation_dreams -> {
                     navController?.navigate(R.id.dreams_fragment)
                 }
-                R.id.navigation_history -> {
+                R.id.navigation_request -> {
                     navController?.navigate(R.id.history_fragment)
                 }
                 R.id.navigation_profile -> {

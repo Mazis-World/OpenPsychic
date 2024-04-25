@@ -3,16 +3,11 @@ package io.getmadd.openpsychic.fragments.home
 import RequestMessagesAdapter
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
@@ -31,7 +25,6 @@ import io.getmadd.openpsychic.model.Message
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
 import io.getmadd.openpsychic.model.RequestStatusUpdate
-import androidx.fragment.app.FragmentManager
 
 class RequestHistoryView : Fragment() {
     private lateinit var binding: FragmentRequestHistoryViewBinding

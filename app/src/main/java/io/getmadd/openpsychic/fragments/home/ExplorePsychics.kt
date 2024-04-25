@@ -64,7 +64,6 @@ class ExplorePsychics : Fragment() {
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
                     val psychic = document.toObject(Psychic::class.java)
-
                     listofPsychics.add(psychic)
                 }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
@@ -75,8 +74,8 @@ class ExplorePsychics : Fragment() {
 
         binding.recyclerView.adapter = ExplorePsychicsAdapter(items = listofPsychics, {})
 
-        var prefs = UserPreferences(requireContext())
-        var subscriptionstate = prefs.subscriptionstate
+        val prefs = UserPreferences(requireContext())
+        val subscriptionstate = prefs.subscriptionstate
 
         if(subscriptionstate == "active"){
         }else {

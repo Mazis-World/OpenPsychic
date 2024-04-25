@@ -78,10 +78,11 @@ class ExplorePsychicsAdapter(
                 findNavController(view = itemView).navigate(R.id.action_explore_psychics_to_explore_psychics_expanded, bundle)
             }
 
+
             if(item.psychicrating != null){
                 starRating.rating = item.psychicrating!!
             }
-            else starRating.rating = 0F
+            else starRating.rating = 5F
         }
     }
 }

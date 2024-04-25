@@ -1,7 +1,5 @@
 package io.getmadd.openpsychic.fragments.features
-
 import Dream
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +23,6 @@ import io.getmadd.openpsychic.services.UserPreferences
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 
 class DreamsFragment : Fragment() {
 
@@ -38,15 +37,14 @@ class DreamsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_dreams, container, false)
         recyclerView = view.findViewById(R.id.recycler_view_dreams)
-
-        getDreamsFromFirestore()
         prefs = UserPreferences(requireContext())
         val fabAddDream: FloatingActionButton = view.findViewById(R.id.fab_add_dream)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        getDreamsFromFirestore()
 
         fabAddDream.setOnClickListener {
-            showMakePostBottomSheet()
+            showMakePostFullScreenDialog()
         }
 
         return view
@@ -66,36 +64,42 @@ class DreamsFragment : Fragment() {
             }
             .addOnFailureListener { e ->
                 // Handle failure
+                Log.e(TAG, "Error getting dreams", e)
             }
-        val itemViewTracker = ItemViewTracker(recyclerView,dreams)
-        recyclerView.addOnScrollListener(itemViewTracker)
-
     }
 
     private fun updateAdapter(dreams: List<Dream>) {
-        val adapter = DreamAdapter(context,dreams)
+        val adapter = DreamAdapter(context, dreams)
         recyclerView.adapter = adapter
     }
 
-    private fun showMakePostBottomSheet() {
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
-        val bottomSheetView = layoutInflater.inflate(R.layout.layout_make_post_dream, null)
-        bottomSheetDialog.setContentView(bottomSheetView)
+    private fun showMakePostFullScreenDialog() {
+        val fullScreenDialog = FullScreenDialog(requireContext())
+        val fullScreenView = layoutInflater.inflate(R.layout.layout_make_post_dream, null)
+        fullScreenDialog.setContentView(fullScreenView)
 
-        val editTextPostContent = bottomSheetView.findViewById<EditText>(R.id.edit_text_post_content)
-        val buttonPost = bottomSheetView.findViewById<Button>(R.id.button_post)
+        val editTextPostContent = fullScreenView.findViewById<EditText>(R.id.edit_text_post_content)
+        val buttonPost = fullScreenView.findViewById<TextView>(R.id.button_post)
+        val buttonClose = fullScreenView.findViewById<ImageView>(R.id.image_view_close)
 
         buttonPost.setOnClickListener {
             val postContent = editTextPostContent.text.toString()
-            addDreamToFirestore(postContent)
-            bottomSheetDialog.dismiss()
+            if (postContent.isNotEmpty()) {
+                addDreamToFirestore(postContent)
+                fullScreenDialog.dismiss()
+            } else {
+                Toast.makeText(context, "Please enter your dream content", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        bottomSheetDialog.show()
+        buttonClose.setOnClickListener{
+            fullScreenDialog.dismiss()
+        }
+
+        fullScreenDialog.show()
     }
 
     private fun addDreamToFirestore(content: String) {
-
         val dream = hashMapOf(
             "userId" to auth.currentUser!!.uid,
             "userName" to prefs.username,
@@ -113,17 +117,14 @@ class DreamsFragment : Fragment() {
                 val dreamId = documentReference.id
                 documentReference.update("dreamId", dreamId)
                     .addOnSuccessListener {
-                        // Handle success
-                        Log.d(TAG, "DocumentSnapshot successfully updated!")
+                        Log.d(TAG, "Dream added successfully")
                     }
                     .addOnFailureListener { e ->
-                        // Handle error
-                        Log.w(TAG, "Error updating document", e)
+                        Log.e(TAG, "Error updating dreamId", e)
                     }
             }
             .addOnFailureListener { e ->
-                // Handle error
-                Log.w(TAG, "Error adding document", e)
+                Log.e(TAG, "Error adding dream", e)
             }
     }
 
@@ -133,4 +134,7 @@ class DreamsFragment : Fragment() {
         return dateFormat.format(date)
     }
 
+    companion object {
+        private const val TAG = "DreamsFragment"
+    }
 }

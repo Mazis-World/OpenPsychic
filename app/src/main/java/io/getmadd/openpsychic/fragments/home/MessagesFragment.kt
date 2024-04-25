@@ -22,24 +22,24 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.databinding.FragmentHistoryBinding
+import io.getmadd.openpsychic.databinding.FragmentMessagesBinding
 import io.getmadd.openpsychic.model.Message
 import io.getmadd.openpsychic.model.MessageMetaData
 import io.getmadd.openpsychic.services.UserPreferences
 
 
-class HistoryFragment : Fragment() {
-    private lateinit var _binding: FragmentHistoryBinding
+class MessagesFragment : Fragment() {
+    private lateinit var _binding: FragmentMessagesBinding
     private val binding get() = _binding
     var db = Firebase.firestore
-
-    var requestlist = ArrayList<Request>()
+    var messageslist = ArrayList<MessageMetaData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        _binding = FragmentMessagesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -49,44 +49,43 @@ class HistoryFragment : Fragment() {
 
         val userId = Firebase.auth.uid.toString()
 
-        val requestref = db.collection("users")
+        val messagesref = db.collection("users")
             .document(userId)
-            .collection("request")
-            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .collection("messages")
 
-        binding.requestRecyclerView.adapter = RequestAdapter(requestlist) {}
-        binding.requestRecyclerView.layoutManager = LinearLayoutManager(context)
-        var rcv = binding.requestRecyclerView.adapter
+        binding.messagesRecyclerView.adapter = MessagesAdapter(messageslist) {}
+        binding.messagesRecyclerView.layoutManager = LinearLayoutManager(context)
+        var rcv = binding.messagesRecyclerView.adapter
 
-        requestref.get()
+
+        messagesref.get()
             .addOnSuccessListener { userDocumentSnapshot ->
                 if (!userDocumentSnapshot.isEmpty) {
                     // User document exists, check for the 'request' collection
-                    val requestCollection = requestref
+                    val messagesCollection = messagesref
 
-                    requestCollection.get()
-                        .addOnSuccessListener { requestQuerySnapshot ->
+                    messagesCollection.get()
+                        .addOnSuccessListener { messageQuerySnapshot ->
                             // Clear the list before adding new items
-                            requestlist.clear()
+                            messageslist.clear()
 
-                            for (requestDocument in requestQuerySnapshot.documents) {
+                            for (requestDocument in messageQuerySnapshot.documents) {
                                 // Process each document in the 'request' collection
                                 // For example, add data to userHistoryList
 
-                                val request = requestDocument.toObject(Request::class.java)
+                                val message = requestDocument.toObject(MessageMetaData::class.java)
 
-                                if (request != null) {
-                                    requestlist.add(request)
+                                if (message != null) {
+                                    messageslist.add(message)
                                 }
                             }
+                            rcv?.notifyDataSetChanged()
 
-                            rcv!!.notifyDataSetChanged()
-
-                            if (requestQuerySnapshot.isEmpty) {
+                            if (messageQuerySnapshot.isEmpty) {
                                 // 'request' collection is empty
-                                binding.emptyRequestTextView.visibility = View.VISIBLE
+                                binding.emptyMessagesTextView.visibility = View.VISIBLE
                             } else {
-                                binding.emptyRequestTextView.visibility = View.GONE
+                                binding.emptyMessagesTextView.visibility = View.GONE
                             }
                         }
                         .addOnFailureListener { exception ->
@@ -97,7 +96,7 @@ class HistoryFragment : Fragment() {
                 } else {
                     // User document does not exist
                     Log.d(TAG, "User document does not exist for user ID: $userId")
-                    binding.emptyRequestTextView.visibility = View.VISIBLE
+                    binding.emptyMessagesTextView.visibility = View.VISIBLE
                 }
             }
             .addOnFailureListener { exception ->
@@ -105,11 +104,10 @@ class HistoryFragment : Fragment() {
                 Log.e(TAG, "Error getting user document: ${exception.message}", exception)
             }
 
-
         var prefs = UserPreferences(requireContext())
         var subscriptionstate = prefs.subscriptionstate
 
-        val adView: AdView = binding.historybannerad
+        val adView: AdView = binding.messagesbannerad
         val adRequest: AdRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
@@ -117,7 +115,7 @@ class HistoryFragment : Fragment() {
 
         InterstitialAd.load(
             context!!,
-            "ca-app-pub-2450865968732279/8716388373",
+            "ca-app-pub-2450865968732279/9483822289",
             adRequest1,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {

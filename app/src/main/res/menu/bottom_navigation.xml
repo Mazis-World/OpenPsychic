@@ -15,10 +15,10 @@
         android:title="@string/navigation_dreams"
         app:showAsAction="never" />
     <item
-        android:id="@+id/navigation_history"
+        android:id="@+id/navigation_request"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:orderInCategory="300"
-        android:title="@string/navigation_history"
+        android:title="@string/navigation_request"
         app:showAsAction="never" />
     <item
         android:id="@+id/navigation_profile"

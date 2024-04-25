@@ -19,22 +19,6 @@ class Psychic (
     var psychicrating: Float? = null,
     var psychicoriginyear: Int? = null,
     var psychicorigincountry: String? = null,
+    var requestcount: Int? = null
 ) : Serializable {
-    constructor() : this(
-        userid = null,
-        email = null,
-        displayname = null,
-        username = null,
-        usertype = null,
-        firstname = null,
-        lastname = null,
-        bio = null,
-        profileimgsrc = null,
-        displayimgsrc = null,
-        psychicondisplay = false,
-        psychicondisplaycategory = null,
-        psychicrating = null,
-        psychicoriginyear = null,
-        psychicorigincountry = null,
-    )
 }

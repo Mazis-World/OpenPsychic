@@ -1,9 +1,7 @@
 package io.getmadd.openpsychic.fragments.home
 
 import android.content.ContentValues
-import android.content.Context
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +16,7 @@ import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentExplorePsychicsExpandedBinding
 import io.getmadd.openpsychic.model.MessageMetaData
 import io.getmadd.openpsychic.model.Psychic
-import io.getmadd.openpsychic.model.User
+import io.getmadd.openpsychic.model.Review
 
 class ExplorePsychicsExpandedFragment: Fragment() {
 
@@ -47,17 +45,25 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         lateinit var psychic: Psychic
         if (bundle != null) {
             psychic = (bundle.getSerializable("psychic") as? Psychic)!!
-            // Now you have access to the Psychic object in the Fragment
         }
+
+        if(psychic.requestcount != null){
+            binding.requestsnumtextview.text = psychic.requestcount.toString()
+        }
+
         if(psychic.psychicrating != null){
             binding.explorepsychicexpandedsratingBar.rating = psychic.psychicrating!!
             binding.ratingnumtextview.text = psychic.psychicrating.toString()
         }
         else {
-            binding.explorepsychicexpandedsratingBar.rating = 0F
+            binding.explorepsychicexpandedsratingBar.rating = 5F
+            binding.ratingnumtextview.text = "5.0"
+
         }
        if(psychic.psychicoriginyear != null){
            binding.sincedatetextview.text = psychic.psychicoriginyear.toString()
+       }else{
+           binding.sincedatetextview.text = "2024"
        }
 
         binding.expandedBioTextView.text = psychic.bio
@@ -113,6 +119,15 @@ class ExplorePsychicsExpandedFragment: Fragment() {
 
         binding.startvoicethread.setOnClickListener{
 
+        }
+
+        binding.textViewLeaveAReview.setOnClickListener{
+            var review = Review(
+                uid = userId,
+                psychicuid = psychic.userid!!
+            )
+            val dialog = RatingDialogFragment(review)
+            dialog.show(fragmentManager!!,"RequestReviewDialog")
         }
     }
 

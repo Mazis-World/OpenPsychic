@@ -1,6 +1,7 @@
 <!-- expanded_card_item_layout.xml -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/op_purple"
@@ -54,7 +55,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal"
-                            android:padding="8dp">
+                            android:padding="8dp"
+                            tools:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -89,7 +91,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/readingsnumtextview"
+                                    android:id="@+id/requestsnumtextview"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -101,7 +103,7 @@
                                     android:id="@+id/textView21"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Readings"
+                                    android:text="Request"
                                     android:textAlignment="center"
                                     android:textColor="@color/op_purple_foreground_text"
                                     android:textSize="16sp"
@@ -244,6 +246,25 @@
                 android:scaleX=".3"
                 android:scaleY=".3"
                 android:stepSize="0.5" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/text_view_leave_a_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave A Review"
+                android:textColor="@color/op_purple_foreground_text"
+                android:textSize="16sp"
+                android:textStyle="bold">
+
+            </TextView>
         </FrameLayout>
 
         <!-- Bio -->
