@@ -1,0 +1,96 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/op_grey"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/question_ask_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:text="April 12, 2024"
+            android:textColor="@color/op_purple"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/question_label_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:paddingTop="8dp"
+            android:text="Question?"
+            android:textColor="@color/op_purple_accent_foreground"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/question_asked_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="I've been feeling lost in my career lately and unsure about my next steps. Can you provide insight into what path I should take to find fulfillment and success?"
+            android:textColor="@color/op_purple_accent_foreground"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/answer_label_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:paddingTop="8dp"
+            android:text="Answer!"
+            android:textColor="@color/op_purple_accent_foreground"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/question_response_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Trust your intuition and take time to reflect. Opportunities are coming; stay positive and open-minded. Focus on what truly brings you joy"
+            android:textColor="@color/op_purple_accent_foreground"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right|center_vertical|end"
+            android:orientation="horizontal"
+            android:paddingRight="32sp">
+
+            <ImageView
+                android:id="@+id/psychic_profile_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                app:srcCompat="@drawable/openpsychiclogo" />
+
+            <TextView
+                android:id="@+id/psychic_display_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Psychic Name"
+                android:textColor="@color/op_purple_accent_foreground"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
