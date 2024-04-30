@@ -29,6 +29,7 @@ class AskAdvisorFragment : Fragment() {
     private lateinit var prefs: UserPreferences
     private lateinit var questionEditText: EditText
     private var questionsAvailable = 0
+    private var askedQuestions = 0
     private lateinit var psychic: Psychic
 
     override fun onCreateView(
@@ -54,16 +55,17 @@ class AskAdvisorFragment : Fragment() {
             .get()
             .addOnSuccessListener { document ->
                 questionsAvailable = document.getLong("questionsAvailable")?.toInt() ?: 0
+                askedQuestions = document.getLong("questionsAsked")?.toInt() ?: 0
                 view.findViewById<TextView>(R.id.questionCountTextView).text = questionsAvailable.toString()
                 if (questionsAvailable == 0) {
                     findNavController().navigate(
                         R.id.purchase_questions_fragment,
                     )
-                    Toast.makeText(requireContext(), "You don't have any questions available.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), "You don't have any questions available.", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(requireContext(), "Failed to check questions available: ${e.message}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireActivity(), "Failed to check questions available: ${e.message}", Toast.LENGTH_SHORT).show()
             }
 
         // Send question to Firestore
@@ -86,7 +88,7 @@ class AskAdvisorFragment : Fragment() {
                         null,
                         false,
                         auth.currentUser!!.uid,
-                        auth.currentUser!!.displayName ?: "",
+                        psychic.userid!!,
                         null,
                         null
                     )
@@ -94,24 +96,28 @@ class AskAdvisorFragment : Fragment() {
                         firestore.collection("users").document(it1).collection("questions")
                             .add(question)
                             .addOnSuccessListener {
-                                Log.d("AskAdvisorFragment", "Question sent successfully.")
-                                Toast.makeText(requireContext(), "Question sent successfully.", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e("AskAdvisorFragment", "Failed to send question: ${e.message}", e)
+                                prefs.uid?.let { it1 ->
+                                    firestore.collection("users").document(it1).collection("questions")
+                                        .add(question)
+                                        .addOnSuccessListener {
+                                            firestore.collection("users")
+                                                .document(auth.currentUser!!.uid).update("questionsAvailable", questionsAvailable-1)
+                                            firestore.collection("users")
+                                                .document(auth.currentUser!!.uid).update("askedQuestions", askedQuestions+1)
+                                            firestore.collection("users")
+                                                .document(psychic.userid!!)
+                                                .get()
+                                                .addOnSuccessListener { document ->
+                                                    var questionsAsked = document.getLong("questionsAsked")?.toInt() ?: 0
+                                                    firestore.collection("users")
+                                                        .document(psychic.userid!!).update("questionsAsked", questionsAsked+1)
+                                                    findNavController().popBackStack()
+                                                    Toast.makeText(context,"You have submitted your question, be patient!", Toast.LENGTH_LONG).show()
+                                                }
+                                        }
+                                }
                             }
                     }
-                    prefs.uid?.let { it1 ->
-                        firestore.collection("users").document(it1).collection("questions")
-                            .add(question)
-                            .addOnSuccessListener {
-                                Log.d("AskAdvisorFragment", "Question sent successfully.")
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e("AskAdvisorFragment", "Failed to send question: ${e.message}", e)
-                            }
-                    }
-                    findNavController().popBackStack()
                 } else {
                     Toast.makeText(requireContext(), "Please enter a question.", Toast.LENGTH_SHORT).show()
                 }

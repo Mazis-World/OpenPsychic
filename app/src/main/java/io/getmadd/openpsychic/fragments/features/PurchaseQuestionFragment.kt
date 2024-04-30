@@ -15,6 +15,7 @@ import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetailsParams
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentPurchaseQuestionPackBinding
 import io.getmadd.openpsychic.services.UserPreferences
 
@@ -56,7 +57,7 @@ class PurchaseQuestionFragment : Fragment() {
         }
 
         binding.discoverpremumbuton.setOnClickListener {
-//            findNavController().navigate()
+            findNavController().navigate(R.id.subscribe_premium_fragment)
         }
 
         setupBillingClient()
@@ -127,7 +128,7 @@ class PurchaseQuestionFragment : Fragment() {
                         userDocRef.update("questionsAvailable", newQuestionsAvailable)
                             .addOnSuccessListener {
                                 Toast.makeText(requireContext(), "Purchase successful.", Toast.LENGTH_SHORT).show()
-                                findNavController().popBackStack()
+                                userDocRef.collection("purchases").document().set(purchase)
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(requireContext(), "Failed to save purchase: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -139,7 +140,6 @@ class PurchaseQuestionFragment : Fragment() {
             }
         }
     }
-
 
     private fun launchGooglePlayBilling(productId: String) {
         val skuList = ArrayList<String>()

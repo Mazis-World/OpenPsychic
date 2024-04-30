@@ -73,6 +73,9 @@
         android:name="io.getmadd.openpsychic.fragments.home.ExplorePsychicsExpandedFragment"
         android:label="Explore Psychics Expanded" >
         <action
+            android:id="@+id/action_expanded_to_ask_advisor_fragment"
+            app:destination="@id/ask_advisor_fragment" />
+        <action
             android:id="@+id/action_explore_psychics_expanded_to_request_reading_fragment"
             app:destination="@id/request_reading_fragment"
             app:enterAnim="@anim/nav_default_enter_anim"

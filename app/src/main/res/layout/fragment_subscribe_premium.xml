@@ -26,12 +26,18 @@
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/subscribe_smoke" />
 
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/backdrop" />
+
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Better, 100% Free Open Psychic App"
+                android:text="Upgrade for exclusive benefits!"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="32sp"
@@ -41,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <ImageView
                     android:layout_width="60sp"
@@ -60,16 +66,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Premium Status"
+                        android:text="Go  Global "
                         android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Get Premium Verified Status "
+                        android:text="Access Top Psychic Advisors Around The World!"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
 
@@ -79,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -99,21 +105,131 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Early Adopter"
+                        android:text="Real Psychic Adbisors "
                         android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Gain Fresh Access To New Features "
+                        android:text="Ensure Your Psychic Advisor Is Safe &amp; Trusted."
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/magic_wand" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Unlimited Direct Messages"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No Barriers To Communicate Psychic Advisors"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/magic_wand" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Unlimited Reading Request"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Live Chat, Audio, &amp; Video Transciptable Request"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/magic_wand" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Unlimited Appointment Scheduling"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Find Time With Your Psychic Advisor "
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+            </LinearLayout>
             <Button
                 android:id="@+id/subscribepremiumbutton"
                 android:layout_width="match_parent"
@@ -142,6 +258,7 @@
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

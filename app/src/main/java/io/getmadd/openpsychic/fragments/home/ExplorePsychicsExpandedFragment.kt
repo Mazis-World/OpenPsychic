@@ -182,7 +182,7 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         binding.fabAskPsychicAdvisor.setOnClickListener{
             val bundle = Bundle()
             bundle.putSerializable("psychic", psychic)
-            findNavController().navigate(R.id.ask_advisor_fragment, bundle)
+            findNavController().navigate(R.id.action_expanded_to_ask_advisor_fragment, bundle)
         }
     }
 }
