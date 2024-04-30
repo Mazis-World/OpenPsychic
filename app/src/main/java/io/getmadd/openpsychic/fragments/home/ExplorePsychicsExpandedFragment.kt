@@ -95,6 +95,23 @@ class ExplorePsychicsExpandedFragment: Fragment() {
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
 
+        db.collection("users").document(userId).collection("paymentmethods")
+            .get()
+            .addOnSuccessListener { result ->
+                var paymentProvider = ""
+                var paymentAddress = ""
+                for(doc in result){
+                    //should be 1
+                    paymentProvider = doc.getString("provider").toString()
+                    paymentAddress = doc.getString("address").toString()
+                }
+                binding.paymentMethodAddressTextView.text = paymentAddress
+                binding.paymentMethodProviderTextView.text = paymentProvider
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+
         val firestore = FirebaseFirestore.getInstance()
         val reviewsRef = firestore.collection("users").document(psychic.userid.toString()).collection("reviews")
         val reviewsList = mutableListOf<Review>()
@@ -151,11 +168,9 @@ class ExplorePsychicsExpandedFragment: Fragment() {
                 )
             }
         }
-
         binding.startvoicethread.setOnClickListener{
 
         }
-
         binding.textViewLeaveAReview.setOnClickListener{
             var review = Review(
                 uid = userId,
@@ -164,7 +179,10 @@ class ExplorePsychicsExpandedFragment: Fragment() {
             val dialog = RatingDialogFragment(review)
             dialog.show(fragmentManager!!,"RequestReviewDialog")
         }
+        binding.fabAskPsychicAdvisor.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putSerializable("psychic", psychic)
+            findNavController().navigate(R.id.ask_advisor_fragment, bundle)
+        }
     }
-
-
 }

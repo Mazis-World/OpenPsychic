@@ -1,3 +1,4 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -48,16 +49,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/discoverpremumbuton"
         android:layout_below="@id/subtitleTextView"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="32dp">
 
         <!-- CardView 1 -->
         <androidx.cardview.widget.CardView
             android:id="@+id/pack50cardview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_margin="8dp"
             android:layout_weight="1"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp">
@@ -89,10 +92,11 @@
 
 
                 <TextView
+                    android:id="@+id/price_pack_50_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="32dp"
-                    android:text="$75.00"
+                    android:text="$74.99"
                     android:textAlignment="center"
                     android:textColor="@color/op_purple_foreground_text"
                     android:textSize="18sp"
@@ -107,14 +111,14 @@
             android:id="@+id/pack12cardview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_margin="8dp"
             android:layout_weight="1"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="122dp"
+                android:layout_height="match_parent"
                 android:background="@color/op_purple"
                 android:orientation="vertical"
                 android:padding="16dp">
@@ -139,10 +143,11 @@
 
 
                 <TextView
+                    android:id="@+id/price_pack_12_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="32dp"
-                    android:text="$30.00"
+                    android:text="$29.99"
                     android:textAlignment="center"
                     android:textColor="@color/op_purple_foreground_text"
                     android:textSize="18sp"
@@ -157,7 +162,7 @@
             android:id="@+id/pack3cardview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_margin="8dp"
             android:layout_weight="1"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp">
@@ -189,6 +194,7 @@
 
 
                 <TextView
+                    android:id="@+id/price_pack_3_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="32dp"
@@ -204,7 +210,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/closedialogimageview"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentStart="true"
@@ -212,7 +218,7 @@
         app:srcCompat="@drawable/btn_clear" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/discoverpremumbuton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

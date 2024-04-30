@@ -536,7 +536,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Add A Payment Method"
+                            android:text="Update Payment Method"
                             android:textColor="@color/op_purple_foreground_text"
                             android:textSize="18sp" />
 

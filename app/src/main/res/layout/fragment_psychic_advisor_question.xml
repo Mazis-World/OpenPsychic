@@ -1,108 +1,119 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/op_purple_accent_foreground">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/questionCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="3"
-        android:textColor="@android:color/white"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/questionsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/questionCountTextView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-14dp"
-        android:padding="8dp"
-        android:text="Questions Remaining"
-        android:textColor="@color/op_purple_foreground_text"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/whatsYourQuestionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/questionCountTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:padding="8dp"
-        android:text="What's Your Question"
-        android:textColor="@android:color/white"
-        android:textSize="96sp"
-        android:textStyle="bold" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/whatsYourQuestionTextView"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@color/op_purple_accent_foreground">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/questionCountTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="3"
+            android:textColor="@android:color/white"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/questionsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/questionCountTextView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-14dp"
+            android:padding="8dp"
+            android:text="Questions Remaining"
+            android:textColor="@color/op_purple_foreground_text"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/whatsYourQuestionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/questionCountTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:padding="8dp"
+            android:text="What's Your Question"
+            android:textColor="@android:color/white"
+            android:textSize="108sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/whatsYourQuestionTextView"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="12dp">
+
+                <EditText
+                    android:id="@+id/enterQuestionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="Question Your Favorite Psychic Advisor in 133 Characters or Less."
+                    android:maxLength="133"
+                    android:padding="16dp"
+                    android:textColor="@color/op_purple"
+                    android:textColorHint="@color/op_purple_foreground_accent"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/psychicUserNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="\@PsychicUsername"
+                android:textColor="@color/op_purple_foreground_text" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/sendQuestioextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp"
+            android:text="Send"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/closeDialogImageView"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="12dp">
-
-            <EditText
-                android:id="@+id/enterQuestionEditText"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:gravity="top"
-                android:hint="Ask Wisely, You Only Get 1!"
-                android:maxLength="133"
-                android:padding="16dp"
-                android:textSize="18sp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="/@PsychicUsername"
-            android:textColor="@color/op_purple_foreground_text"></TextView>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/send_question_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:padding="16dp"
-        android:text="Send"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imageButton2"
-        android:layout_width="32sp"
-        android:layout_height="32sp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/btn_clear" />
+            app:srcCompat="@drawable/btn_clear" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

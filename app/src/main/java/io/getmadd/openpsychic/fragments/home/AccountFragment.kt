@@ -106,6 +106,8 @@ class AccountFragment: Fragment() {
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
+
+
     }
 
     private fun setupUI(){
@@ -250,12 +252,24 @@ class AccountFragment: Fragment() {
                 if(provider.text.isNotEmpty() && address.text.isNotEmpty()){
                     method.provider = provider.text.toString()
                     method.address = address.text.toString()
-                    db.collection("users").document(prefs.uid!!).collection("paymentmethods").document().set(method).addOnCompleteListener{
-                        Toast.makeText(context ,"Success!", Toast.LENGTH_SHORT).show()
+
+                    // Update the payment method in the database
+                    val paymentMethodsRef = db.collection("users").document(prefs.uid!!).collection("paymentmethods")
+                    paymentMethodsRef.get().addOnSuccessListener { snapshot ->
+                        for (doc in snapshot.documents) {
+                            // Delete existing payment method
+                            paymentMethodsRef.document(doc.id).delete()
+                        }
+                        // Set the new payment method
+                        paymentMethodsRef.add(method).addOnCompleteListener{
+                            Toast.makeText(context ,"Payment Method Updated!", Toast.LENGTH_SHORT).show()
+                        }
                     }
+
                     dialog.dismiss()
                 }
             }
+
             dialog.show()
         }
     }

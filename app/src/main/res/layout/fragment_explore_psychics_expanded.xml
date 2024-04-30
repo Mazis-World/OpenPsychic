@@ -2,12 +2,11 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/op_purple"
@@ -225,7 +224,6 @@
                     android:visibility="gone" />
 
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -257,6 +255,73 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/op_purple" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/rbackground"
+                app:cardBackgroundColor="@color/op_purple"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- Payment method layout -->
+                    <LinearLayout
+                        android:id="@+id/payment_method_linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Payment method information -->
+                        <TextView
+                            android:id="@+id/paymentMethodsTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="32dp"
+                            android:text="Accepts the Following Payment Method"
+                            android:textAlignment="center"
+                            android:textColor="@color/op_purple_foreground_text"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/paymentMethodProviderTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingLeft="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Payment Provider"
+                            android:textAlignment="center"
+                            android:textColor="@color/op_purple_foreground_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/paymentMethodAddressTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="32dp"
+                            android:text="Payment Address"
+                            android:textAlignment="center"
+                            android:textColor="@color/op_purple_foreground_text"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <!-- Payment method not set view -->
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
 
         </LinearLayout>
 
@@ -302,7 +367,7 @@
 </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/fab_ask_psychic_advisor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -312,6 +377,5 @@
         app:layout_anchor="@id/cardview"
         app:layout_anchorGravity="bottom|end" />
 
-    z
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
