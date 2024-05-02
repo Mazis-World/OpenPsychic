@@ -95,6 +95,7 @@ class SubscribeFragment : Fragment(), PurchasesUpdatedListener {
 
         subsref.collection("subscriptions").document(purchase.orderId!!).set(subscriptionData)
         userref.collection("subscriptions").document(purchase.orderId!!).set(subscriptionData)
+        userref.update("isPremium", true)
         binding.root.addView(customLayout)
     }
 

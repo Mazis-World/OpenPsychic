@@ -1,16 +1,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/op_purple">
+
+    <TextView
+        android:id="@+id/explore_psychics_category_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Questions"
+        android:textColor="@color/op_purple_accent"
+        android:textSize="24sp" />
 
     <!-- RecyclerView for the list of questions -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:clipToPadding="false"
+        android:layout_above="@+id/questionsLeftView"
+        android:layout_below="@+id/explore_psychics_category_textView"
         android:clipChildren="false"
-        android:layout_above="@+id/questionsLeftView" />
+        android:clipToPadding="false"
+        android:padding="8dp" />
 
     <!-- View showing how many questions the user has left -->
     <TextView
@@ -19,9 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/op_purple_accent"
-        android:textColor="@android:color/white"
         android:padding="8dp"
         android:text="You have X questions left"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

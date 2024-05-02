@@ -1,5 +1,7 @@
 package io.getmadd.openpsychic.model
 
+import java.io.Serializable
+
 class User(
     var userid: String,
     var email: String,
@@ -13,5 +15,6 @@ class User(
     var displayimgsrc: String,
     var joinedlivestreams: ArrayList<String>?,
     var questionsAvailable: Int = 0,
-    var requestcount: Int
-)
+    var requestcount: Int,
+    var isPremium: Boolean = false
+): Serializable

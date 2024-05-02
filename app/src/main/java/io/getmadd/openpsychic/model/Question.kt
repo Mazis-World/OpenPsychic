@@ -12,6 +12,8 @@ data class Question(
     val isPublic: Boolean? = false,
     val userUid: String,
     val psychicUid: String,
+    val psychicUsername: String,
+    val psychicProfileImg: String,
     val userRating: Int? = null,
     val userFeedback: String? = null
 ):Serializable

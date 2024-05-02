@@ -54,6 +54,31 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <EditText
+            android:id="@+id/psychic_response_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FDC5C5"
+            android:hint="Your answer."
+            android:padding="16dp"
+            android:textColor="@color/op_purple_accent_foreground"
+            android:textColorHint="@color/op_purple_accent_foreground"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/submit_answer_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/op_purple_accent_foreground"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/question_response_textview"
             android:layout_width="match_parent"
@@ -62,7 +87,19 @@
             android:padding="16dp"
             android:text="Trust your intuition and take time to reflect. Opportunities are coming; stay positive and open-minded. Focus on what truly brings you joy"
             android:textColor="@color/op_purple_accent_foreground"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/psychic_response_placeholder_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Awaiting Response From Psychic"
+            android:textColor="@color/op_purple_accent_foreground"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -81,7 +118,7 @@
                 app:srcCompat="@drawable/openpsychiclogo" />
 
             <TextView
-                android:id="@+id/psychic_display_name"
+                android:id="@+id/psychic_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Psychic Name"

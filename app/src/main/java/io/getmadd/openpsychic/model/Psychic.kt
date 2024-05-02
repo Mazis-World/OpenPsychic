@@ -22,6 +22,7 @@ class Psychic (
     var psychicorigincountry: String? = null,
     var questionsAsked: Int? = 0,
     var questionsAnswered: Int? = 0,
-    var requestcount: Int? = null
+    var requestcount: Int? = null,
+    var isPremium: Boolean? = false
 ) : Serializable {
 }

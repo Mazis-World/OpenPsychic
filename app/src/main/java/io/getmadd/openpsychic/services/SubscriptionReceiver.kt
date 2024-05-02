@@ -1,11 +1,10 @@
-package io.getmadd.openpsychic.services
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-
-// Not implemented yet, will keep state of purchases
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SubscriptionReceiver : BroadcastReceiver() {
 
@@ -16,35 +15,28 @@ class SubscriptionReceiver : BroadcastReceiver() {
             // Extract subscription information
             val extras: Bundle? = intent.extras
             extras?.let {
-                val purchaseToken = it.getString("purchaseToken")
                 val isAutoRenewing = it.getBoolean("autoRenewing")
                 val expirationTimeMillis = it.getLong("expirationTimeMillis")
-
-                // Determine subscription status based on your logic
-                if (isAutoRenewing) {
-                    // Subscription is active or renewed
-                    // Check expirationTimeMillis for the next renewal date
-                    Log.d("Subscription", "Active or Renewed")
-                    updateSubscriptionStateInDatabase(context, "Active")
-                } else {
-                    // Subscription has been cancelled
-                    if (expirationTimeMillis == 0L) {
-                        Log.d("Subscription", "Cancelled")
-                        updateSubscriptionStateInDatabase(context, "Cancelled")
-                    } else {
-                        // Subscription is not auto-renewing, but it's not necessarily cancelled
-                        // It might be in a grace period, etc.
-                        Log.d("Subscription", "Not Auto-Renewing (Grace Period?)")
-                        updateSubscriptionStateInDatabase(context, "Not Auto-Renewing")
-                    }
+                if (!isAutoRenewing && expirationTimeMillis == 0L) {
+                    // Subscription has been cancelled or expired
+                    updateSubscriptionStateInDatabase()
                 }
             }
         }
     }
 
-    private fun updateSubscriptionStateInDatabase(context: Context, newState: String) {
-        // Perform database update based on the new subscription state
-        // This is where you would update your local database or perform other actions
-        // For simplicity, let's assume you have a DatabaseHelper class with an updateSubscriptionState method
+    private fun updateSubscriptionStateInDatabase() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid != null) {
+            val db = FirebaseFirestore.getInstance()
+            db.collection("users").document(uid)
+                .update("isPremium", false)
+                .addOnSuccessListener {
+                    Log.d("Subscription", "Subscription state updated successfully")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Subscription", "Error updating subscription state", e)
+                }
+        }
     }
 }

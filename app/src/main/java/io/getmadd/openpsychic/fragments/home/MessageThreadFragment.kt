@@ -2,11 +2,15 @@ package io.getmadd.openpsychic.fragments.home
 
 import MessageThreadAdapter
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -29,7 +33,7 @@ class MessageThreadFragment: Fragment() {
     private lateinit var binding: FragmentMessageThreadBinding
     var messagelist = ArrayList<Message>()
     var db = Firebase.firestore
-
+    private var isPremium = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +56,14 @@ class MessageThreadFragment: Fragment() {
         var userid = Firebase.auth.uid
         lateinit var userprofileimgsrc: String
         lateinit var username: String
-
+        db.collection("users").document("${userid}")
+            .get()
+            .addOnSuccessListener { result ->
+                isPremium = result.getBoolean("isPremium") ?: false
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
         if (bundle != null) {
             if (bundle.getSerializable("psychic") != null) {
                 psychic = (bundle.getSerializable("psychic") as? Psychic)!!
@@ -164,79 +175,91 @@ class MessageThreadFragment: Fragment() {
                 }
 
             var messageMap: MutableMap<String, Any?>
+
+
+
             binding.messagethreadinputlayout.setEndIconOnClickListener {
+
                 if (binding.messagethreadedittext.text != null) {
-                    var text = binding.messagethreadedittext.text
-                    if (userid == senderUserId) {
-                        messageMap = HashMap()
-                        messageMap["senderid"] = userid
-                        messageMap["receiverid"] = receiverUserId
-                        messageMap["timestamp"] = Timestamp.now().toDate()
-                        messageMap["message"] = "$text"
-                        messageMap["status"] = "sent"
-                    } else {
-                        messageMap = HashMap()
-                        messageMap["senderid"] = receiverUserId
-                        messageMap["receiverid"] = userid
-                        messageMap["timestamp"] = Timestamp.now().toDate()
-                        messageMap["message"] = "$text"
-                        messageMap["status"] = "sent"
-                    }
-                    val metadata = hashMapOf(
-                        "senderid" to senderUserId,
-                        "receiverid" to receiverUserId,
-                        "psychicprofileimgsrc" to psychic.profileimgsrc,
-                        "psychicdisplayname" to psychic.displayname,
-                        "userprofileimgsrc" to userprofileimgsrc,
-                        "username" to username,
-                        "createdat" to Timestamp.now().toDate(),
-                        "lastupdate" to Timestamp.now().toDate()
-                    )
-                    val updatemetadata = hashMapOf(
-                        "senderid" to senderUserId,
-                        "receiverid" to receiverUserId,
-                        "psychicprofileimgsrc" to psychic.profileimgsrc,
-                        "psychicdisplayname" to psychic.displayname,
-                        "userprofileimgsrc" to userprofileimgsrc,
-                        "username" to username,
-                        "lastupdate" to Timestamp.now().toDate()
-                    )
-
-                    sendermessagestampref.get()
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val document = task.result
-                                if (document != null && document.exists()) {
-                                    sendermessagestampref.update(updatemetadata as Map<String, Any>)
-                                    receivermessagestampref.update(updatemetadata as Map<String, Any>)
-                                } else {
-                                    sendermessagestampref.set(metadata)
-                                    receivermessagestampref.set(metadata)
-                                }
-                            }
-
-                            sendermessageref.document().set(messageMap)
-                                .addOnCompleteListener(object : OnCompleteListener<Void?> {
-                                    override fun onComplete(task: Task<Void?>) {
-                                        if (task.isSuccessful) {
-                                            binding.messagethreadedittext.setText("")
-                                        } else {
-                                        }
-                                    }
-                                })
-                            receivermessageref.document().set(messageMap)
-                                .addOnCompleteListener(object : OnCompleteListener<Void?> {
-                                    override fun onComplete(task: Task<Void?>) {
-                                        if (task.isSuccessful) {
-                                            binding.messagethreadedittext.setText("")
-                                        } else {
-                                        }
-                                    }
-                                })
+                    if (isPremium) {
+                        var text = binding.messagethreadedittext.text
+                        if (userid == senderUserId) {
+                            messageMap = HashMap()
+                            messageMap["senderid"] = userid
+                            messageMap["receiverid"] = receiverUserId
+                            messageMap["timestamp"] = Timestamp.now().toDate()
+                            messageMap["message"] = "$text"
+                            messageMap["status"] = "sent"
+                        } else {
+                            messageMap = HashMap()
+                            messageMap["senderid"] = receiverUserId
+                            messageMap["receiverid"] = userid
+                            messageMap["timestamp"] = Timestamp.now().toDate()
+                            messageMap["message"] = "$text"
+                            messageMap["status"] = "sent"
                         }
-                }
+                        val metadata = hashMapOf(
+                            "senderid" to senderUserId,
+                            "receiverid" to receiverUserId,
+                            "psychicprofileimgsrc" to psychic.profileimgsrc,
+                            "psychicdisplayname" to psychic.displayname,
+                            "userprofileimgsrc" to userprofileimgsrc,
+                            "username" to username,
+                            "createdat" to Timestamp.now().toDate(),
+                            "lastupdate" to Timestamp.now().toDate()
+                        )
+                        val updatemetadata = hashMapOf(
+                            "senderid" to senderUserId,
+                            "receiverid" to receiverUserId,
+                            "psychicprofileimgsrc" to psychic.profileimgsrc,
+                            "psychicdisplayname" to psychic.displayname,
+                            "userprofileimgsrc" to userprofileimgsrc,
+                            "username" to username,
+                            "lastupdate" to Timestamp.now().toDate()
+                        )
 
+                        sendermessagestampref.get()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val document = task.result
+                                    if (document != null && document.exists()) {
+                                        sendermessagestampref.update(updatemetadata as Map<String, Any>)
+                                        receivermessagestampref.update(updatemetadata as Map<String, Any>)
+                                    } else {
+                                        sendermessagestampref.set(metadata)
+                                        receivermessagestampref.set(metadata)
+                                    }
+                                }
+
+                                sendermessageref.document().set(messageMap)
+                                    .addOnCompleteListener(object : OnCompleteListener<Void?> {
+                                        override fun onComplete(task: Task<Void?>) {
+                                            if (task.isSuccessful) {
+                                                binding.messagethreadedittext.setText("")
+                                            } else {
+                                            }
+                                        }
+                                    })
+                                receivermessageref.document().set(messageMap)
+                                    .addOnCompleteListener(object : OnCompleteListener<Void?> {
+                                        override fun onComplete(task: Task<Void?>) {
+                                            if (task.isSuccessful) {
+                                                binding.messagethreadedittext.setText("")
+                                            } else {
+                                            }
+                                        }
+                                    })
+                            }
+                    } else {
+                        Toast.makeText(activity,"You have reached Premium Functionality", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.subscribe_premium_fragment)
+                    }
+                }
+                else{
+                    Toast.makeText(activity,"You Must Say Something..", Toast.LENGTH_SHORT).show()
+                }
             }
+
         }
     }
 }

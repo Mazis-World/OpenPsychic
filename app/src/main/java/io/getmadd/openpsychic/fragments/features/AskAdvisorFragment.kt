@@ -89,7 +89,8 @@ class AskAdvisorFragment : Fragment() {
                         false,
                         auth.currentUser!!.uid,
                         psychic.userid!!,
-                        null,
+                        psychic.username!!,
+                        psychic.profileimgsrc!!,
                         null
                     )
                     psychic.userid?.let { it1 ->

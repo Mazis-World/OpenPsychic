@@ -83,6 +83,7 @@ class ExplorePsychicsExpandedFragment: Fragment() {
             .get()
             .addOnSuccessListener { result ->
                 userType = result.getString("usertype").toString()
+                userType = result.getString("usertype").toString()
 
                 if(userType == "user") {
                     usermetadata.userprofileimgsrc = result.getString("profileimgsrc").toString()
@@ -98,8 +99,8 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         db.collection("users").document(userId).collection("paymentmethods")
             .get()
             .addOnSuccessListener { result ->
-                var paymentProvider = ""
-                var paymentAddress = ""
+                var paymentProvider = "No Provider Set"
+                var paymentAddress = "No Address  Set"
                 for(doc in result){
                     //should be 1
                     paymentProvider = doc.getString("provider").toString()

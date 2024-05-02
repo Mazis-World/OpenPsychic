@@ -3,6 +3,7 @@ package io.getmadd.openpsychic.fragments.home
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
@@ -35,6 +36,7 @@ import io.getmadd.openpsychic.databinding.FragmentProfileBinding
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.User
 import io.getmadd.openpsychic.services.UserPreferences
+import kotlin.properties.Delegates
 
 class ProfileFragment : Fragment() {
 
@@ -125,28 +127,39 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupUI() {
-        var subscriptionstate = prefs.subscriptionstate
+        var isPremium: Boolean = false
+        auth.uid?.let {
+            db.collection("users").document(it)
+                .get()
+                .addOnSuccessListener { result ->
+                    isPremium = result.getBoolean("isPremium")!!
+                    if (isPremium) {
+                        binding.premiumIconImageview.setImageResource(R.drawable.ic_premium_crown)
+                    } else {
+                        val adRequest1 = AdRequest.Builder().build()
 
-        if (subscriptionstate == "active") {
-        } else {
-            val adRequest1 = AdRequest.Builder().build()
+                        InterstitialAd.load(
+                            context!!,
+                            "ca-app-pub-2450865968732279/3376431783",
+                            adRequest1,
+                            object : InterstitialAdLoadCallback() {
+                                override fun onAdFailedToLoad(adError: LoadAdError) {
+                                    Log.d(TAG, adError.message)
+                                }
 
-            InterstitialAd.load(
-                context!!,
-                "ca-app-pub-2450865968732279/3376431783",
-                adRequest1,
-                object : InterstitialAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(TAG, adError.message)
-                    }
-
-                    override fun onAdLoaded(ad: InterstitialAd) {
-                        Log.d(TAG, "Ad was loaded.")
-                        activity?.let { ad.show(it) }
+                                override fun onAdLoaded(ad: InterstitialAd) {
+                                    Log.d(TAG, "Ad was loaded.")
+                                    activity?.let { ad.show(it) }
+                                }
+                            }
+                        )
                     }
                 }
-            )
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                }
         }
+
 
         binding.usersnameTV.text = "@${prefs.username}"
         binding.displayNameTV.text = prefs.displayname

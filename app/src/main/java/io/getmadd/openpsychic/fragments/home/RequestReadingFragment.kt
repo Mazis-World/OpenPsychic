@@ -1,3 +1,4 @@
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentRequestReadingBinding
+import io.getmadd.openpsychic.fragments.home.SubscribeFragment
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
 import io.getmadd.openpsychic.model.RequestStatusUpdate
@@ -24,6 +26,7 @@ class RequestReadingFragment() : Fragment() {
     private var db = Firebase.firestore
     private var userid = Firebase.auth.uid
     private lateinit var psychicid: String
+    private var isPremium = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,14 @@ class RequestReadingFragment() : Fragment() {
             psychicid = psychic.userid!!
             Log.e("RequestReadingFragment","Psychic Id:"+psychic.userid)
         }
+        db.collection("users").document("${userid}")
+            .get()
+            .addOnSuccessListener { result ->
+                isPremium = result.getBoolean("isPremium") ?: false
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
         val readingMethods = resources.getStringArray(R.array.reading_methods)
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, readingMethods)
@@ -69,8 +80,16 @@ class RequestReadingFragment() : Fragment() {
                 psychic.psychicondisplaycategory!!
                 )
 
-            // Save the request to the database (replace this with your database logic)
-            saveRequestToDatabase(request)
+                if(isPremium){
+                    saveRequestToDatabase(request)
+                }else {
+                    Toast.makeText(
+                        context,
+                        "You have reached Premium Functionality",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    findNavController().navigate(R.id.subscribe_premium_fragment)
+                }
         }
             else{
                 Toast.makeText(context,"Complete Request Form", Toast.LENGTH_SHORT).show()
