@@ -127,39 +127,26 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupUI() {
-        var isPremium: Boolean = false
-        auth.uid?.let {
-            db.collection("users").document(it)
-                .get()
-                .addOnSuccessListener { result ->
-                    isPremium = result.getBoolean("isPremium")!!
-                    if (isPremium) {
-                        binding.premiumIconImageview.setImageResource(R.drawable.ic_premium_crown)
-                    } else {
-                        val adRequest1 = AdRequest.Builder().build()
+        val adRequest1 = AdRequest.Builder().build()
+        var state = context?.let { UserPreferences(it).subscriptionstate }
+        if (state != "active") {
 
-                        InterstitialAd.load(
-                            context!!,
-                            "ca-app-pub-2450865968732279/3376431783",
-                            adRequest1,
-                            object : InterstitialAdLoadCallback() {
-                                override fun onAdFailedToLoad(adError: LoadAdError) {
-                                    Log.d(TAG, adError.message)
-                                }
+            InterstitialAd.load(
+                context!!,
+                "ca-app-pub-2450865968732279/3376431783",
+                adRequest1,
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.d(TAG, adError.message)
+                    }
 
-                                override fun onAdLoaded(ad: InterstitialAd) {
-                                    Log.d(TAG, "Ad was loaded.")
-                                    activity?.let { ad.show(it) }
-                                }
-                            }
-                        )
+                    override fun onAdLoaded(ad: InterstitialAd) {
+                        Log.d(TAG, "Ad was loaded.")
+                        activity?.let { ad.show(it) }
                     }
                 }
-                .addOnFailureListener { exception ->
-                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
-                }
+            )
         }
-
 
         binding.usersnameTV.text = "@${prefs.username}"
         binding.displayNameTV.text = prefs.displayname

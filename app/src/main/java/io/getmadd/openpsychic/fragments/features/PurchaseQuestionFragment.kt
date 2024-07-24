@@ -31,7 +31,7 @@ class PurchaseQuestionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPurchaseQuestionPackBinding.inflate(inflater, container, false)
         prefs = UserPreferences(requireContext())
         return binding.root
@@ -52,7 +52,7 @@ class PurchaseQuestionFragment : Fragment() {
             launchGooglePlayBilling("psychic_advisor_question_answer_pack_3")
         }
 
-        binding.closedialogimageview.setOnClickListener() {
+        binding.closedialogimageview.setOnClickListener {
             findNavController().popBackStack()
         }
 

@@ -61,6 +61,7 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="com.android.vending.RECEIVE_SUBSCRIPTION_CHANGED" />
+                <action android:name="com.android.vending.billing.PURCHASES_UPDATED" />
             </intent-filter>
         </receiver>
     </application>

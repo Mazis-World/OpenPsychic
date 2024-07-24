@@ -3,10 +3,12 @@ package io.getmadd.openpsychic.activity
 import android.app.AlertDialog
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.ActivityHomeBinding
 
@@ -14,10 +16,11 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        firestore = FirebaseFirestore.getInstance()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -75,6 +78,28 @@ class HomeActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.abundance)
         mediaPlayer.isLooping = true
         mediaPlayer.start()
+        updateOnlineUsersCount()
+
+    }
+
+    private fun updateOnlineUsersCount() {
+        val onlineUsersRef = firestore.collection("onlineUsers")
+
+        onlineUsersRef.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                Log.w(LaunchFragment.TAG, "Listen failed", error)
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null) {
+                val count = snapshot.size()
+                // Update UI with the count
+                binding.include.topNavUsersOnlineTextView.text = "Users Online: $count"
+            } else {
+                Log.d(LaunchFragment.TAG, "Current data: null")
+                binding.include.topNavUsersOnlineTextView.text = "Users Online: 0"
+            }
+        }
     }
 
     override fun onResume() {

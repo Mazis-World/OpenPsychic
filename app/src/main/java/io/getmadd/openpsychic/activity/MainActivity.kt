@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.zen);
+        mediaPlayer = MediaPlayer.create(this, R.raw.zen)
         mediaPlayer.isLooping = true
-        mediaPlayer.start();
+        mediaPlayer.start()
     }
 
     override fun onResume() {

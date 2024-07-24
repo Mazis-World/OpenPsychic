@@ -19,13 +19,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
-import io.getmadd.openpsychic.databinding.FragmentHistoryBinding
 import io.getmadd.openpsychic.databinding.FragmentMessagesBinding
-import io.getmadd.openpsychic.model.Message
 import io.getmadd.openpsychic.model.MessageMetaData
 import io.getmadd.openpsychic.services.UserPreferences
+import java.util.ArrayList
 
 
 class MessagesFragment : Fragment() {
@@ -33,6 +31,7 @@ class MessagesFragment : Fragment() {
     private val binding get() = _binding
     var db = Firebase.firestore
     var messageslist = ArrayList<MessageMetaData>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,7 +89,11 @@ class MessagesFragment : Fragment() {
                         }
                         .addOnFailureListener { exception ->
                             // Handle errors while fetching 'request' collection
-                            Log.e(TAG, "Error getting 'request' collection: ${exception.message}", exception)
+                            Log.e(
+                                TAG,
+                                "Error getting 'request' collection: ${exception.message}",
+                                exception
+                            )
                         }
 
                 } else {
@@ -106,28 +109,30 @@ class MessagesFragment : Fragment() {
 
         var prefs = UserPreferences(requireContext())
         var subscriptionstate = prefs.subscriptionstate
+        var state = context?.let { UserPreferences(it).subscriptionstate }
 
         val adView: AdView = binding.messagesbannerad
         val adRequest: AdRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
         val adRequest1 = AdRequest.Builder().build()
+        if (state != "active") {
+            InterstitialAd.load(
+                context!!,
+                "ca-app-pub-2450865968732279/9483822289",
+                adRequest1,
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.d(TAG, adError.message)
+                    }
 
-        InterstitialAd.load(
-            context!!,
-            "ca-app-pub-2450865968732279/9483822289",
-            adRequest1,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d(TAG, adError.message)
+                    override fun onAdLoaded(ad: InterstitialAd) {
+                        Log.d(TAG, "Ad was loaded.")
+                        activity?.let { ad.show(it) }
+                    }
                 }
-
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    Log.d(TAG, "Ad was loaded.")
-                    activity?.let { ad.show(it) }
-                }
-            }
-        )
+            )
+        }
     }
 
 }

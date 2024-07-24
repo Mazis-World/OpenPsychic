@@ -20,7 +20,7 @@ import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.model.Request
 import io.getmadd.openpsychic.model.RequestStatusUpdate
 
-class RequestReadingFragment() : Fragment() {
+class RequestReadingFragment : Fragment() {
 
     private lateinit var binding: FragmentRequestReadingBinding
     private var db = Firebase.firestore
@@ -47,7 +47,7 @@ class RequestReadingFragment() : Fragment() {
                 isPremium = result.getBoolean("isPremium") ?: false
             }
             .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                Log.w(TAG, "Error getting documents.", exception)
             }
         val readingMethods = resources.getStringArray(R.array.reading_methods)
         val adapter =

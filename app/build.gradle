@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace 'io.getmadd.openpsychic'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "io.getmadd.openpsychic"
         minSdk 24
-        targetSdk 34
-        versionCode 34
-        versionName "1.07000007"
+        targetSdk 35
+        versionCode 40
+        versionName "1.07000012"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,17 +37,13 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     implementation 'com.google.firebase:firebase-auth:21.0.3'
-    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation 'androidx.lifecycle:lifecycle-process:2.6.1'
-    implementation 'androidx.core:core-ktx:+'
     implementation 'androidx.core:core-ktx:+'
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.9'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
@@ -71,4 +67,5 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.4.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.firebase:firebase-appcheck-playintegrity:16.1.2'
 }

@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,14 +84,24 @@ class DreamsFragment : Fragment() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val bottomSheetView = layoutInflater.inflate(R.layout.layout_make_post_dream, null)
         bottomSheetDialog.setContentView(bottomSheetView)
+        val closeDialog = bottomSheetView.findViewById<ImageView>(R.id.image_view_close)
 
         val editTextPostContent = bottomSheetView.findViewById<EditText>(R.id.edit_text_post_content)
-        val buttonPost = bottomSheetView.findViewById<Button>(R.id.button_post)
+        val buttonPost = bottomSheetView.findViewById<TextView>(R.id.button_post)
 
+        closeDialog.setOnClickListener{
+            bottomSheetDialog.dismiss()
+        }
         buttonPost.setOnClickListener {
             val postContent = editTextPostContent.text.toString()
-            addDreamToFirestore(postContent)
-            bottomSheetDialog.dismiss()
+            if(postContent.isNotBlank()){
+                addDreamToFirestore(postContent)
+                bottomSheetDialog.dismiss()
+            }
+            else{
+                Toast.makeText(context,"You must say something", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         bottomSheetDialog.show()

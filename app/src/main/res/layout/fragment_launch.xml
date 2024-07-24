@@ -34,10 +34,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/launchfragmentadview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/neon_sign_image_view">
@@ -54,8 +53,18 @@
             android:id="@+id/register_psychic_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
             android:text="@string/register_open_psychic" />
+
+        <!-- TextView to display users online count -->
+        <TextView
+            android:id="@+id/users_online_count_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Users Online: 0"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:visibility="visible" />
 
     </LinearLayout>
 

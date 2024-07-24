@@ -1,6 +1,7 @@
 package io.getmadd.openpsychic.fragments.home
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,13 +16,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.FirebaseStorage
 import io.getmadd.openpsychic.R
+import io.getmadd.openpsychic.activity.MainActivity
 import io.getmadd.openpsychic.adapters.PaymentMethodAdapter
 import io.getmadd.openpsychic.databinding.FragmentAccountBinding
 import io.getmadd.openpsychic.model.PaymentMethod
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.services.UserPreferences
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 class AccountFragment: Fragment() {
@@ -83,7 +89,7 @@ class AccountFragment: Fragment() {
                         val position = countryArray.indexOf(psychic.psychicorigincountry)
                         binding.categorySpinner2.isEnabled = false
                         binding.categorySpinner2.setSelection(position)
-                        binding.countryoriginupdatebutton.isEnabled = false
+                         binding.countryoriginupdatebutton.isEnabled = false
                         binding.countryoriginupdatebutton.setTextColor(resources.getColor(R.color.op_grey))
                     }
                 }
@@ -111,6 +117,10 @@ class AccountFragment: Fragment() {
     }
 
     private fun setupUI(){
+        binding.terminateaccountbutton.setOnClickListener {
+            Toast.makeText(context, "Terminate Account",Toast.LENGTH_SHORT).show()
+            showTerminationConfirmationDialog()
+        }
 
         binding.psychicOnDisplaySwitch.setOnCheckedChangeListener { _, isChecked ->
             handlePsychicOnDisplaySwitchChanged(isChecked)
@@ -165,7 +175,7 @@ class AccountFragment: Fragment() {
         val usertype = prefs.usertype
 
         if(usertype.equals( "psychic")){
-            binding.psychicsettingslayout.setVisibility(View.VISIBLE)
+            binding.psychicsettingslayout.visibility = View.VISIBLE
         }
         else binding.psychicsettingslayout.visibility = View.GONE
 
@@ -295,15 +305,31 @@ class AccountFragment: Fragment() {
         psychicondisplay = true
         psychic.psychicondisplay = true
         psychic.psychicondisplaycategory = selectedCategory!!
+        val emptyObject = mapOf<String, Any>()
 
         db.collection("psychicOnDisplay")
             .document(selectedCategory!!)
             .collection("psychicsOnDisplay")
             .document(prefs.uid!!)
-            .set(psychic)
+            .set(emptyObject)
             .addOnSuccessListener {
                 Log.d(ContentValues.TAG, "User added as a psychic with category: $selectedCategory")
                 db.collection("users").document(prefs.uid!!).update("psychicondisplay", true, "psychicondisplaycategory", selectedCategory)
+            }
+            .addOnFailureListener { e ->
+                Log.e(ContentValues.TAG, "Error adding user as a psychic: $e")
+            }
+
+        // Update the user's document directly
+        db.collection("users").document(prefs.uid!!)
+            .update(
+                mapOf(
+                    "psychicondisplay" to true,
+                    "psychicondisplaycategory" to selectedCategory
+                )
+            )
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "User added as a psychic with category: $selectedCategory")
             }
             .addOnFailureListener { e ->
                 Log.e(ContentValues.TAG, "Error adding user as a psychic: $e")
@@ -335,6 +361,18 @@ class AccountFragment: Fragment() {
         selectedCategory.let {
             if (it != null) {
                 db.collection("psychicOnDisplay")
+                    .document(selectedCategory!!)
+                    .collection("psychicsOnDisplay")
+                    .document(prefs.uid!!)
+                    .delete()
+                    .addOnSuccessListener {
+                        Log.d(ContentValues.TAG, "User removed as a psychic from category: $selectedCategory")
+                        db.collection("users").document(prefs.uid!!).update("psychicondisplay", false, "psychicondisplaycategory", "")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e(ContentValues.TAG, "Error removing user as a psychic: $e")
+                    }
+                db.collection("psychicOnDisplay")
                     .document(it)
                     .collection("psychicsOnDisplay")
                     .document(prefs.uid!!)
@@ -346,6 +384,60 @@ class AccountFragment: Fragment() {
                     .addOnFailureListener { e ->
                         Log.e(ContentValues.TAG, "Error removing user from the psychic database: $e")
                     }
+            }
+        }
+    }
+
+    private fun showTerminationConfirmationDialog() {
+        if(psychicondisplay){
+            removePsychicFromDatabase()
+        }
+        AlertDialog.Builder(requireContext())
+            .setTitle("Confirm Account Termination")
+            .setMessage("Are you sure you want to terminate your account? This action cannot be undone.")
+            .setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+                terminateAccount()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun terminateAccount() {
+        val user = FirebaseAuth.getInstance().currentUser
+        val uid = user?.uid ?: return
+
+        // Delete data from Firestore
+        val firestore = FirebaseFirestore.getInstance()
+        firestore.collection("users").document(uid).delete().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Delete images from Firebase Storage
+                val storage = FirebaseStorage.getInstance()
+                val storageRef = storage.reference.child("images/$uid")
+                storageRef.listAll().addOnCompleteListener { listResult ->
+                    if (listResult.isSuccessful) {
+                        listResult.result?.items?.forEach { item ->
+                            item.delete()
+                        }
+                        // Delete user from Firebase Authentication
+                        user.delete().addOnCompleteListener { deleteTask ->
+                            if (deleteTask.isSuccessful) {
+                                Toast.makeText(context, "Account terminated successfully.", Toast.LENGTH_SHORT).show()
+                                // Redirect to login screen or finish the activity
+                                startActivity(Intent(context, MainActivity::class.java))
+//                                finish()
+                            } else {
+                                Toast.makeText(context, "Failed to delete user from authentication.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(context, "Failed to delete images from storage.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                Toast.makeText(context, "Failed to delete data from Firestore.", Toast.LENGTH_SHORT).show()
             }
         }
     }

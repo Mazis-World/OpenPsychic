@@ -26,6 +26,7 @@ import io.getmadd.openpsychic.databinding.FragmentMessageThreadBinding
 import io.getmadd.openpsychic.model.Message
 import io.getmadd.openpsychic.model.MessageMetaData
 import io.getmadd.openpsychic.model.Psychic
+import io.getmadd.openpsychic.services.UserPreferences
 import java.sql.Time
 
 
@@ -56,32 +57,26 @@ class MessageThreadFragment: Fragment() {
         var userid = Firebase.auth.uid
         lateinit var userprofileimgsrc: String
         lateinit var username: String
-        db.collection("users").document("${userid}")
-            .get()
-            .addOnSuccessListener { result ->
-                isPremium = result.getBoolean("isPremium") ?: false
-            }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents.", exception)
-            }
+        var prefs = UserPreferences(requireContext())
+        var subscriptionstate = prefs.subscriptionstate
+        var state = context?.let { UserPreferences(it).subscriptionstate }
+
+        if(state == "active"){
+            isPremium = true
+        }
+
         if (bundle != null) {
             if (bundle.getSerializable("psychic") != null) {
                 psychic = (bundle.getSerializable("psychic") as? Psychic)!!
-                if (!psychic.profileimgsrc.isNullOrEmpty()) {
-                    Glide.with(this).load(psychic.profileimgsrc)
-                        .apply(
-                            RequestOptions.circleCropTransform()
-                        )
-                        .error(Glide.with(this).load(R.drawable.openpsychiclogo)
-                            .apply(RequestOptions.circleCropTransform()))
-                        .into(binding.messagethrheadimageview)
-                } else {
-                    Glide.with(this).load(R.drawable.openpsychiclogo)
-                        .apply(
-                            RequestOptions.circleCropTransform()
-                        )
-                        .into(binding.messagethrheadimageview)
-                }
+                Glide.with(this)
+                    .load(psychic.profileimgsrc)
+                    .apply(RequestOptions.circleCropTransform())
+                    .error(
+                        Glide.with(this)
+                            .load(R.drawable.openpsychiclogo)
+                            .apply(RequestOptions.circleCropTransform())
+                    )
+                    .into(binding.messagethrheadimageview)
                 binding.conversationwithtextview.text = "Chat With " + psychic.displayname
                 receiverUserId = psychic.userid.toString()
             }
@@ -96,34 +91,21 @@ class MessageThreadFragment: Fragment() {
                 )
                 userprofileimgsrc = messagemetadata.userprofileimgsrc.toString()
                 username = messagemetadata.username.toString()
-                if (userid == senderUserId) {
-                    if (messagemetadata.psychicprofileimgsrc?.isNotEmpty() == true) {
-                        Glide.with(this).load(messagemetadata.psychicprofileimgsrc)
-                            .placeholder(R.drawable.openpsychiclogo)
-                            .apply(
-                                RequestOptions.circleCropTransform()
-                            )
-                            .into(binding.messagethrheadimageview)
-                    } else {
-                        Glide.with(this).load(R.drawable.openpsychiclogo)
-                            .apply(
-                                RequestOptions.circleCropTransform()
-                            )
-                            .into(binding.messagethrheadimageview)
-                    }
-                    binding.conversationwithtextview.text =
-                        "Chat With " + messagemetadata.psychicdisplayname
-
-                } else {
-                    if (messagemetadata.userprofileimgsrc?.isNotEmpty() == true) {
-                        Glide.with(this).load(messagemetadata.userprofileimgsrc)
-                            .placeholder(R.drawable.openpsychiclogo)
+                val glideRequest = Glide.with(this)
+                    .load(if (userid == senderUserId) messagemetadata.psychicprofileimgsrc else messagemetadata.userprofileimgsrc)
+                    .apply(RequestOptions.circleCropTransform())
+                    .error(
+                        Glide.with(this)
+                            .load(R.drawable.openpsychiclogo)
                             .apply(RequestOptions.circleCropTransform())
-                            .into(binding.messagethrheadimageview)
-                    }
-                    binding.conversationwithtextview.text = "Chat With @" + messagemetadata.username
+                    )
 
-                }
+                glideRequest.into(binding.messagethrheadimageview)
+
+                binding.conversationwithtextview.text = "Chat With ${
+                    if (userid == senderUserId) messagemetadata.psychicdisplayname else "@${messagemetadata.username}"
+                }"
+
             }
             if (bundle.get("usermetadata") != null) {
                 messagemetadata = (bundle.getSerializable("usermetadata") as? MessageMetaData)!!
@@ -176,11 +158,9 @@ class MessageThreadFragment: Fragment() {
 
             var messageMap: MutableMap<String, Any?>
 
-
-
             binding.messagethreadinputlayout.setEndIconOnClickListener {
 
-                if (binding.messagethreadedittext.text != null) {
+                if (binding.messagethreadedittext.text?.isNotEmpty() == true) {
                     if (isPremium) {
                         var text = binding.messagethreadedittext.text
                         if (userid == senderUserId) {

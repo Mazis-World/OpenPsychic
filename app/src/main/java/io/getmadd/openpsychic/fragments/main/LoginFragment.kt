@@ -14,6 +14,7 @@ import com.google.android.gms.ads.AdView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentLoginBinding
 
 class LoginFragment: Fragment() {
@@ -39,7 +40,9 @@ class LoginFragment: Fragment() {
         binding.loginbackimageview.setOnClickListener{
             findNavController().popBackStack()
         }
-
+        binding.passwordResetButton.setOnClickListener{
+            findNavController().navigate(R.id.password_reset_fragment)
+        }
         binding.loginButton.setOnClickListener {
 
             if(binding.emailTextview.text.isEmpty() || binding.passwordTextview.text.isEmpty()){

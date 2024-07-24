@@ -1,5 +1,4 @@
 import android.content.ContentValues
-import android.media.Rating
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +16,12 @@ import com.google.android.gms.ads.AdView
 import com.google.firebase.firestore.FirebaseFirestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.model.Psychic
+import java.util.*
+
+
 
 class ExplorePsychicsAdapter(
-    private val items: MutableList<Psychic>,
+    private val items: MutableList<String>,
     private val listener: (Int) -> Unit
 ) : RecyclerView.Adapter<ExplorePsychicsAdapter.ViewHolder>() {
 
@@ -42,13 +43,13 @@ class ExplorePsychicsAdapter(
     }
 
     abstract class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        abstract fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit)
+        abstract fun bind(item: String, pos: Int, listener: (Int) -> Unit)
     }
 
     class AdViewHolder(itemView: View) : ViewHolder(itemView) {
         private val adView: AdView = itemView.findViewById(R.id.explore_psychics_ad_view)
 
-        override fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) {
+        override fun bind(item: String, pos: Int, listener: (Int) -> Unit) {
             val adRequest = AdRequest.Builder().build()
             adView.loadAd(adRequest)
         }
@@ -59,53 +60,54 @@ class ExplorePsychicsAdapter(
         private val displayName: TextView = itemView.findViewById(R.id.displayNameTextView)
         private val userName: TextView = itemView.findViewById(R.id.usernameTextView)
         private val starRating: RatingBar = itemView.findViewById(R.id.explorepsychicsratingBar)
+        private val status_icon: ImageView = itemView.findViewById(R.id.status_indicator_imageview)
         private val backgroundImg: ImageView =
             itemView.findViewById(R.id.explore_psychics_expanded_card_background_IV)
+        val currentTime = Date()
+        val twentyFourHoursAgo = Date(currentTime.time - 24 * 60 * 60 * 1000) // 24 hours in milliseconds
+        val db = FirebaseFirestore.getInstance()
+        var item = Psychic()
 
-        override fun bind(item: Psychic, pos: Int, listener: (Int) -> Unit) {
-            Log.e("ExplorePsychicsAdapter", item.displayimgsrc!!)
+        override fun bind(uid: String, pos: Int, listener: (Int) -> Unit){
+
+            db.collection("users").document("${uid}")
+                .get()
+                .addOnSuccessListener { result ->
+                    if(result.toObject(Psychic::class.java) != null){
+                        item = result.toObject(Psychic::class.java)!!
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                }
+
+            item.displayimgsrc?.let { Log.e("ExplorePsychicsAdapter", it) }
             if(item.displayimgsrc != " "){
                 Glide.with(itemView).load(item.displayimgsrc).into(backgroundImg)
-            }else{
+            }else {
                 Glide.with(itemView).load(R.drawable.openpsychiclogo).into(backgroundImg)
+            }
+
+            if(item.isOnline == true){
+                status_icon.setImageResource(R.drawable.ic_status_online)
+            }
+            else if(item.lastOnline?.toDate()?.before(twentyFourHoursAgo) == true){
+                status_icon.setImageResource(R.drawable.ic_status_away)
+            }
+            else{
+                status_icon.setImageResource(R.drawable.ic_status_offline)
             }
 
             displayName.text = item.displayname
             userName.text = "@${item.username}"
+
             val db = FirebaseFirestore.getInstance()
-
-
-            db.collection("users").document("${item.userid}")
-                .get()
-                .addOnSuccessListener { result ->
-                    item.psychicrating = result.getDouble("psychicrating")
-                    item.psychicratingcount = result.getDouble("psychicratingcount")
-                    starRating.rating =
-                        (item.psychicrating?.div(item.psychicratingcount!!))?.toFloat() ?: 3.5F
-
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
-                }
-
-            db.collection("users").document("${item.userid}").collection("request")
-                .get()
-                .addOnSuccessListener { result ->
-                  item.requestcount = result.size()
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
-                }
-
             val bundle = Bundle()
             bundle.putSerializable("psychic", item)
 
             cvItem.setOnClickListener {
-                findNavController(view = itemView).navigate(R.id.action_explore_psychics_to_explore_psychics_expanded, bundle)
+                findNavController(view = itemView).navigate(R.id.explore_psychics_expanded, bundle)
             }
-
-
-
         }
     }
 }

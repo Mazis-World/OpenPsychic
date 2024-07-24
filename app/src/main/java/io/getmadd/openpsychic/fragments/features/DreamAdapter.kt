@@ -52,6 +52,7 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
     inner class DreamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val dreamContentTextView: TextView = itemView.findViewById(R.id.text_dream_content)
         private val dreamUserName: TextView = itemView.findViewById(R.id.text_username)
+        private val dreamDate: TextView = itemView.findViewById(R.id.text_dream_post_date)
         private val dreamProfileImageView: ImageView = itemView.findViewById(R.id.image_profile)
         private val commentSection: LinearLayout = itemView.findViewById(R.id.commentSection)
         private val reply: ImageButton = itemView.findViewById(R.id.button_reply)
@@ -77,32 +78,38 @@ class DreamAdapter(context: Context?, private val dreams: List<Dream>) :
             commentsRecyclerView.adapter = adapter
             dreamContentTextView.text = dream.content
             dreamUserName.text = dream.userName
-            Glide.with(itemView).load(dream.userProfileImgSrc)
-                .error(Glide.with(itemView).load(R.drawable.openpsychiclogo))
+            dreamDate.text = dream.date
+
+            Glide.with(itemView)
+                .load(dream.userProfileImgSrc)
                 .apply(RequestOptions.circleCropTransform())
+                .error(
+                    Glide.with(itemView)
+                        .load(R.drawable.openpsychiclogo)
+                        .apply(RequestOptions.circleCropTransform())
+                )
                 .into(dreamProfileImageView)
-
-            commentsRef.addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && !snapshot.isEmpty) {
-                    viewCommentsButton.visibility = View.VISIBLE
-                    viewCommentsButton.text = "View ${snapshot.size()} Comments"
-
-                    commentsList.clear() // Clear the existing comments
-                    for (document in snapshot.documents) {
-                        val comment = document.toObject(Comment::class.java)
-                        if (comment != null) {
-                            commentsList.add(comment)
-                        }
-                    }
-                } else {
-                    Log.d(TAG, "No comments found")
-                }
-            }
+//            commentsRef.addSnapshotListener { snapshot, e ->
+//                if (e != null) {
+//                    Log.w(TAG, "Listen failed.", e)
+//                    return@addSnapshotListener
+//                }
+//
+//                if (snapshot != null && !snapshot.isEmpty) {
+//                    viewCommentsButton.visibility = View.VISIBLE
+//                    viewCommentsButton.text = "View ${snapshot.size()} Comments"
+//
+//                    commentsList.clear() // Clear the existing comments
+//                    for (document in snapshot.documents) {
+//                        val comment = document.toObject(Comment::class.java)
+//                        if (comment != null) {
+//                            commentsList.add(comment)
+//                        }
+//                    }
+//                } else {
+//                    Log.d(TAG, "No comments found")
+//                }
+//            }
             heartersRef.document(auth.uid.toString()).get().addOnSuccessListener {
                 if (it.exists()) {
                     heart.setImageResource(R.drawable.ic_heart_filled)

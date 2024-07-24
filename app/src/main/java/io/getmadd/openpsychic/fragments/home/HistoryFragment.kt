@@ -91,7 +91,11 @@ class HistoryFragment : Fragment() {
                         }
                         .addOnFailureListener { exception ->
                             // Handle errors while fetching 'request' collection
-                            Log.e(TAG, "Error getting 'request' collection: ${exception.message}", exception)
+                            Log.e(
+                                TAG,
+                                "Error getting 'request' collection: ${exception.message}",
+                                exception
+                            )
                         }
 
                 } else {
@@ -112,24 +116,26 @@ class HistoryFragment : Fragment() {
         val adView: AdView = binding.historybannerad
         val adRequest: AdRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+        var state = context?.let { UserPreferences(it).subscriptionstate }
 
         val adRequest1 = AdRequest.Builder().build()
+        if (state != "active") {
+            InterstitialAd.load(
+                context!!,
+                "ca-app-pub-2450865968732279/8716388373",
+                adRequest1,
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.d(TAG, adError.message)
+                    }
 
-        InterstitialAd.load(
-            context!!,
-            "ca-app-pub-2450865968732279/8716388373",
-            adRequest1,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d(TAG, adError.message)
+                    override fun onAdLoaded(ad: InterstitialAd) {
+                        Log.d(TAG, "Ad was loaded.")
+                        activity?.let { ad.show(it) }
+                    }
                 }
-
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    Log.d(TAG, "Ad was loaded.")
-                    activity?.let { ad.show(it) }
-                }
-            }
-        )
+            )
+        }
     }
 
 }

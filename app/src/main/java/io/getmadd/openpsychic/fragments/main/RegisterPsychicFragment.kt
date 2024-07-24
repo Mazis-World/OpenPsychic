@@ -33,7 +33,6 @@ class RegisterPsychicFragment : Fragment(), PurchasesUpdatedListener {
     private val binding get() = _binding!!
     private var psychic: Psychic? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -96,7 +95,11 @@ class RegisterPsychicFragment : Fragment(), PurchasesUpdatedListener {
 //                    }
 //                })
             }
+
         }
+        val adView: AdView = binding.registeradview
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
         binding.backimageview.setOnClickListener {
             findNavController().popBackStack()

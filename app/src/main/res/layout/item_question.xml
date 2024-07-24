@@ -6,8 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/op_grey"
+        android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -25,7 +25,7 @@
             android:id="@+id/question_label_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:padding="8dp"
             android:paddingTop="8dp"
             android:text="Question?"
             android:textColor="@color/op_purple_accent_foreground"
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="8dp"
             android:text="I've been feeling lost in my career lately and unsure about my next steps. Can you provide insight into what path I should take to find fulfillment and success?"
             android:textColor="@color/op_purple_accent_foreground"
             android:textSize="16sp"
@@ -47,8 +47,7 @@
             android:id="@+id/answer_label_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:paddingTop="8dp"
+            android:padding="8dp"
             android:text="Answer!"
             android:textColor="@color/op_purple_accent_foreground"
             android:textSize="20sp"
@@ -84,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="8dp"
             android:text="Trust your intuition and take time to reflect. Opportunities are coming; stay positive and open-minded. Focus on what truly brings you joy"
             android:textColor="@color/op_purple_accent_foreground"
             android:textSize="16sp"
@@ -95,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="8dp"
             android:text="Awaiting Response From Psychic"
             android:textColor="@color/op_purple_accent_foreground"
             android:textSize="16sp"
@@ -103,27 +102,27 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:gravity="right|center_vertical|end"
+            android:layout_gravity="center|right"
+            android:gravity="center|center_vertical"
             android:orientation="horizontal"
-            android:paddingRight="32sp">
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/psychic_profile_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 app:srcCompat="@drawable/openpsychiclogo" />
 
             <TextView
                 android:id="@+id/psychic_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
                 android:text="Psychic Name"
                 android:textColor="@color/op_purple_accent_foreground"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
         </LinearLayout>

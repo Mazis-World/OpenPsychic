@@ -115,6 +115,15 @@
         <action
             android:id="@+id/action_explore_fragment_to_subscribe_premium_fragment"
             app:destination="@id/subscribe_premium_fragment" />
+        <action
+            android:id="@+id/action_explore_fragment_to_questions_fragment"
+            app:destination="@id/questions_answer_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/questions_answer_fragment"
+        android:name="io.getmadd.openpsychic.fragments.home.QuestionsFragment"
+        android:label="Q?A!" >
     </fragment>
 
     <fragment

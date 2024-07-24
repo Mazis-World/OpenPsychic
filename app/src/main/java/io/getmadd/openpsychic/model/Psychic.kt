@@ -20,9 +20,11 @@ class Psychic (
     var psychicratingcount: Double? = null,
     var psychicoriginyear: Int? = null,
     var psychicorigincountry: String? = null,
+    var questionsAvailable: Int = 0,
     var questionsAsked: Int? = 0,
     var questionsAnswered: Int? = 0,
     var requestcount: Int? = null,
-    var isPremium: Boolean? = false
-) : Serializable {
-}
+    var isPremium: Boolean? = false,
+    var isOnline: Boolean = false,
+    var lastOnline: Timestamp? = Timestamp.now()
+) : Serializable

@@ -32,7 +32,6 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExplorePsychicsExpandedBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -96,22 +95,24 @@ class ExplorePsychicsExpandedFragment: Fragment() {
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
 
-        db.collection("users").document(userId).collection("paymentmethods")
-            .get()
-            .addOnSuccessListener { result ->
-                var paymentProvider = "No Provider Set"
-                var paymentAddress = "No Address  Set"
-                for(doc in result){
-                    //should be 1
-                    paymentProvider = doc.getString("provider").toString()
-                    paymentAddress = doc.getString("address").toString()
+        psychic.userid?.let {
+            db.collection("users").document(it).collection("paymentmethods")
+                .get()
+                .addOnSuccessListener { result ->
+                    var paymentProvider = "No Provider Set"
+                    var paymentAddress = "No Address  Set"
+                    for(doc in result){
+                        //should be 1
+                        paymentProvider = doc.getString("provider").toString()
+                        paymentAddress = doc.getString("address").toString()
+                    }
+                    binding.paymentMethodAddressTextView.text = paymentAddress
+                    binding.paymentMethodProviderTextView.text = paymentProvider
                 }
-                binding.paymentMethodAddressTextView.text = paymentAddress
-                binding.paymentMethodProviderTextView.text = paymentProvider
-            }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents.", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                }
+        }
 
         val firestore = FirebaseFirestore.getInstance()
         val reviewsRef = firestore.collection("users").document(psychic.userid.toString()).collection("reviews")

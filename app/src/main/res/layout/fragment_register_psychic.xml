@@ -14,42 +14,26 @@
     >
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:id="@+id/scrollView4"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/registeradview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backimageview">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:text="Welcome, Register as Open Psychic!"
-                android:textAlignment="center"
-                android:textColor="@color/op_purple_foreground_text"
-                android:textSize="24sp" />
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/fragment_register_psychic_displayname_edit_text"
                 style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:background="@color/op_purple_accent"
                 android:ems="10"
                 android:hint="Psychic Display Name"
@@ -61,7 +45,7 @@
                 style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:background="@color/op_purple_accent"
                 android:ems="10"
                 android:hint="Psychic User Name"
@@ -73,7 +57,7 @@
                 style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:background="@color/op_purple_accent"
                 android:ems="10"
                 android:hint="First Name"
@@ -87,7 +71,7 @@
                 style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:background="@color/op_purple_accent"
                 android:ems="10"
                 android:hint="Last Name"
@@ -99,7 +83,7 @@
                 style="@style/Widget.Material3.TextInputEditText.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:background="@color/op_purple_accent"
                 android:ems="10"
                 android:hapticFeedbackEnabled="false"
@@ -112,7 +96,7 @@
                 style="@style/Widget.Material3.TextInputEditText.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:background="@color/op_purple_accent"
                 android:ems="10"
                 android:hint="Password"
@@ -123,7 +107,7 @@
                 android:id="@+id/fragment_register_psychic_signup_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:text="Register" />
         </LinearLayout>
     </ScrollView>
@@ -141,8 +125,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-2450865968732279/9956322003"
+        app:adUnitId="ca-app-pub-2450865968732279/6137917685"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:text="Welcome, Register as Open Psychic!"
+        android:textAlignment="center"
+        android:textColor="@color/op_purple_foreground_text"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

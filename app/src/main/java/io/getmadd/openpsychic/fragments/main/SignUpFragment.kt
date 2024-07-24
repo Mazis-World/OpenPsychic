@@ -152,7 +152,8 @@ class SignUpFragment : Fragment(), PurchasesUpdatedListener {
                         "displayimgsrc" to " ",
                         "username" to username,
                         "email" to useremail,
-                        "userid" to auth.currentUser!!.uid
+                        "userid" to auth.currentUser!!.uid,
+                        "questionsAvailable" to 3
                     )
 
                     db.collection("users").document("$userID")

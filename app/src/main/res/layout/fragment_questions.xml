@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:text="Questions"
         android:textColor="@color/op_purple_accent"
         android:textSize="24sp" />
