@@ -1,3 +1,5 @@
+package io.getmadd.openpsychic.fragments.main
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -5,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.firebase.firestore.FirebaseFirestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentLaunchBinding
@@ -41,10 +41,10 @@ class LaunchFragment : Fragment() {
                 findNavController().navigate(R.id.action_launchFragment_to_signup_fragment)
             }
 
-            // Load ads
-            val adView: AdView = binding.launchfragmentadview
-            val adRequest: AdRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
+//            // Load ads
+//            val adView: AdView = binding.launchfragmentadview
+//            val adRequest: AdRequest = AdRequest.Builder().build()
+//            adView.loadAd(adRequest)
 
             // Update online users count
             userCountListener()
@@ -52,7 +52,7 @@ class LaunchFragment : Fragment() {
     }
 
     private fun userCountListener() {
-        val onlineUsersRef = firestore.collection("onlineUsers")
+        val onlineUsersRef = firestore.collection("users")
 
         onlineUsersRef.addSnapshotListener { snapshot, error ->
             if (error != null) {
@@ -62,7 +62,7 @@ class LaunchFragment : Fragment() {
 
             val count = snapshot?.documents?.size ?: 0
             _binding?.let {
-                it.usersOnlineCountTextview.text = "Users Online: $count"
+                it.usersOnlineCountTextview.text = "Join over 400 Psychic Advisors & Seekers Today."
             } ?: Log.e(TAG, "Binding is null when trying to update online users count")
         }
     }
@@ -73,6 +73,6 @@ class LaunchFragment : Fragment() {
     }
 
     companion object {
-        const val TAG = "LaunchFragment"
+        const val TAG = "io.getmadd.openpsychic.fragments.main.LaunchFragment"
     }
 }

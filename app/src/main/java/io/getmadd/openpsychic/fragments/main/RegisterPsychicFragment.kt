@@ -97,9 +97,9 @@ class RegisterPsychicFragment : Fragment(), PurchasesUpdatedListener {
             }
 
         }
-        val adView: AdView = binding.registeradview
-        val adRequest: AdRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+//        val adView: AdView = binding.registeradview
+//        val adRequest: AdRequest = AdRequest.Builder().build()
+//        adView.loadAd(adRequest)
 
         binding.backimageview.setOnClickListener {
             findNavController().popBackStack()

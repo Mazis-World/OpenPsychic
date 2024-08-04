@@ -23,11 +23,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Upgrade for more exclusive benefits!"
+                android:text="We Need Your Support!"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="34sp"
+                android:textColor="@color/op_gold"
+                android:textSize="48sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Help Open Psychic thrive! Our goal is to offer a 100% free platform that connects Psychic Advisors and Seekers. By subscribing monthly, you support our mission to keep the app accessible to everyone and ensure we can continue providing valuable psychic insights at no cost. Join us in making psychic accessibility a reality for all."
+                android:textColor="@color/op_purple_foreground_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="PREMIUM BADGING"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/op_gold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -60,8 +71,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Exclusive Drops For Montly Supporters"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="@color/op_grey"
+                        android:text="Show Your Loyalty With Premium Badge!"
+                       />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -87,8 +99,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Go  Global "
-                        android:textColor="#FFFFFF"
+                        android:text="GLOBAL ACCESS WORLDWIDE "
+                        android:textColor="@color/op_gold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -96,8 +108,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Access Top Psychic Advisors Worldwide"
-                        android:textColor="#FFFFFF" />
+                        android:text="Psychic Advisor's At Your Finger Tips!"
+                        android:textColor="@color/op_grey" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -124,8 +136,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Montly Bonus Q?A's  "
-                        android:textColor="#FFFFFF"
+                        android:text="MONTHLY BONUS Q?A's  "
+                        android:textColor="@color/op_gold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -133,8 +145,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:text="Ask Free Questions Only For Premium"
-                        android:textColor="#FFFFFF" />
+                        android:text="Ask As Many Questions As You Want!"
+                        android:textColor="@color/op_grey"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -162,8 +174,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Unlimited Direct Messages"
-                        android:textColor="#FFFFFF"
+                        android:text="UNLIMITED DIRECT MESSAGES"
+                        android:textColor="@color/op_gold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -171,8 +183,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="No Barriers To Communicate Psychic Advisors"
-                        android:textColor="#FFFFFF" />
+                        android:text="No Barriers To Communicate!"
+                        android:textColor="@color/op_grey" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -201,8 +213,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Unlimited Reading Request"
-                        android:textColor="#FFFFFF"
+                        android:text="UNLIMITED READING REQUEST"
+                        android:textColor="@color/op_gold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -210,8 +222,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Request Chat, Voice, &amp; Video Reading"
-                        android:textColor="#FFFFFF" />
+                        android:text="Request Chat, Voice, &amp; Video Reading's!"
+                        android:textColor="@color/op_grey" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -220,7 +232,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:padding="8dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="60sp"
@@ -233,14 +246,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="8dp"
+                    android:textColor="@color/op_grey">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Unlimited Appointment Scheduling"
-                        android:textColor="#FFFFFF"
+                        android:text="UNLIMITED APPOINTMENT SCHEDULING"
+                        android:textColor="@color/op_gold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -248,45 +262,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Schedule appointments with Psychic Advisors"
-                        android:textColor="#FFFFFF" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <ImageView
-                    android:layout_width="60sp"
-                    android:layout_height="60sp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/magic_wand" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Experiencce Ad-Free Open Psychic"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Enjoy an ad-free, uninterrupted Open Psychic."
-                        android:textColor="#FFFFFF" />
+                        android:text="Meet With Your Advisor, On Your Time!"
+                        android:textColor="@color/op_grey" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -312,8 +289,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Be Alerted By Your Psychic Advisor"
-                        android:textColor="#FFFFFF"
+                        android:text="STAY IN VIBRATION"
+                        android:textColor="@color/op_gold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -321,10 +298,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Recieve Notifications of Important Updates"
-                        android:textColor="#FFFFFF" />
+                        android:text="With Live Updates From Your Advisor!"
+                        android:textColor="@color/op_grey" />
                 </LinearLayout>
             </LinearLayout>
+
             <Button
                 android:id="@+id/subscribepremiumbutton"
                 android:layout_width="match_parent"
@@ -333,6 +311,7 @@
                 android:backgroundTint="@color/op_gold"
                 android:padding="8dp"
                 android:text="SUBSCRIBE FOR $9.99 USD/ MONTH"
+                android:textColor="@color/op_purple"
                 android:textStyle="bold" />
 
             <TextView

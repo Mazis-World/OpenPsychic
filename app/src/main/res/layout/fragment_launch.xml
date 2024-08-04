@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#16041E"
-    tools:context=".fragments.main.LaunchFragment">
+    android:background="#16041E">
 
     <Button
         android:id="@+id/login_button"
@@ -61,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Users Online: 0"
+            android:text="Join over 400+ Psychic Advisors &amp; Seekers Now!"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:visibility="visible" />
@@ -76,6 +75,7 @@
         app:adUnitId="ca-app-pub-2450865968732279/6117149348"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

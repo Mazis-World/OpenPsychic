@@ -107,32 +107,32 @@ class MessagesFragment : Fragment() {
                 Log.e(TAG, "Error getting user document: ${exception.message}", exception)
             }
 
-        var prefs = UserPreferences(requireContext())
-        var subscriptionstate = prefs.subscriptionstate
-        var state = context?.let { UserPreferences(it).subscriptionstate }
-
-        val adView: AdView = binding.messagesbannerad
-        val adRequest: AdRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
-
-        val adRequest1 = AdRequest.Builder().build()
-        if (state != "active") {
-            InterstitialAd.load(
-                context!!,
-                "ca-app-pub-2450865968732279/9483822289",
-                adRequest1,
-                object : InterstitialAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(TAG, adError.message)
-                    }
-
-                    override fun onAdLoaded(ad: InterstitialAd) {
-                        Log.d(TAG, "Ad was loaded.")
-                        activity?.let { ad.show(it) }
-                    }
-                }
-            )
-        }
+//        var prefs = UserPreferences(requireContext())
+//        var subscriptionstate = prefs.subscriptionstate
+//        var state = context?.let { UserPreferences(it).subscriptionstate }
+//
+//        val adView: AdView = binding.messagesbannerad
+//        val adRequest: AdRequest = AdRequest.Builder().build()
+//        adView.loadAd(adRequest)
+//
+//        val adRequest1 = AdRequest.Builder().build()
+//        if (state != "active") {
+//            InterstitialAd.load(
+//                context!!,
+//                "ca-app-pub-2450865968732279/9483822289",
+//                adRequest1,
+//                object : InterstitialAdLoadCallback() {
+//                    override fun onAdFailedToLoad(adError: LoadAdError) {
+//                        Log.d(TAG, adError.message)
+//                    }
+//
+//                    override fun onAdLoaded(ad: InterstitialAd) {
+//                        Log.d(TAG, "Ad was loaded.")
+//                        activity?.let { ad.show(it) }
+//                    }
+//                }
+//            )
+//        }
     }
 
 }

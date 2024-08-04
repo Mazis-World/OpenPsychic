@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.ActivityHomeBinding
+import io.getmadd.openpsychic.fragments.main.LaunchFragment
 
 class HomeActivity : AppCompatActivity() {
 

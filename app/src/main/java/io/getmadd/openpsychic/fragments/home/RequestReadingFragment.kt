@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -28,6 +29,7 @@ class RequestReadingFragment : Fragment() {
     private lateinit var psychicid: String
     private var isPremium = false
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -80,16 +82,7 @@ class RequestReadingFragment : Fragment() {
                 psychic.psychicondisplaycategory!!
                 )
 
-                if(isPremium){
-                    saveRequestToDatabase(request)
-                }else {
-                    Toast.makeText(
-                        context,
-                        "You have reached Premium Functionality",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    findNavController().navigate(R.id.subscribe_premium_fragment)
-                }
+                saveRequestToDatabase(request)
         }
             else{
                 Toast.makeText(context,"Complete Request Form", Toast.LENGTH_SHORT).show()

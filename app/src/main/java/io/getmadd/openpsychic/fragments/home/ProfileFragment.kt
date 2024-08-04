@@ -127,26 +127,26 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupUI() {
-        val adRequest1 = AdRequest.Builder().build()
-        var state = context?.let { UserPreferences(it).subscriptionstate }
-        if (state != "active") {
-
-            InterstitialAd.load(
-                context!!,
-                "ca-app-pub-2450865968732279/3376431783",
-                adRequest1,
-                object : InterstitialAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(TAG, adError.message)
-                    }
-
-                    override fun onAdLoaded(ad: InterstitialAd) {
-                        Log.d(TAG, "Ad was loaded.")
-                        activity?.let { ad.show(it) }
-                    }
-                }
-            )
-        }
+//        val adRequest1 = AdRequest.Builder().build()
+//        var state = context?.let { UserPreferences(it).subscriptionstate }
+//        if (state != "active") {
+//
+//            InterstitialAd.load(
+//                context!!,
+//                "ca-app-pub-2450865968732279/3376431783",
+//                adRequest1,
+//                object : InterstitialAdLoadCallback() {
+//                    override fun onAdFailedToLoad(adError: LoadAdError) {
+//                        Log.d(TAG, adError.message)
+//                    }
+//
+//                    override fun onAdLoaded(ad: InterstitialAd) {
+//                        Log.d(TAG, "Ad was loaded.")
+//                        activity?.let { ad.show(it) }
+//                    }
+//                }
+//            )
+//        }
 
         binding.usersnameTV.text = "@${prefs.username}"
         binding.displayNameTV.text = prefs.displayname

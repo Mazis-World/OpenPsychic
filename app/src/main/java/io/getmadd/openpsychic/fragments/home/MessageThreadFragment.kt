@@ -161,7 +161,6 @@ class MessageThreadFragment: Fragment() {
             binding.messagethreadinputlayout.setEndIconOnClickListener {
 
                 if (binding.messagethreadedittext.text?.isNotEmpty() == true) {
-                    if (isPremium) {
                         var text = binding.messagethreadedittext.text
                         if (userid == senderUserId) {
                             messageMap = HashMap()
@@ -230,11 +229,8 @@ class MessageThreadFragment: Fragment() {
                                         }
                                     })
                             }
-                    } else {
-                        Toast.makeText(activity,"You have reached Premium Functionality", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.subscribe_premium_fragment)
+
                     }
-                }
                 else{
                     Toast.makeText(activity,"You Must Say Something..", Toast.LENGTH_SHORT).show()
                 }

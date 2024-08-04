@@ -71,6 +71,7 @@
             android:text="@string/login" />
 
     </LinearLayout>
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/loginadview"
         android:layout_width="0dp"
@@ -79,7 +80,8 @@
         app:adUnitId="ca-app-pub-2450865968732279/1060317685"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/password_reset_button"

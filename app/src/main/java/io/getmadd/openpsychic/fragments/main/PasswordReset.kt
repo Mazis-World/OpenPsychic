@@ -46,9 +46,9 @@ class PasswordReset: Fragment() {
             sendPasswordResetEmail(email)
         }
 
-        val adView: AdView = binding.loginadview
-        val adRequest: AdRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+//        val adView: AdView = binding.loginadview
+//        val adRequest: AdRequest = AdRequest.Builder().build()
+//        adView.loadAd(adRequest)
 
     }
 

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/op_purple"
+    android:contextClickable="true"
+    android:padding="8dp"
     tools:context=".fragments.home.ExploreFragment">
 
     <ScrollView
@@ -48,7 +50,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="64dp"
                         android:layout_marginEnd="64dp"
-                        android:text="Where Psychics Go Further"
+                        android:text="100% Free Access"
                         android:textColor="#FFFFFF"
                         android:textSize="60sp"
                         android:textStyle="bold|italic"
@@ -61,11 +63,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="Our Most Premium Psychic Advisors "
+                        android:layout_marginEnd="16dp"
+                        android:text="Top Rated Psychic Advisor's From Around The World!"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold|italic"
                         android:typeface="monospace"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView39"></TextView>
 
@@ -76,7 +80,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="32dp"
                         android:backgroundTint="@color/op_purple_accent_foreground"
-                        android:text="Discover"
+                        android:text="Support"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -97,10 +101,71 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/backdrop_daily_tarot"
+                    android:scaleType="centerCrop" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="DAILY READING"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textSize="24sp" />
+
+                            <TextView
+                                android:id="@+id/daily_reading_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="Aug 03, 2024"
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:layout_marginTop="8dp" />
+
+                            <TextView
+                                android:id="@+id/daily_reading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-condensed-medium"
+                                android:text="Retrieving daily reading..."
+                                android:textColor="@color/op_purple_foreground_text"
+                                android:textDirection="anyRtl"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+            </androidx.cardview.widget.CardView>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/home_explore_textView"
@@ -111,7 +176,8 @@
                     android:layout_marginBottom="16dp"
                     android:text="Hot New Psychics"
                     android:textColor="@color/op_purple_foreground_text"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    tools:visibility="gone" />
 
 
                 <TextView
@@ -124,21 +190,23 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="16dp"
-                    android:textStyle="bold"
                     android:gravity="right"
                     android:text="View All"
                     android:textColor="@color/op_purple_foreground_text"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:visibility="gone" />
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/hot_new_psychics_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="8dp"
-                tools:itemCount="10" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/hot_new_psychics_recycler_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="8dp"-->
+<!--                tools:itemCount="10"-->
+<!--                tools:visibility="invisible" />-->
 
             <TextView
                 android:id="@+id/home_explore_textView2"
@@ -151,232 +219,232 @@
                 android:textColor="@color/op_purple_foreground_text"
                 android:textSize="24sp" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center|center_horizontal|center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center|center_horizontal|center_vertical"
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center|center_horizontal|center_vertical"
-                            android:orientation="horizontal">
+                            android:id="@+id/home_category0"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/home_category0"
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:layout_gravity="center|center_horizontal|center_vertical"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_spirit" />
+
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|center_horizontal|center_vertical"
+                                android:foregroundGravity="center_vertical|center_horizontal"
+                                android:text="@string/category_spirit"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
 
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:layout_gravity="center|center_horizontal|center_vertical"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_spirit" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center|center_horizontal|center_vertical"
-                                    android:foregroundGravity="center_vertical|center_horizontal"
-                                    android:text="@string/category_spirit"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/home_category1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_tarot_card" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/category_tarot_card"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/home_category2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_turban" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/category_turban"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
+                            android:id="@+id/home_category1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/home_category3"
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_tarot_card" />
+
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_magic_ball" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center|center_horizontal|center_vertical"
-                                    android:foregroundGravity="center_vertical|center_horizontal"
-                                    android:text="@string/category_magic_ball"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/home_category4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_palm" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/category_palm"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/home_category5"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_saturn" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/category_saturn"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-                            </LinearLayout>
+                                android:layout_height="wrap_content"
+                                android:text="@string/category_tarot_card"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
-                            android:orientation="horizontal">
+                            android:id="@+id/home_category2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/home_category6"
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_turban" />
+
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                                android:layout_height="wrap_content"
+                                android:text="@string/category_turban"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
+                        </LinearLayout>
+                    </LinearLayout>
 
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_dream" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center|center_horizontal|center_vertical"
-                                    android:foregroundGravity="center_vertical|center_horizontal"
-                                    android:text="@string/category_dream"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
+                        <LinearLayout
+                            android:id="@+id/home_category3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_magic_ball" />
 
-                            <LinearLayout
-                                android:id="@+id/home_category7"
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|center_horizontal|center_vertical"
+                                android:foregroundGravity="center_vertical|center_horizontal"
+                                android:text="@string/category_magic_ball"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
 
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_ghost" />
+                        </LinearLayout>
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/category_ghost"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-                            </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_category4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                            <LinearLayout
-                                android:id="@+id/home_category8"
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_palm" />
+
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                                android:layout_height="wrap_content"
+                                android:text="@string/category_palm"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
+                        </LinearLayout>
 
-                                <ImageView
-                                    android:layout_width="120dp"
-                                    android:layout_height="120dp"
-                                    android:padding="16dp"
-                                    app:srcCompat="@drawable/category_icon_heart" />
+                        <LinearLayout
+                            android:id="@+id/home_category5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/category_heart"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/op_gold" />
-                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_saturn" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/category_saturn"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/home_category6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_dream" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|center_horizontal|center_vertical"
+                                android:foregroundGravity="center_vertical|center_horizontal"
+                                android:text="@string/category_dream"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/home_category7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_ghost" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/category_ghost"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/home_category8"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:padding="16dp"
+                                app:srcCompat="@drawable/category_icon_heart" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/category_heart"
+                                android:textAlignment="center"
+                                android:textColor="@color/op_gold" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

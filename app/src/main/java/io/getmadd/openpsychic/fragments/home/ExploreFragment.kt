@@ -24,6 +24,9 @@ import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.FragmentExploreBinding
 import io.getmadd.openpsychic.model.Psychic
 import io.getmadd.openpsychic.services.UserPreferences
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ExploreFragment : Fragment() {
 
@@ -51,29 +54,56 @@ class ExploreFragment : Fragment() {
         val subscriptionState = prefs.subscriptionstate
         val adRequest1 = AdRequest.Builder().build()
 
-        if (subscriptionState != "active") {
-            InterstitialAd.load(
-                requireContext(),
-                "ca-app-pub-2450865968732279~5202685556",
-                adRequest1,
-                object : InterstitialAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(ContentValues.TAG, adError.message)
-                    }
-
-                    override fun onAdLoaded(ad: InterstitialAd) {
-                        Log.d(ContentValues.TAG, "Ad was loaded.")
-                        activity?.let { ad.show(it) }
-                    }
-                }
-            )
-        }
+//        if (subscriptionState != "active") {
+//            InterstitialAd.load(
+//                requireContext(),
+//                "ca-app-pub-2450865968732279~5202685556",
+//                adRequest1,
+//                object : InterstitialAdLoadCallback() {
+//                    override fun onAdFailedToLoad(adError: LoadAdError) {
+//                        Log.d(ContentValues.TAG, adError.message)
+//                    }
+//
+//                    override fun onAdLoaded(ad: InterstitialAd) {
+//                        Log.d(ContentValues.TAG, "Ad was loaded.")
+//                        activity?.let { ad.show(it) }
+//                    }
+//                }
+//            )
+//        }
         setupUI(bundle)
     }
 
     private fun setupUI(bundle: Bundle) {
-        binding.hotNewPsychicsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.hotNewPsychicsRecyclerView.adapter = ExplorePsychicsAdapter(items = listOfPsychics, {})
+//        binding.hotNewPsychicsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//        binding.hotNewPsychicsRecyclerView.adapter = ExplorePsychicsAdapter(items = listOfPsychics, {})
+
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val visFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+        val today = dateFormat.format(Date())
+        binding.dailyReadingDate.text = visFormat.format(Date())
+
+        db.collection("daily_readings").document(today.toString()).get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val alignment = document.getString("current_alignment")
+                    val card = document.getString("current_card")
+                    val message = document.getString("current_message")
+                    val date = document.getString("date")
+
+                    // Update your UI with the daily reading message
+                    binding.dailyReading.text = message
+
+                } else {
+                    // Handle the case where there is no reading for today
+                    binding.dailyReading.text = "No reading available for today."
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors
+                binding.dailyReading.text = "Error retrieving daily reading."
+            }
 
         listenerRegistration = db.collection("explore")
             .addSnapshotListener { snapshots, e ->
@@ -102,7 +132,7 @@ class ExploreFragment : Fragment() {
             findNavController().navigate(R.id.action_explore_fragment_to_explore_psychics)
         }
 
-        binding.hotNewPsychicsRecyclerView.adapter?.notifyDataSetChanged()
+//        binding.hotNewPsychicsRecyclerView.adapter?.notifyDataSetChanged()
     }
 
     private fun setupCategoryButtons(bundle: Bundle) {
