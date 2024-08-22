@@ -9,19 +9,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import io.getmadd.openpsychic.OpenPsychicApp
 import io.getmadd.openpsychic.R
 import io.getmadd.openpsychic.databinding.ActivityHomeBinding
 import io.getmadd.openpsychic.fragments.main.LaunchFragment
+import io.getmadd.openpsychic.utils.Firebase
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var firebase: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
+        firebase = Firebase.getInstance()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -43,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
                 .setTitle("Logout")
                 .setCancelable(false)
                 .setPositiveButton("Logout") { dialog, which ->
+
                     FirebaseAuth.getInstance().signOut()
                 }
                 .setNegativeButton("Cancel") { dialog, which ->

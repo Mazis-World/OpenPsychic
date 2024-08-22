@@ -78,6 +78,10 @@ class ExplorePsychicsExpandedFragment: Fragment() {
         else
             Glide.with(this).load(R.drawable.openpsychiclogo).into(binding.expandedBackgroundImageView)
 
+        if(psychic.profileimgsrc != " "){
+            Glide.with(this).load(psychic.profileimgsrc).into(binding.psychicProfileImage)
+        }
+
         db.collection("users").document(userId)
             .get()
             .addOnSuccessListener { result ->

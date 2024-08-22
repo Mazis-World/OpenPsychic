@@ -1,12 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/messagesbannerad"
         android:background="@color/op_purple">
+
+    <!--        android:layout_above="@id/messagesbannerad"-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,15 +62,16 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- AdView -->
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/messagesbannerad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-2450865968732279/3052164001" />
+<!--    &lt;!&ndash; AdView &ndash;&gt;-->
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        android:id="@+id/messagesbannerad"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:visibility="gone"-->
+<!--        ads:adSize="BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-2450865968732279/3052164001" />-->
 </RelativeLayout>

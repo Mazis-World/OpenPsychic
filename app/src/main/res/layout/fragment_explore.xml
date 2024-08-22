@@ -506,6 +506,14 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <androidx.gridlayout.widget.GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            </androidx.gridlayout.widget.GridLayout>
         </LinearLayout>
     </ScrollView>
 

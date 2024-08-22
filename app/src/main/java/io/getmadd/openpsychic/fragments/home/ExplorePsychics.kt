@@ -66,7 +66,6 @@ class ExplorePsychics : Fragment() {
                     }
 
                     for (document in result) {
-                        Log.d(TAG, "${document.id} => ${document.data}")
                         listofPsychicIds.add(document.id)
                     }
                     binding.recyclerView.adapter?.notifyDataSetChanged()

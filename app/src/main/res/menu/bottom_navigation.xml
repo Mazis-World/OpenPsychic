@@ -13,6 +13,7 @@
         android:icon="@android:drawable/btn_radio"
         android:orderInCategory="200"
         android:title="@string/navigation_dreams"
+        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/navigation_request"

@@ -13,8 +13,8 @@ android {
         applicationId "io.getmadd.openpsychic"
         minSdk 24
         targetSdk 35
-        versionCode 42
-        versionName "1.07000014"
+        versionCode 48
+        versionName "1.07000019"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -60,7 +60,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.google.android.gms:play-services-ads:22.0.0'
     implementation 'com.google.android.gms:play-services-wallet:19.1.0'
-    implementation 'com.android.billingclient:billing-ktx:6.1.0'
+    implementation 'com.android.billingclient:billing-ktx:7.0.0'
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-firestore")
     implementation 'androidx.room:room-runtime:2.4.0'
@@ -68,4 +68,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity:16.1.2'
+
 }

@@ -66,6 +66,7 @@ class ExplorePsychicsAdapter(
         private val userName: TextView = itemView.findViewById(R.id.usernameTextView)
         private val starRating: RatingBar = itemView.findViewById(R.id.explorepsychicsratingBar)
         private val status_icon: ImageView = itemView.findViewById(R.id.status_indicator_imageview)
+        private val status_text: TextView = itemView.findViewById(R.id.online_status_text_view)
         private val profile_image: ImageView = itemView.findViewById(R.id.psychicProfileImageView)
         private val backgroundImg: ImageView =
             itemView.findViewById(R.id.explore_psychics_expanded_card_background_IV)
@@ -101,6 +102,13 @@ class ExplorePsychicsAdapter(
                         target: Target<Drawable>,
                         isFirstResource: Boolean
                     ): Boolean {
+                        itemView.post {
+                            // Load default image with circle crop transformation
+                            Glide.with(itemView)
+                                .load(R.drawable.openpsychiclogo)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(profile_image)
+                        }
                         return true
                     }
 
@@ -113,14 +121,14 @@ class ExplorePsychicsAdapter(
                     ): Boolean {
                         return false
                     }
-                })
+                }) // Load default logo if the image fails to load
                 .into(profile_image)
+
 
             Glide.with(itemView)
                 .load(item.displayimgsrc ?: R.drawable.openpsychiclogo)
-                .error(R.drawable.openpsychiclogo) // Load default logo if the image fails to load
+                .error(R.drawable.openpsychiclogo)
                 .listener(object : com.bumptech.glide.request.RequestListener<Drawable> {
-
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
@@ -143,15 +151,22 @@ class ExplorePsychicsAdapter(
                 })
                 .into(backgroundImg)
 
-            status_icon.setImageResource(
-                when {
-                    item.isOnline -> R.drawable.ic_status_online
-                    item.lastOnline?.toDate()
-                        ?.before(twentyFourHoursAgo) == true -> R.drawable.ic_status_away
+            if (item.online == true) {
+                status_icon.setImageResource(R.drawable.ic_status_online)
+                status_text.text = "ONLINE"
+                Log.e("Online Status", item.online.toString())
+            }
+            else if (item.lastOnline?.toDate()?.before(twentyFourHoursAgo) == true) {
+                status_icon.setImageResource(R.drawable.ic_status_away)
+                status_text.text = "AWAY"
 
-                    else -> R.drawable.ic_status_offline
-                }
-            )
+            }
+            else {
+                status_icon.setImageResource(R.drawable.ic_status_offline)
+                status_text.text = "OFFLINE"
+
+            }
+
 
             displayName.text = item.displayname
             userName.text = "@${item.username}"
@@ -163,16 +178,7 @@ class ExplorePsychicsAdapter(
                 findNavController(view = itemView).navigate(R.id.explore_psychics_expanded, bundle)
             }
 
-            if (profile_image.drawable == null) {
-                setProfileImage(itemView,profile_image)
-            }
         }
 
-        fun setProfileImage(itemView: View, profile_image: ImageView){
-            Glide.with(itemView)
-                .load(R.drawable.openpsychiclogo)
-                .apply(RequestOptions.circleCropTransform())
-                .into(profile_image)
-        }
     }
 }

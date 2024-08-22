@@ -25,6 +25,6 @@ class Psychic (
     var questionsAnswered: Int? = 0,
     var requestcount: Int? = null,
     var isPremium: Boolean? = false,
-    var isOnline: Boolean = false,
+    var online: Boolean? = false,
     var lastOnline: Timestamp? = Timestamp.now()
-) : Serializable
+): Serializable

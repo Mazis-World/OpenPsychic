@@ -20,14 +20,17 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenPsychic.NoActionBar"
-        tools:targetApi="34">
-        <service
-            android:name="NotificationsService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+        tools:targetApi="35">
+<!--        <service-->
+<!--            android:name=".services.OnlineService"-->
+<!--            android:exported="false" />-->
+<!--        <service-->
+<!--            android:name="NotificationsService"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
         <activity
             android:screenOrientation="portrait"
             android:name=".activity.HomeActivity"

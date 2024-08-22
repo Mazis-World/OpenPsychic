@@ -62,7 +62,7 @@ class LaunchFragment : Fragment() {
 
             val count = snapshot?.documents?.size ?: 0
             _binding?.let {
-                it.usersOnlineCountTextview.text = "Join over 400 Psychic Advisors & Seekers Today."
+                it.usersOnlineCountTextview.text = "Join over $count+ Psychic Advisors & Seekers Today."
             } ?: Log.e(TAG, "Binding is null when trying to update online users count")
         }
     }

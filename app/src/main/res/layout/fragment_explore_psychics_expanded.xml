@@ -40,6 +40,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/op_purple_accent"
                 app:cardCornerRadius="6dp">
 
@@ -178,7 +179,20 @@
                                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero."
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/psychicProfileImage"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="8dp"
+                                android:background="@drawable/round"
+                                android:backgroundTint="@color/op_purple"
+                                android:clipToOutline="true"
+                                android:scaleType="centerCrop"
+                                tools:srcCompat="@drawable/op_logo" />
                         </LinearLayout>
+
 
                     </LinearLayout>
 
@@ -238,6 +252,15 @@
                 <!-- Divider -->
 
 
+                <TextView
+                    android:id="@+id/textView43"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reviews"
+                    android:textColor="@color/op_purple"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <!-- Placeholder TextView -->
                 <TextView
                     android:id="@+id/noReviewsTextView"
@@ -249,6 +272,7 @@
                     android:visibility="visible" />
 
                 <!-- RecyclerView for Reviews -->
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/reviewsRecyclerView"
                     android:layout_width="match_parent"

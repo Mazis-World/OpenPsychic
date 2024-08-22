@@ -7,12 +7,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/historybannerad"
         android:background="@color/op_purple">
+
+    <!--        android:layout_above="@id/historybannerad"-->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <!-- Request Title -->
@@ -63,16 +64,17 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- AdView -->
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/historybannerad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-2450865968732279/3052164001"
-        tools:visibility="gone" />
+<!--    &lt;!&ndash; AdView &ndash;&gt;-->
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        android:id="@+id/historybannerad"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:visibility="gone"-->
+<!--        ads:adSize="BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-2450865968732279/3052164001"-->
+<!--        tools:visibility="gone" />-->
 </RelativeLayout>
