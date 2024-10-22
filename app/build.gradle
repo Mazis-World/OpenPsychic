@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace 'io.getmadd.openpsychic'
+    namespace 'kutlwano.oumazi.openpsychic'
     compileSdk 35
 
     defaultConfig {
-        applicationId "io.getmadd.openpsychic"
+        applicationId "kutlwano.oumazi.openpsychic"
         minSdk 24
         targetSdk 35
         versionCode 48
-        versionName "1.07000019"
+        versionName "1.01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

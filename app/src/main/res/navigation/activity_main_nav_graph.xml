@@ -6,29 +6,29 @@
     app:startDestination="@id/launchFragment">
     <fragment
         android:id="@+id/password_reset_fragment"
-        android:name="io.getmadd.openpsychic.fragments.main.PasswordReset"
+        android:name="kutlwano.oumazi.openpsychic.fragments.main.PasswordReset"
         android:label="Password Reset Fragment">
     </fragment>
     <fragment
         android:id="@+id/signup_fragment"
-        android:name="io.getmadd.openpsychic.fragments.main.SignUpFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.main.SignUpFragment"
         android:label="SignUpFragment" >
     </fragment>
 
     <fragment
         android:id="@+id/register_psychic_fragment"
-        android:name="io.getmadd.openpsychic.fragments.main.RegisterPsychicFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.main.RegisterPsychicFragment"
         android:label="RegisterPsychicFragment"
         >
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="io.getmadd.openpsychic.fragments.main.LoginFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.main.LoginFragment"
         android:label="LoginFragment" >
     </fragment>
     <fragment
         android:id="@+id/launchFragment"
-        android:name="io.getmadd.openpsychic.fragments.main.LaunchFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.main.LaunchFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_launchFragment_to_loginFragment"

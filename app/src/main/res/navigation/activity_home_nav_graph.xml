@@ -5,17 +5,17 @@
     app:startDestination="@id/explore_fragment">
     <fragment
         android:id="@+id/purchase_questions_fragment"
-        android:name="io.getmadd.openpsychic.fragments.features.PurchaseQuestionFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.features.PurchaseQuestionFragment"
         android:label="Purchase Questions Fragment">
     </fragment>
     <fragment
         android:id="@+id/ask_advisor_fragment"
-        android:name="io.getmadd.openpsychic.fragments.features.AskAdvisorFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.features.AskAdvisorFragment"
         android:label="Ask Advisor Fragment">
     </fragment>
     <fragment
         android:id="@+id/messages_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.MessagesFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.MessagesFragment"
         android:label="Messages Fragment">
         <action
             android:id="@+id/action_messages_fragment_to_message_thread_fragment"
@@ -24,38 +24,38 @@
 
     <fragment
         android:id="@+id/privacy_policy_fragment"
-        android:name="io.getmadd.openpsychic.fragments.PrivacyPolicyFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.PrivacyPolicyFragment"
         android:label="Privacy Fragment" />
     <fragment
         android:id="@+id/tos_policy_fragment"
-        android:name="io.getmadd.openpsychic.fragments.TOSFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.TOSFragment"
         android:label="Privacy Fragment" />
     <fragment
         android:id="@+id/privacy_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.PrivacyFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.PrivacyFragment"
         android:label="Privacy Fragment" />
     <fragment
         android:id="@+id/notif_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.NotificationsFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.NotificationsFragment"
         android:label="Notifications Fragment" />
     <fragment
         android:id="@+id/terms_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.TermsFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.TermsFragment"
         android:label="Terms Fragment" />
 
     <fragment
         android:id="@+id/account_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.AccountFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.AccountFragment"
         android:label="Account Fragment" />
 
     <fragment
         android:id="@+id/subscribe_premium_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.SubscribeFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.SubscribeFragment"
         android:label="Subscribe Fragment" />
 
     <fragment
         android:id="@+id/message_thread_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.MessageThreadFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.MessageThreadFragment"
         android:label="Message Thread" />
 
     <fragment
@@ -69,12 +69,12 @@
 
     <fragment
         android:id="@+id/notification_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.NotificationFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.NotificationFragment"
         android:label="Notification Reading" />
 
     <fragment
         android:id="@+id/explore_psychics_expanded"
-        android:name="io.getmadd.openpsychic.fragments.home.ExplorePsychicsExpandedFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.ExplorePsychicsExpandedFragment"
         android:label="Explore Psychics Expanded" >
         <action
             android:id="@+id/action_expanded_to_ask_advisor_fragment"
@@ -93,7 +93,7 @@
 
     <fragment
         android:id="@+id/explore_psychics"
-        android:name="io.getmadd.openpsychic.fragments.home.ExplorePsychics"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.ExplorePsychics"
         android:label="Explore Psychics" >
         <action
             android:id="@+id/action_explore_psychics_to_explore_psychics_expanded"
@@ -103,7 +103,7 @@
 
     <fragment
         android:id="@+id/explore_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.ExploreFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.ExploreFragment"
         android:label="ExploreFragment">
         <action
             android:id="@+id/action_explore_fragment_to_explore_psychics"
@@ -122,29 +122,29 @@
 
     <fragment
         android:id="@+id/questions_answer_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.QuestionsFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.QuestionsFragment"
         android:label="Q?A!" >
     </fragment>
 
     <fragment
         android:id="@+id/explore_article_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.ExploreNewsArticles"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.ExploreNewsArticles"
         android:label="Explore Article" >
     </fragment>
 
     <fragment
         android:id="@+id/dreams_fragment"
-        android:name="io.getmadd.openpsychic.fragments.features.DreamsFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.features.DreamsFragment"
         android:label="DreamFragment" />
 
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.ProfileFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.ProfileFragment"
         android:label="ProfileFragment" />
 
     <fragment
         android:id="@+id/history_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.HistoryFragment"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.HistoryFragment"
         android:label="HistoryFragment" >
         <action
             android:id="@+id/action_history_fragment_to_request_history_fragment"
@@ -153,6 +153,6 @@
 
     <fragment
         android:id="@+id/request_history_fragment"
-        android:name="io.getmadd.openpsychic.fragments.home.RequestHistoryView"
+        android:name="kutlwano.oumazi.openpsychic.fragments.home.RequestHistoryView"
         android:label="Request History" />
 </navigation>
