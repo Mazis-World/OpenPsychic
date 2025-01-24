@@ -79,7 +79,7 @@ For support or inquiries:
 
 - Follow us on [X](https://x.com/OpenPsychic)
 
-- Like us on [Tiktok](https://www.tiktok.com/OpenPsychic)
+- Like us on [Tiktok](https://www.tiktok.com/@OpenPsychic)
 
 ## Acknowledgments
 
